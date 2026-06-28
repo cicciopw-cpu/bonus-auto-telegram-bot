@@ -2,8 +2,6 @@ name: Check Bonus Auto Telegram
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
 
 permissions:
   contents: write
@@ -34,6 +32,7 @@ jobs:
         run: |
           git config user.name "bonus-auto-bot"
           git config user.email "bonus-auto-bot@users.noreply.github.com"
+          git pull --rebase
           git add state.json
           git diff --cached --quiet || git commit -m "Aggiorna stato controlli"
           git push
