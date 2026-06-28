@@ -6,6 +6,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: bonus-auto-bot
+  cancel-in-progress: false
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -13,6 +17,8 @@ jobs:
     steps:
       - name: Scarica repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Installa Python
         uses: actions/setup-python@v5
@@ -32,7 +38,14 @@ jobs:
         run: |
           git config user.name "bonus-auto-bot"
           git config user.email "bonus-auto-bot@users.noreply.github.com"
-          git pull --rebase
+
+          git pull --rebase origin main
+
           git add state.json
-          git diff --cached --quiet || git commit -m "Aggiorna stato controlli"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "Nessuna modifica a state.json"
+          else
+            git commit -m "Aggiorna stato controlli"
+            git push origin main
+          fi
