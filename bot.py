@@ -15,8 +15,28 @@ SEND_ON_FIRST_RUN = False
 
 SITES = [
     {
+        "name": "Ecobonus MIMIT - Cos'è",
+        "url": "https://ecobonus.mimit.gov.it/cose",
+        "important": True,
+    },
+    {
         "name": "Ecobonus MIMIT - Auto",
         "url": "https://ecobonus.mimit.gov.it/auto",
+        "important": True,
+    },
+    {
+        "name": "Ecobonus MIMIT - Contributi",
+        "url": "https://ecobonus.mimit.gov.it/contributi",
+        "important": True,
+    },
+    {
+        "name": "Ecobonus MIMIT - Risorse stanziate",
+        "url": "https://ecobonus.mimit.gov.it/risorse-stanziate",
+        "important": True,
+    },
+    {
+        "name": "Ecobonus MIMIT - Avvisi e notizie",
+        "url": "https://ecobonus.mimit.gov.it/avvisi-notizie",
         "important": True,
     },
     {
@@ -67,6 +87,22 @@ SITES = [
 ]
 
 KEYWORDS = [
+    "auto",
+    "automobile",
+    "automobili",
+    "autovetture",
+    "categoria m1",
+    "m1",
+    "0-20",
+    "0 - 20",
+    "0/20",
+    "g/km",
+    "co2",
+    "elettrica",
+    "elettriche",
+    "bev",
+    "zero emissioni",
+    "emissioni zero",
     "auto elettrica",
     "auto elettriche",
     "veicoli elettrici",
@@ -153,6 +189,15 @@ AMOUNT_PATTERNS = [
     r"22000\s*€",
 ]
 
+EXCLUDE_WORDS = [
+    "motocicli",
+    "ciclomotori",
+    "due ruote",
+    "scooter",
+    "veicoli commerciali",
+    "installatori",
+    "colonnine",
+]
 
 def load_state():
     if not os.path.exists(STATE_FILE):
@@ -239,6 +284,29 @@ def send_telegram(message):
 
 
 def should_alert(text, changed, first_run, site_important):
+    text_lower = text.lower()
+
+    has_auto_focus = any(word in text_lower for word in [
+        "auto",
+        "automobile",
+        "automobili",
+        "autovetture",
+        "categoria m1",
+        "m1",
+        "0-20",
+        "0 - 20",
+        "0/20",
+        "g/km",
+        "co2",
+        "elettrica",
+        "elettriche",
+        "bev",
+        "zero emissioni",
+        "emissioni zero",
+    ])
+
+    has_excluded_topic = any(word in text_lower for word in EXCLUDE_WORDS)
+
     has_bonus_words = contains_any(text, KEYWORDS)
     has_availability = contains_any(text, AVAILABILITY_WORDS)
     has_big_amount = contains_amount_10000_or_more(text)
@@ -249,10 +317,13 @@ def should_alert(text, changed, first_run, site_important):
     if not changed:
         return False
 
-    if site_important and has_bonus_words:
-        return True
+    if has_excluded_topic and not has_auto_focus:
+        return False
 
-    if has_bonus_words and has_availability:
+    if not has_auto_focus:
+        return False
+
+    if site_important and has_bonus_words and has_availability:
         return True
 
     if has_big_amount and has_bonus_words:
