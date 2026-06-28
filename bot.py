@@ -13,7 +13,7 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 STATE_FILE = "state.json"
 
-# Lascialo False: così non manda notifiche inutili al primo controllo.
+# Lascia False: così il bot non manda notifiche inutili al primo controllo.
 SEND_ON_FIRST_RUN = False
 
 
@@ -263,15 +263,20 @@ def clean_text(html):
 
     text = soup.get_text(" ", strip=True)
     text = re.sub(r"\s+", " ", text)
+
     return text
 
 
 def get_page_text(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 BonusAutoTelegramBot/1.0"
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0 Safari/537.36 BonusAutoTelegramBot/1.0"
+        )
     }
 
-    response = requests.get(url, headers=headers, timeout=25)
+    response = requests.get(url, headers=headers, timeout=45)
     response.raise_for_status()
 
     return clean_text(response.text)
@@ -308,7 +313,6 @@ def contains_amount_10000_or_more(text):
 
 def make_snippet(text):
     text_lower = text.lower()
-
     positions = []
 
     for word in KEYWORDS + AVAILABILITY_WORDS:
@@ -334,7 +338,7 @@ def send_telegram(message):
         "disable_web_page_preview": False,
     }
 
-    response = requests.post(url, json=payload, timeout=25)
+    response = requests.post(url, json=payload, timeout=45)
     response.raise_for_status()
 
 
@@ -358,7 +362,7 @@ def should_alert(text, changed, first_run, site_important):
     if has_excluded_topic and not has_auto_focus:
         return False
 
-    # Deve avere focus sulle auto elettriche o M1.
+    # Deve avere focus su auto elettriche, M1 o Leapmotor T03.
     if not has_auto_focus:
         return False
 
@@ -366,7 +370,7 @@ def should_alert(text, changed, first_run, site_important):
     if site_important and has_bonus_words and has_availability:
         return True
 
-    # Avviso se trova importi >= 10.000 e parole bonus.
+    # Avviso se trova importi da 10.000 euro in su + parole bonus.
     if has_big_amount and has_bonus_words:
         return True
 
@@ -441,7 +445,6 @@ def is_relevant_news(title, summary):
 
 def check_news(state):
     alerts = []
-
     seen_news = state.get("_seen_news", {})
 
     for query in NEWS_QUERIES:
@@ -487,9 +490,7 @@ def check_news(state):
                 }
 
         except Exception as e:
-            alerts.append(
-                f"⚠️ Errore controllo news per ricerca: {query}\nErrore: {str(e)}"
-            )
+            print(f"Errore controllo news per ricerca '{query}': {e}")
 
     state["_seen_news"] = seen_news
 
@@ -538,12 +539,12 @@ def check_sites(state):
         except Exception as e:
             errors.append(f"{name}: {str(e)}")
 
+    # Non mandiamo errori temporanei su Telegram, così non ti spammiamo.
+    # Se un sito istituzionale non risponde, lo vedrai solo nei log GitHub.
     if errors:
-        error_message = (
-            "⚠️ Errore nel controllo siti bonus auto\n\n"
-            + "\n".join(errors[:8])
-        )
-        alerts.append(error_message)
+        print("Errori durante il controllo siti:")
+        for error in errors[:10]:
+            print(error)
 
     return alerts
 
