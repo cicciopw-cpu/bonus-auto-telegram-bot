@@ -1,57 +1,57 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Ecobonus MIMIT - Auto"
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Ecobonus MIMIT - Contributi"
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Ecobonus MIMIT - Risorse stanziate"
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "02f5dd11f3f82c336d7d731b0d209eeeb18429511800c316fd6585889f8b3e79",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Ecobonus MIMIT - Avvisi e notizie"
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "28/06/2026 15:21",
+    "last_checked": "28/06/2026 15:47",
     "name": "MIMIT - Ecobonus automotive"
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "132fc3447c4449fd502e6608caf8e3bb27585f8cb354d394f739987547fff9ea",
-    "last_checked": "28/06/2026 15:21",
+    "last_checked": "28/06/2026 15:47",
     "name": "MIMIT - Incentivi aggiornamenti"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Bonus Veicoli Elettrici MASE - Home"
   },
   "https://sportelloincentivi.regione.campania.it/": {
     "hash": "c305f426436b80288b340def60c15c63e99d4d49a955d8464e31eda459b18d9b",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Regione Campania - Sportello Incentivi"
   },
   "https://www.regione.campania.it/regione-informa/notizie": {
     "hash": "90b23a7cb7dc883347bc195af0af06cb75a7edd1782642c13a6c93666625cd81",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Regione Campania - News"
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Ecobonus MIMIT - Cos'è"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "28/06/2026 15:39",
+    "last_checked": "28/06/2026 15:47",
     "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
   },
   "_seen_news": {
@@ -278,6 +278,27 @@
       "query": "MASE voucher auto elettriche",
       "published": "Fri, 24 Oct 2025 07:00:00 GMT",
       "saved_at": "28/06/2026 15:40"
+    },
+    "2d9ff965c71b96c4ee505cb42976b939a4fd4759e032fa87cce6125ca374b9df": {
+      "title": "Click day - Bonus auto elettriche, i fondi sono finiti. Ma potrebbero tornare disponibili - Quattroruote",
+      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxPNE1SZWhCcF9fNklvaGVLc0FwRkQxOTVybUdhVVdoSmlvTno0MlpIMzBGeWNKZzVkZ1FPN3NHQVVDYXIzQ2JSOTNqUlp6VXJzYVZkZWt1Yms3bHh2aktSVXl6V1o3NDg4Rk5YQ2xxWUNSX1dka0RKVThVa05FR3kxNzJLUzV6X1FWZjZ6RTZaX0ZKaWtSWUpSZ0JrX2hfWlVVVFZYbFlWS05rZmx4VHM0WEF3ZU5RYmlSal9kaUxlNTZmUExpcjBUMjRadzc5RXozYlQ3VkRsMEFuOHBsQk5OVWJyV2xPLXVHVE4wRGx1RkIwMFlydE0zUC1MVQ?oc=5",
+      "query": "fondi auto elettriche disponibili",
+      "published": "Wed, 22 Oct 2025 07:00:00 GMT",
+      "saved_at": "28/06/2026 15:47"
+    },
+    "2cdf207db05f2a957e37df82b407680bfd36ddb1a35262bde03751ae6389f3be": {
+      "title": "Incentivi auto elettriche, il giallo dei voucher e i fondi che possono tornare disponibili - La Gazzetta dello Sport",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNOTNZNllTSHhJeTVGNnZzR0NXRGZSVnBVall5b1FaRHk4cVY3LXVFUFBMRlZJMTdsNDFCY1JlWWw4eG5nREV3SVNkZGNLcXkwWFotYVAxWU5GY3lmc1BPZ3pPYmp5Sl83RmVEazk2QkU1NXktX1lfbDNwU0liaWM4ZE9WcWMwSmNHNHlvMFNuR3pTeGFaODkyWXdfRmlQZVYyQ3hJamJZbmc2aTJmZ21YeDV6RTZ4bVBWLVlIeVNBaEVWdWRaLWNna2pMMXpoVWvSAdQBQVVfeXFMTUd1dkhQWHZieGhVUTR0cVJNb2dhcDVHbGRQaDhWOUlmQkd3bjRxc3lDaXRPUlVJUmtQb1pHZTFiRnN3ZGpJeXVDMWNhYjU3ai0yeUhSM0dNUUpRNGFqdDFMc1dKdFZhVjRWQ2Jpb2F0dEFOb09xWW5td05EWjZtaUpBeTdOMHhudXdTQldSaElMSDQ1WktvV2xCYVBsejU2bjNWTVVGQ2xyeUt6bFlrbnlLSjZHMDF5YWY0c1R6ODBucGRUMWFjbE40U1NXa05KNHJVTU0?oc=5",
+      "query": "fondi auto elettriche disponibili",
+      "published": "Tue, 04 Nov 2025 08:00:00 GMT",
+      "saved_at": "28/06/2026 15:47"
+    },
+    "32ceb37b04fedf6a2b74c8ac9c45a29a479d150721cb35d34d8f265935df9f1f": {
+      "title": "Bonus auto elettriche, esauriti i fondi in un giorno: come funziona lo sconto (fino a 11 mila euro) - Corriere della Sera",
+      "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxORXl2TDhNV2V4R05sc05aRGxveUdhSG1aQVNSVXRLVmpKQjlNa291dG5hcTVUSkw1eG1VOFNqR0xFanFWbG53dXozMWlzTGRuX0lBQ2V4RzRwS09GbWQxNDZWdEtveGJnNTZfSVA2SUZKMlRNcjkzdlpvelFlZkVsMTdlQjJoUjZRVlMwMENTdEpXQl9BSVdvM205VDZGVnFiNGR2WGE3clFSenpyblluTFlCRkw1VnI2REZjZWVXdjZMQzlMMXNYTDJJajU4Y0VielVsQnZJWGVubUpiX3NOekRRMG9LcDdUZlpZQUl5UU00eTlnVFdwS1ZwczhIQXdCZjRXZl9tMk5tUnJLcG1VWmxjUll6RWFWaXdBdmpn0gGjAkFVX3lxTE5DUWlqX2trVVIzU2Y3OE9xWXNxcWc4eHc1SkxYaUN4VDdHdWx4Z2hZQ2dVXzc4M0Rja2JOXy11aU5FSHEwd05xM3VQcnhRRkZyNVV1MWdydmtGWUdyS3o0eU93bmRGU0NsTFRPbzZpRGcySTBHT1J0eVE1OTFyX3lnRnhZWVlIcElvV3JvZU5SME9BakpjaDd4T2hvMDVnRXFNUm9rNjl3S1FFQjlaVG9HdHZRMkctdm00VHhuVlZVeXlocWVzNXpFdDNjdDdsRnQ1bUU5a29aN3E3UXVQTlRZWTkyV0h6SUZaV3A2a2hWel9xNk1HUEVJYV9seHVqVG1kenhPUE5POTZmN05SS1RyZC1BTnBfMnhvN0Q5SS10dXp5aw?oc=5",
+      "query": "fondi auto elettriche disponibili",
+      "published": "Thu, 23 Oct 2025 07:00:00 GMT",
+      "saved_at": "28/06/2026 15:47"
     }
   }
 }
