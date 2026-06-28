@@ -50,6 +50,11 @@ SITES = [
         "important": True,
     },
     {
+        "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
+        "important": True,
+    },
+    {
         "name": "Regione Campania - Sportello Incentivi",
         "url": "https://sportelloincentivi.regione.campania.it/",
         "important": True,
@@ -90,6 +95,15 @@ KEYWORDS = [
     "m1",
     "leapmotor",
     "t03",
+    "beneficiario",
+    "accedi",
+    "login",
+    "richiedi voucher",
+    "richiedi il voucher",
+    "voucher disponibile",
+    "voucher disponibili",
+    "piattaforma attiva",
+    "sportello aperto",
 ]
 
 AVAILABILITY_WORDS = [
@@ -107,6 +121,14 @@ AVAILABILITY_WORDS = [
     "risorse",
     "bando",
     "sportello",
+    "accedi",
+    "richiedi",
+    "richiedi voucher",
+    "richiedi il voucher",
+    "piattaforma attiva",
+    "sportello aperto",
+    "accesso",
+    "login",
 ]
 
 AMOUNT_PATTERNS = [
