@@ -2,7 +2,7 @@ name: Check Bonus Auto Telegram
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
