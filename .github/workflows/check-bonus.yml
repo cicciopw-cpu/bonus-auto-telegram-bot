@@ -1,4 +1,4 @@
-name: Check Bonus Auto
+name: Check Bonus Auto Telegram
 
 on:
   schedule:
