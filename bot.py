@@ -4,6 +4,7 @@ import json
 import hashlib
 import datetime
 import requests
+import feedparser
 from bs4 import BeautifulSoup
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
