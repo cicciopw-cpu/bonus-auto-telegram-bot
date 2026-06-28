@@ -11,7 +11,7 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 STATE_FILE = "state.json"
 
-SEND_ON_FIRST_RUN = False
+SEND_ON_FIRST_RUN = True
 
 SITES = [
     {
