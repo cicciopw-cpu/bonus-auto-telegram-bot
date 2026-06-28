@@ -13,8 +13,26 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 STATE_FILE = "state.json"
 
-# Lascia False: così il bot non manda notifiche inutili al primo controllo.
 SEND_ON_FIRST_RUN = False
+
+
+MASE_SOLD_OUT_TEXT = "tutte le risorse risultano al momento prenotate"
+
+MASE_AVAILABILITY_PHRASES = [
+    "fondi disponibili",
+    "risorse disponibili",
+    "voucher disponibili",
+    "voucher disponibile",
+    "piattaforma riattivata",
+    "riattivati sulla piattaforma",
+    "richiedere il voucher",
+    "richiedi il voucher",
+    "domanda disponibile",
+    "presenta domanda",
+    "sportello aperto",
+    "plafond disponibile",
+    "disponibilità consultando la pagina plafond",
+]
 
 
 SITES = [
@@ -61,6 +79,16 @@ SITES = [
     {
         "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
+        "important": True,
+    },
+    {
+        "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home",
+        "important": True,
+    },
+    {
+        "name": "Bonus Veicoli Elettrici MASE - Plafond",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond",
         "important": True,
     },
     {
@@ -145,6 +173,7 @@ KEYWORDS = [
     "voucher disponibili",
     "piattaforma attiva",
     "sportello aperto",
+    "plafond",
     "leapmotor",
     "t03",
 ]
@@ -174,6 +203,7 @@ AVAILABILITY_WORDS = [
     "accesso",
     "login",
     "click day",
+    "plafond",
 ]
 
 
@@ -315,7 +345,7 @@ def make_snippet(text):
     text_lower = text.lower()
     positions = []
 
-    for word in KEYWORDS + AVAILABILITY_WORDS:
+    for word in KEYWORDS + AVAILABILITY_WORDS + MASE_AVAILABILITY_PHRASES:
         pos = text_lower.find(word.lower())
         if pos != -1:
             positions.append(pos)
@@ -342,6 +372,80 @@ def send_telegram(message):
     response.raise_for_status()
 
 
+def is_mase_site(url):
+    return "bonusveicolielettrici.mase.gov.it" in url
+
+
+def check_mase_special_status(state, name, url, text, changed, first_run):
+    alerts = []
+
+    if not is_mase_site(url):
+        return alerts
+
+    text_lower = text.lower()
+
+    sold_out_now = MASE_SOLD_OUT_TEXT in text_lower
+    has_availability_now = any(phrase in text_lower for phrase in MASE_AVAILABILITY_PHRASES)
+
+    status_key = f"_mase_status::{url}"
+    previous_status = state.get(status_key, {})
+
+    sold_out_before = previous_status.get("sold_out")
+    availability_before = previous_status.get("availability")
+    previous_hash = previous_status.get("hash")
+
+    current_hash = text_hash(text)
+
+    state[status_key] = {
+        "sold_out": sold_out_now,
+        "availability": has_availability_now,
+        "hash": current_hash,
+        "last_checked": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "name": name,
+    }
+
+    if first_run and not SEND_ON_FIRST_RUN:
+        return alerts
+
+    # CASO 1: prima c'era il messaggio "risorse prenotate", ora non c'è più.
+    if sold_out_before is True and sold_out_now is False:
+        alerts.append(
+            "🚨 ATTENZIONE MASE: IL MESSAGGIO 'RISORSE PRENOTATE' È SPARITO\n\n"
+            f"Fonte: {name}\n"
+            f"Link: {url}\n\n"
+            "Prima la pagina diceva che tutte le risorse erano prenotate. "
+            "Ora quel messaggio non risulta più presente. Controlla subito la piattaforma."
+        )
+
+    # CASO 2: compaiono frasi di disponibilità.
+    if availability_before is not True and has_availability_now:
+        snippet = make_snippet(text)
+
+        alerts.append(
+            "🚨 POSSIBILE DISPONIBILITÀ VOUCHER MASE\n\n"
+            f"Fonte: {name}\n"
+            f"Link: {url}\n\n"
+            "La pagina contiene frasi compatibili con fondi/voucher/piattaforma disponibile.\n\n"
+            f"Anteprima:\n{snippet[:1200]}"
+        )
+
+    # CASO 3: cambia la pagina MASE e riguarda plafond/avviso importante.
+    if changed and previous_hash is not None:
+        if "plafond" in text_lower or "avviso importante" in text_lower or "risorse" in text_lower:
+            snippet = make_snippet(text)
+
+            alerts.append(
+                "⚠️ PAGINA MASE CAMBIATA\n\n"
+                f"Fonte: {name}\n"
+                f"Link: {url}\n\n"
+                "La pagina MASE è cambiata e contiene riferimenti a plafond, risorse o avvisi importanti. "
+                "Verifica se sono tornati disponibili fondi o voucher.\n\n"
+                f"Anteprima:\n{snippet[:1200]}"
+            )
+
+    return alerts
+
+
 def should_alert(text, changed, first_run, site_important):
     text_lower = text.lower()
 
@@ -358,19 +462,15 @@ def should_alert(text, changed, first_run, site_important):
     if not changed:
         return False
 
-    # Se parla solo di moto/scooter/colonnine e non di auto, non avvisare.
     if has_excluded_topic and not has_auto_focus:
         return False
 
-    # Deve avere focus su auto elettriche, M1 o Leapmotor T03.
     if not has_auto_focus:
         return False
 
-    # Avviso se pagina importante + parole bonus + parole di apertura/disponibilità.
     if site_important and has_bonus_words and has_availability:
         return True
 
-    # Avviso se trova importi da 10.000 euro in su + parole bonus.
     if has_big_amount and has_bonus_words:
         return True
 
@@ -515,6 +615,9 @@ def check_sites(state):
             first_run = old_hash is None
             changed = old_hash != current_hash
 
+            mase_alerts = check_mase_special_status(state, name, url, text, changed, first_run)
+            alerts.extend(mase_alerts)
+
             if should_alert(text, changed, first_run, site.get("important", False)):
                 snippet = make_snippet(text)
 
@@ -539,8 +642,6 @@ def check_sites(state):
         except Exception as e:
             errors.append(f"{name}: {str(e)}")
 
-    # Non mandiamo errori temporanei su Telegram, così non ti spammiamo.
-    # Se un sito istituzionale non risponde, lo vedrai solo nei log GitHub.
     if errors:
         print("Errori durante il controllo siti:")
         for error in errors[:10]:
