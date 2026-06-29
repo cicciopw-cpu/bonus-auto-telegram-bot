@@ -417,21 +417,21 @@
     "sold_out": false,
     "availability": false,
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "29/06/2026 14:28",
+    "last_checked": "29/06/2026 14:29",
     "name": "Bonus Veicoli Elettrici MASE - Home"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "29/06/2026 14:28",
+    "last_checked": "29/06/2026 14:29",
     "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "29/06/2026 14:28",
+    "last_checked": "29/06/2026 14:29",
     "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
@@ -443,7 +443,7 @@
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "29/06/2026 14:28",
+    "last_checked": "29/06/2026 14:29",
     "name": "Bonus Veicoli Elettrici MASE - Plafond"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
