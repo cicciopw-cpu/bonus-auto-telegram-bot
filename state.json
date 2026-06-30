@@ -1,57 +1,57 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Ecobonus MIMIT - Auto"
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Ecobonus MIMIT - Contributi"
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Ecobonus MIMIT - Risorse stanziate"
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "02f5dd11f3f82c336d7d731b0d209eeeb18429511800c316fd6585889f8b3e79",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Ecobonus MIMIT - Avvisi e notizie"
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "MIMIT - Ecobonus automotive"
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "132fc3447c4449fd502e6608caf8e3bb27585f8cb354d394f739987547fff9ea",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "MIMIT - Incentivi aggiornamenti"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Home"
   },
   "https://sportelloincentivi.regione.campania.it/": {
     "hash": "c305f426436b80288b340def60c15c63e99d4d49a955d8464e31eda459b18d9b",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Regione Campania - Sportello Incentivi"
   },
   "https://www.regione.campania.it/regione-informa/notizie": {
     "hash": "6d9607ebe27c2c97e2a8f45aeca9d3b2b76a5816a27f1136bd92929071b19e66",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Regione Campania - News"
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Ecobonus MIMIT - Cos'è"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
   },
   "_seen_news": {
@@ -452,38 +452,38 @@
     "sold_out": false,
     "availability": false,
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Home"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "sold_out": false,
     "availability": false,
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Plafond"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "30/06/2026 19:02",
+    "last_checked": "30/06/2026 19:04",
     "name": "Bonus Veicoli Elettrici MASE - Plafond"
   }
 }
