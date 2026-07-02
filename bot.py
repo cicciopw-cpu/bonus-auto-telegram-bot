@@ -25,13 +25,49 @@ NEWS_KEEP_DAYS = 30
 MAX_SEEN_NEWS = 500
 
 MIN_MASE_TEXT_LENGTH = 350
-SUSPICIOUS_PAGE_ALERT_AFTER = 3
-SUSPICIOUS_PAGE_ALERT_COOLDOWN_HOURS = 6
 
-MAX_API_BODY_CHARS = 25000
-MAX_API_ENDPOINTS_IN_STATE = 80
+PLAFOND_URGENT_INCREASE_EURO = 10000
+PLAFOND_IMPORTANT_INCREASE_EURO = 1000
 
-API_DISCOVERY_ENABLED = True
+ALERT_COOLDOWN_URGENT_HOURS = 0.25
+ALERT_COOLDOWN_IMPORTANT_HOURS = 6
+ALERT_COOLDOWN_INFO_HOURS = 12
+
+MASE_BENEFICIARIO_BASE = "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario"
+MASE_ESERCENTE_BASE = "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente"
+
+DIRECT_API_ENDPOINTS = [
+    {
+        "key": "beneficiario_plafond",
+        "name": "MASE API - Plafond Beneficiario",
+        "url": f"{MASE_BENEFICIARIO_BASE}/api/unsecured/plafond",
+        "kind": "plafond",
+    },
+    {
+        "key": "beneficiario_grafico",
+        "name": "MASE API - Grafico Voucher Beneficiario",
+        "url": f"{MASE_BENEFICIARIO_BASE}/api/unsecured/grafico",
+        "kind": "grafico",
+    },
+    {
+        "key": "beneficiario_versione",
+        "name": "MASE API - Versione Beneficiario",
+        "url": f"{MASE_BENEFICIARIO_BASE}/api/unsecured/versione",
+        "kind": "versione",
+    },
+    {
+        "key": "esercente_avvisi",
+        "name": "MASE API - Avvisi Esercente",
+        "url": f"{MASE_ESERCENTE_BASE}/api/unsecured/avvisi",
+        "kind": "avvisi",
+    },
+    {
+        "key": "esercente_versione",
+        "name": "MASE API - Versione Esercente",
+        "url": f"{MASE_ESERCENTE_BASE}/api/unsecured/versione",
+        "kind": "versione",
+    },
+]
 
 
 MASE_SOLD_OUT_PHRASES = [
@@ -159,91 +195,71 @@ SITES = [
         "name": "MASE - Home Bonus Veicoli Elettrici",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/index.html",
         "type": "mase",
-        "important": True,
     },
     {
         "name": "MASE - Login Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
         "type": "mase",
-        "important": True,
     },
     {
         "name": "MASE - Home Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home",
         "type": "mase",
-        "important": True,
     },
     {
         "name": "MASE - Plafond",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond",
         "type": "mase",
-        "important": True,
     },
     {
         "name": "MASE - Esercente / Concessionari",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/",
         "type": "mase",
-        "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Cos'è",
         "url": "https://ecobonus.mimit.gov.it/cose",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Auto",
         "url": "https://ecobonus.mimit.gov.it/auto",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Contributi",
         "url": "https://ecobonus.mimit.gov.it/contributi",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Risorse stanziate",
         "url": "https://ecobonus.mimit.gov.it/risorse-stanziate",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Avvisi e notizie",
         "url": "https://ecobonus.mimit.gov.it/avvisi-notizie",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "MIMIT - Ecobonus Automotive",
         "url": "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive",
         "type": "mimit",
-        "important": True,
     },
     {
         "name": "MIMIT - Incentivi Aggiornamenti",
         "url": "https://www.mimit.gov.it/it/incentivi-aggiornamenti",
         "type": "mimit",
-        "important": True,
-    },
-    {
-        "name": "MASE - Comunicati ufficiali",
-        "url": "https://www.mase.gov.it/portale/comunicati",
-        "type": "mase_news",
-        "important": True,
     },
     {
         "name": "Regione Campania - Sportello Incentivi",
         "url": "https://sportelloincentivi.regione.campania.it/",
         "type": "regione",
-        "important": True,
     },
     {
         "name": "Regione Campania - News",
         "url": "https://www.regione.campania.it/regione-informa/notizie",
         "type": "regione",
-        "important": False,
     },
 ]
 
@@ -351,6 +367,22 @@ def today_string():
     return today_italy().strftime("%Y-%m-%d")
 
 
+def format_euro(value):
+    try:
+        return f"{int(value):,}".replace(",", ".") + " €"
+    except Exception:
+        return str(value)
+
+
+def percent(part, total):
+    try:
+        if not total:
+            return 0
+        return round((float(part) / float(total)) * 100, 4)
+    except Exception:
+        return 0
+
+
 def load_state():
     if not os.path.exists(STATE_FILE):
         return {}
@@ -393,63 +425,21 @@ def clean_text(html):
 
 
 def text_hash(text):
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return hashlib.sha256(str(text).encode("utf-8")).hexdigest()
 
 
 def contains_any(text, words):
-    text_lower = text.lower()
+    text_lower = str(text).lower()
     return any(word.lower() in text_lower for word in words)
 
 
 def find_matching_phrases(text, phrases):
-    text_lower = text.lower()
+    text_lower = str(text).lower()
     return [phrase for phrase in phrases if phrase.lower() in text_lower]
 
 
 def is_mase_like(site):
-    return site["type"] in ["mase", "mase_news"]
-
-
-def page_is_suspicious(site, text):
-    if not is_mase_like(site):
-        return False, []
-
-    reasons = []
-    text_clean = text.strip()
-    text_lower = text_clean.lower()
-
-    if len(text_clean) < MIN_MASE_TEXT_LENGTH:
-        reasons.append(f"testo troppo corto ({len(text_clean)} caratteri)")
-
-    if contains_any(text_lower, JAVASCRIPT_SUSPICIOUS_WORDS):
-        reasons.append("possibile pagina JavaScript/loading")
-
-    useful_words = MASE_SOLD_OUT_PHRASES + MASE_AVAILABLE_PHRASES + MASE_IMPORTANT_PHRASES
-
-    if not contains_any(text_lower, useful_words):
-        reasons.append("mancano parole utili come voucher/plafond/risorse/beneficiario")
-
-    return len(reasons) > 0, reasons
-
-
-def make_snippet(text, phrases=None):
-    text_lower = text.lower()
-    phrases = phrases or []
-
-    positions = []
-
-    for word in phrases + MASE_AVAILABLE_PHRASES + MASE_SOLD_OUT_PHRASES + IMPORTANT_NEWS_WORDS + AUTO_WORDS:
-        pos = text_lower.find(word.lower())
-        if pos != -1:
-            positions.append(pos)
-
-    if not positions:
-        return text[:900]
-
-    start = max(0, min(positions) - 300)
-    end = min(len(text), start + 1300)
-
-    return text[start:end]
+    return site["type"] == "mase"
 
 
 def parse_saved_at(saved_at):
@@ -490,8 +480,309 @@ def add_alert(alerts, state, key, cooldown_hours, message):
         mark_alert_sent(state, key)
 
 
+def make_snippet(text, phrases=None):
+    text = str(text)
+    text_lower = text.lower()
+    phrases = phrases or []
+
+    positions = []
+
+    for word in phrases + MASE_AVAILABLE_PHRASES + MASE_SOLD_OUT_PHRASES + IMPORTANT_NEWS_WORDS + AUTO_WORDS:
+        pos = text_lower.find(word.lower())
+        if pos != -1:
+            positions.append(pos)
+
+    if not positions:
+        return text[:900]
+
+    start = max(0, min(positions) - 300)
+    end = min(len(text), start + 1300)
+
+    return text[start:end]
+
+
 # ----------------------------
-# LETTURA PAGINE: REQUESTS + PLAYWRIGHT + API HUNTER
+# DIRECT API MONITOR
+# ----------------------------
+
+def request_json(url):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
+        ),
+        "Accept": "application/json,text/plain,*/*",
+    }
+
+    response = requests.get(url, headers=headers, timeout=45)
+    response.raise_for_status()
+
+    return response.json()
+
+
+def check_plafond_api(state, endpoint, data):
+    alerts = []
+    api_key = endpoint["key"]
+    previous = state.get("_direct_api_state", {}).get(api_key, {})
+
+    residuo = int(data.get("residuoPlafond", 0) or 0)
+    totale = int(data.get("totalePlafond", 0) or 0)
+    prenotato = max(totale - residuo, 0)
+    residuo_percent = percent(residuo, totale)
+    prenotato_percent = percent(prenotato, totale)
+
+    previous_residuo = previous.get("residuoPlafond")
+    previous_totale = previous.get("totalePlafond")
+
+    if previous_residuo is not None:
+        diff = residuo - int(previous_residuo)
+
+        if diff >= PLAFOND_URGENT_INCREASE_EURO:
+            add_alert(
+                alerts,
+                state,
+                "direct_api_plafond_big_increase",
+                ALERT_COOLDOWN_URGENT_HOURS,
+                "🚨🚨 URGENTE - PLAFOND MASE AUMENTATO 🚨🚨\n\n"
+                f"Controllo: {now_string()}\n"
+                f"API: {endpoint['url']}\n\n"
+                f"Residuo precedente: {format_euro(previous_residuo)}\n"
+                f"Residuo attuale: {format_euro(residuo)}\n"
+                f"Aumento rilevato: +{format_euro(diff)}\n\n"
+                f"Plafond totale: {format_euro(totale)}\n"
+                f"Prenotato stimato: {format_euro(prenotato)} ({prenotato_percent}%)\n"
+                f"Residuo: {format_euro(residuo)} ({residuo_percent}%)\n\n"
+                "Cosa fare subito:\n"
+                "Apri immediatamente il portale MASE con SPID/CIE e prova a verificare se il voucher è generabile.\n\n"
+                "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
+                "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond"
+            )
+
+        elif diff >= PLAFOND_IMPORTANT_INCREASE_EURO:
+            add_alert(
+                alerts,
+                state,
+                "direct_api_plafond_small_increase",
+                ALERT_COOLDOWN_IMPORTANT_HOURS,
+                "⚠️ PLAFOND MASE AUMENTATO LEGGERMENTE\n\n"
+                f"Controllo: {now_string()}\n"
+                f"API: {endpoint['url']}\n\n"
+                f"Residuo precedente: {format_euro(previous_residuo)}\n"
+                f"Residuo attuale: {format_euro(residuo)}\n"
+                f"Aumento rilevato: +{format_euro(diff)}\n\n"
+                "Non è ancora una conferma di voucher disponibili, ma è un movimento da controllare."
+            )
+
+        elif diff < 0:
+            add_alert(
+                alerts,
+                state,
+                "direct_api_plafond_decrease",
+                ALERT_COOLDOWN_INFO_HOURS,
+                "ℹ️ PLAFOND MASE DIMINUITO\n\n"
+                f"Controllo: {now_string()}\n"
+                f"Residuo precedente: {format_euro(previous_residuo)}\n"
+                f"Residuo attuale: {format_euro(residuo)}\n"
+                f"Variazione: {format_euro(diff)}\n\n"
+                "Questo può indicare movimenti tecnici o utilizzo/prenotazione di fondi."
+            )
+
+    if previous_totale is not None and int(previous_totale) != totale:
+        add_alert(
+            alerts,
+            state,
+            "direct_api_total_plafond_changed",
+            ALERT_COOLDOWN_URGENT_HOURS,
+            "🚨 TOTALE PLAFOND MASE CAMBIATO\n\n"
+            f"Controllo: {now_string()}\n"
+            f"Totale precedente: {format_euro(previous_totale)}\n"
+            f"Totale attuale: {format_euro(totale)}\n\n"
+            "Questo può indicare una modifica importante delle risorse disponibili."
+        )
+
+    return alerts
+
+
+def check_grafico_api(state, endpoint, data):
+    alerts = []
+    api_key = endpoint["key"]
+    previous = state.get("_direct_api_state", {}).get(api_key, {})
+
+    totale_voucher = int(data.get("totaleVoucher", 0) or 0)
+    validati = int(data.get("totaleVoucherValidati", 0) or 0)
+    non_validati = int(data.get("totaleVoucherNonValidati", 0) or 0)
+
+    prev_totale = previous.get("totaleVoucher")
+    prev_validati = previous.get("totaleVoucherValidati")
+    prev_non_validati = previous.get("totaleVoucherNonValidati")
+
+    changes = []
+
+    if prev_totale is not None and int(prev_totale) != totale_voucher:
+        changes.append(f"Voucher totali: {prev_totale} → {totale_voucher}")
+
+    if prev_validati is not None and int(prev_validati) != validati:
+        changes.append(f"Voucher validati: {prev_validati} → {validati}")
+
+    if prev_non_validati is not None and int(prev_non_validati) != non_validati:
+        changes.append(f"Voucher non validati: {prev_non_validati} → {non_validati}")
+
+    if changes:
+        add_alert(
+            alerts,
+            state,
+            "direct_api_voucher_numbers_changed",
+            ALERT_COOLDOWN_IMPORTANT_HOURS,
+            "⚠️ NUMERI VOUCHER MASE CAMBIATI\n\n"
+            f"Controllo: {now_string()}\n"
+            f"API: {endpoint['url']}\n\n"
+            + "\n".join([f"- {c}" for c in changes])
+            + "\n\n"
+            "Cosa significa:\n"
+            "Si è mosso il conteggio ufficiale dei voucher. Non è una conferma di fondi disponibili, ma può anticipare variazioni sul plafond.\n\n"
+            "Controlla il portale MASE se il movimento è importante."
+        )
+
+    return alerts
+
+
+def check_avvisi_api(state, endpoint, data):
+    alerts = []
+    api_key = endpoint["key"]
+    previous = state.get("_direct_api_state", {}).get(api_key, {})
+
+    body_text = json.dumps(data, ensure_ascii=False)
+    current_hash = text_hash(body_text)
+    previous_hash = previous.get("hash")
+
+    if previous_hash is not None and previous_hash != current_hash:
+        available_matches = find_matching_phrases(body_text, MASE_AVAILABLE_PHRASES)
+        important_matches = find_matching_phrases(body_text, MASE_IMPORTANT_PHRASES)
+
+        if available_matches:
+            add_alert(
+                alerts,
+                state,
+                "direct_api_avvisi_available",
+                ALERT_COOLDOWN_URGENT_HOURS,
+                "🚨 AVVISO MASE CON POSSIBILE DISPONIBILITÀ\n\n"
+                f"Controllo: {now_string()}\n"
+                f"API: {endpoint['url']}\n\n"
+                "Frasi trovate:\n"
+                + "\n".join([f"- {p}" for p in available_matches[:10]])
+                + "\n\n"
+                f"Anteprima:\n{make_snippet(body_text, available_matches)[:1200]}"
+            )
+
+        elif important_matches:
+            add_alert(
+                alerts,
+                state,
+                "direct_api_avvisi_changed",
+                ALERT_COOLDOWN_IMPORTANT_HOURS,
+                "⚠️ AVVISI MASE CAMBIATI\n\n"
+                f"Controllo: {now_string()}\n"
+                f"API: {endpoint['url']}\n\n"
+                "Gli avvisi ufficiali sono cambiati e contengono parole importanti come voucher, plafond, rottamazione o PNRR.\n\n"
+                f"Anteprima:\n{make_snippet(body_text, important_matches)[:1200]}"
+            )
+
+    return alerts
+
+
+def check_versione_api(state, endpoint, data):
+    alerts = []
+    api_key = endpoint["key"]
+    previous = state.get("_direct_api_state", {}).get(api_key, {})
+
+    versione = data.get("versione")
+    previous_versione = previous.get("versione")
+
+    if previous_versione is not None and versione and previous_versione != versione:
+        add_alert(
+            alerts,
+            state,
+            f"direct_api_version_changed::{api_key}",
+            ALERT_COOLDOWN_INFO_HOURS,
+            "ℹ️ VERSIONE PORTALE MASE CAMBIATA\n\n"
+            f"Controllo: {now_string()}\n"
+            f"Portale: {endpoint['name']}\n"
+            f"Versione precedente: {previous_versione}\n"
+            f"Versione attuale: {versione}\n\n"
+            "Non è una conferma di fondi disponibili, ma indica un aggiornamento tecnico del portale."
+        )
+
+    return alerts
+
+
+def check_direct_mase_apis(state):
+    alerts = []
+    errors = []
+
+    direct_state = state.get("_direct_api_state", {})
+
+    if not isinstance(direct_state, dict):
+        direct_state = {}
+
+    for endpoint in DIRECT_API_ENDPOINTS:
+        key = endpoint["key"]
+
+        try:
+            data = request_json(endpoint["url"])
+            data_hash = text_hash(json.dumps(data, ensure_ascii=False, sort_keys=True))
+
+            if endpoint["kind"] == "plafond":
+                alerts.extend(check_plafond_api(state, endpoint, data))
+
+            elif endpoint["kind"] == "grafico":
+                alerts.extend(check_grafico_api(state, endpoint, data))
+
+            elif endpoint["kind"] == "avvisi":
+                alerts.extend(check_avvisi_api(state, endpoint, data))
+
+            elif endpoint["kind"] == "versione":
+                alerts.extend(check_versione_api(state, endpoint, data))
+
+            record = {
+                "name": endpoint["name"],
+                "url": endpoint["url"],
+                "kind": endpoint["kind"],
+                "last_checked": now_string(),
+                "hash": data_hash,
+                "raw": data,
+            }
+
+            if endpoint["kind"] == "plafond":
+                residuo = int(data.get("residuoPlafond", 0) or 0)
+                totale = int(data.get("totalePlafond", 0) or 0)
+
+                record["residuoPlafond"] = residuo
+                record["totalePlafond"] = totale
+                record["prenotatoStimato"] = max(totale - residuo, 0)
+                record["residuoPercent"] = percent(residuo, totale)
+
+            if endpoint["kind"] == "grafico":
+                record["totaleVoucher"] = int(data.get("totaleVoucher", 0) or 0)
+                record["totaleVoucherValidati"] = int(data.get("totaleVoucherValidati", 0) or 0)
+                record["totaleVoucherNonValidati"] = int(data.get("totaleVoucherNonValidati", 0) or 0)
+
+            if endpoint["kind"] == "versione":
+                record["versione"] = data.get("versione")
+
+            direct_state[key] = record
+
+        except Exception as e:
+            errors.append(f"{endpoint['name']}: {str(e)}")
+
+    state["_direct_api_state"] = direct_state
+    state["_direct_api_errors"] = errors[:10]
+
+    return alerts
+
+
+# ----------------------------
+# LETTURA PAGINE: REQUESTS + PLAYWRIGHT
 # ----------------------------
 
 def get_page_text_requests(url):
@@ -499,7 +790,7 @@ def get_page_text_requests(url):
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoBot/6.0"
+            "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
         )
     }
 
@@ -507,6 +798,28 @@ def get_page_text_requests(url):
     response.raise_for_status()
 
     return clean_text(response.text)
+
+
+def page_is_suspicious(site, text):
+    if not is_mase_like(site):
+        return False, []
+
+    reasons = []
+    text_clean = str(text).strip()
+    text_lower = text_clean.lower()
+
+    if len(text_clean) < MIN_MASE_TEXT_LENGTH:
+        reasons.append(f"testo troppo corto ({len(text_clean)} caratteri)")
+
+    if contains_any(text_lower, JAVASCRIPT_SUSPICIOUS_WORDS):
+        reasons.append("possibile pagina JavaScript/loading")
+
+    useful_words = MASE_SOLD_OUT_PHRASES + MASE_AVAILABLE_PHRASES + MASE_IMPORTANT_PHRASES
+
+    if not contains_any(text_lower, useful_words):
+        reasons.append("mancano parole utili come voucher/plafond/risorse/beneficiario")
+
+    return len(reasons) > 0, reasons
 
 
 def response_is_interesting(response):
@@ -523,37 +836,6 @@ def response_is_interesting(response):
         return False
     except Exception:
         return False
-
-
-def body_looks_useful(body):
-    if not body:
-        return False
-
-    body_lower = body.lower().strip()
-
-    if body_lower.startswith("{") or body_lower.startswith("["):
-        return True
-
-    useful_words = (
-        MASE_SOLD_OUT_PHRASES
-        + MASE_AVAILABLE_PHRASES
-        + MASE_IMPORTANT_PHRASES
-        + ["plafond", "voucher", "risorse", "fondi", "beneficiario"]
-    )
-
-    return contains_any(body_lower, useful_words)
-
-
-def normalize_api_body(body):
-    if not body:
-        return ""
-
-    body = re.sub(r"\s+", " ", body).strip()
-
-    if len(body) > MAX_API_BODY_CHARS:
-        body = body[:MAX_API_BODY_CHARS]
-
-    return body
 
 
 def get_page_text_playwright(site):
@@ -573,38 +855,40 @@ def get_page_text_playwright(site):
             user_agent=(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0 Safari/537.36 BonusAutoBot/6.0"
+                "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
             ),
             viewport={"width": 1366, "height": 900},
         )
 
         def on_response(response):
-            if not API_DISCOVERY_ENABLED:
-                return
-
             try:
                 if not response_is_interesting(response):
                     return
 
-                status = response.status
-                if status < 200 or status >= 400:
+                if response.status < 200 or response.status >= 400:
                     return
 
-                response_url = response.url
-                content_type = response.headers.get("content-type", "")
-
                 body = response.text()
-                body = normalize_api_body(body)
 
-                if not body_looks_useful(body):
+                if not body:
+                    return
+
+                body_short = re.sub(r"\s+", " ", body).strip()[:25000]
+
+                if not contains_any(
+                    body_short,
+                    MASE_IMPORTANT_PHRASES + MASE_AVAILABLE_PHRASES + ["api", "plafond", "voucher"],
+                ):
                     return
 
                 api_results.append({
-                    "url": response_url,
-                    "status": status,
-                    "content_type": content_type,
-                    "body": body,
-                    "hash": text_hash(body),
+                    "url": response.url,
+                    "status": response.status,
+                    "content_type": response.headers.get("content-type", ""),
+                    "hash": text_hash(body_short),
+                    "body_preview": body_short[:800],
+                    "last_seen": now_string(),
+                    "source_page": site["name"],
                 })
 
             except Exception:
@@ -635,15 +919,14 @@ def get_page_text_playwright(site):
 
         browser.close()
 
-        text = re.sub(r"\s+", " ", text).strip()
+    text = re.sub(r"\s+", " ", text).strip()
 
-        unique = {}
-        for item in api_results:
-            unique[item["url"]] = item
+    unique = {}
 
-        api_results = list(unique.values())[:25]
+    for item in api_results:
+        unique[item["url"]] = item
 
-        return text, api_results
+    return text, list(unique.values())[:25]
 
 
 def get_page_text(site):
@@ -673,136 +956,186 @@ def get_page_text(site):
     return text, read_method, api_results
 
 
-# ----------------------------
-# API DISCOVERY / API HUNTER
-# ----------------------------
-
-def api_endpoint_id(url):
-    return hashlib.sha256(url.encode("utf-8")).hexdigest()
-
-
-def analyze_api_results(state, site, api_results):
-    alerts = []
-
+def update_api_inventory(state, api_results):
     if not api_results:
-        return alerts
+        return
 
     inventory = state.get("_api_inventory", {})
+
     if not isinstance(inventory, dict):
         inventory = {}
 
-    discovered_count = state.get("_api_discovered_count", 0)
-
     for api in api_results:
         url = api.get("url", "")
-        body = api.get("body", "")
-        status = api.get("status", "")
-        content_type = api.get("content_type", "")
 
-        if not url or not body:
+        if not url:
             continue
 
-        endpoint_id = api_endpoint_id(url)
-        previous = inventory.get(endpoint_id, {})
+        endpoint_id = text_hash(url)
 
-        old_hash = previous.get("hash")
-        old_sold_out = previous.get("sold_out")
-        old_available = previous.get("available")
+        old = inventory.get(endpoint_id, {})
+        new_record = dict(old)
+        new_record.update(api)
+        new_record["last_seen"] = now_string()
 
-        body_hash = text_hash(body)
+        inventory[endpoint_id] = new_record
 
-        sold_out_matches = find_matching_phrases(body, MASE_SOLD_OUT_PHRASES)
-        available_matches = find_matching_phrases(body, MASE_AVAILABLE_PHRASES)
-        important_matches = find_matching_phrases(body, MASE_IMPORTANT_PHRASES)
-
-        sold_out_now = len(sold_out_matches) > 0
-        available_now = len(available_matches) > 0
-        important_now = len(important_matches) > 0
-
-        is_new_endpoint = old_hash is None
-        changed = old_hash is not None and old_hash != body_hash
-
-        inventory[endpoint_id] = {
-            "url": url,
-            "source_page": site["name"],
-            "source_page_url": site["url"],
-            "status": status,
-            "content_type": content_type,
-            "hash": body_hash,
-            "sold_out": sold_out_now,
-            "available": available_now,
-            "important": important_now,
-            "sold_out_matches": sold_out_matches,
-            "available_matches": available_matches,
-            "important_matches": important_matches,
-            "last_seen": now_string(),
-            "body_preview": body[:800],
-        }
-
-        if is_new_endpoint:
-            discovered_count += 1
-
-        if available_now and old_available is not True:
-            snippet = make_snippet(body, available_matches)
-
-            add_alert(
-                alerts,
-                state,
-                f"api_available::{endpoint_id}",
-                0.5,
-                "🚨🚨 API HUNTER - POSSIBILE DISPONIBILITÀ TROVATA 🚨🚨\n\n"
-                f"Fonte pagina: {site['name']}\n"
-                f"Endpoint API/JSON rilevato:\n{url}\n\n"
-                "Frasi trovate:\n"
-                + "\n".join([f"- {p}" for p in available_matches[:10]])
-                + "\n\n"
-                "Cosa significa:\n"
-                "Il bot ha intercettato una risposta API/JSON che contiene parole compatibili con fondi/voucher disponibili.\n\n"
-                "Cosa fare subito:\n"
-                "Apri il portale MASE e prova ad accedere con SPID/CIE.\n\n"
-                "Link rapidi:\n"
-                "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
-                "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond\n\n"
-                f"Anteprima API:\n{snippet[:1200]}"
-            )
-
-        if old_sold_out is True and sold_out_now is False:
-            add_alert(
-                alerts,
-                state,
-                f"api_soldout_disappeared::{endpoint_id}",
-                0.5,
-                "🚨🚨 API HUNTER - STATO ESAURITO/PRENOTATO SPARITO 🚨🚨\n\n"
-                f"Fonte pagina: {site['name']}\n"
-                f"Endpoint API/JSON:\n{url}\n\n"
-                "Cosa è successo:\n"
-                "Prima questa API conteneva frasi compatibili con risorse/fondi prenotati o esauriti.\n"
-                "Ora quelle frasi non risultano più presenti.\n\n"
-                "Cosa fare subito:\n"
-                "Controlla immediatamente il portale MASE."
-            )
-
-        if changed and important_now:
-            add_alert(
-                alerts,
-                state,
-                f"api_changed::{endpoint_id}",
-                6,
-                "⚠️ API HUNTER - ENDPOINT IMPORTANTE CAMBIATO\n\n"
-                f"Fonte pagina: {site['name']}\n"
-                f"Endpoint API/JSON:\n{url}\n\n"
-                "L’endpoint è cambiato e contiene riferimenti importanti a voucher, plafond, risorse o beneficiario.\n"
-                "Non è una conferma di fondi disponibili, ma va controllato.\n\n"
-                f"Anteprima API:\n{body[:1200]}"
-            )
-
-    if len(inventory) > MAX_API_ENDPOINTS_IN_STATE:
-        items = list(inventory.items())
-        items = items[-MAX_API_ENDPOINTS_IN_STATE:]
+    if len(inventory) > 80:
+        items = list(inventory.items())[-80:]
         inventory = dict(items)
 
     state["_api_inventory"] = inventory
-    state["_api_discovered_count"] = discovered_count
+
+
+def classify_mase_page(state, site, text, changed, first_run, read_method):
+    alerts = []
+
+    url = site["url"]
+    name = site["name"]
+
+    sold_out_matches = find_matching_phrases(text, MASE_SOLD_OUT_PHRASES)
+    available_matches = find_matching_phrases(text, MASE_AVAILABLE_PHRASES)
+    important_matches = find_matching_phrases(text, MASE_IMPORTANT_PHRASES)
+
+    sold_out_now = len(sold_out_matches) > 0
+    available_now = len(available_matches) > 0
+
+    status_key = f"_mase_status::{url}"
+    previous = state.get(status_key, {})
+
+    sold_out_before = previous.get("sold_out")
+    available_before = previous.get("available")
+
+    state[status_key] = {
+        "sold_out": sold_out_now,
+        "available": available_now,
+        "important": bool(important_matches),
+        "sold_out_matches": sold_out_matches,
+        "available_matches": available_matches,
+        "important_matches": important_matches,
+        "hash": text_hash(text),
+        "last_checked": now_string(),
+        "name": name,
+        "read_method": read_method,
+        "text_length": len(str(text).strip()),
+    }
+
+    suspicious, reasons = page_is_suspicious(site, text)
+
+    state[f"_suspicious::{url}"] = {
+        "count": 1 if suspicious else 0,
+        "last_checked": now_string(),
+        "name": name,
+        "reasons": reasons,
+        "read_method": read_method,
+        "text_length": len(str(text).strip()),
+    }
+
+    if first_run and not SEND_ON_FIRST_RUN:
+        return alerts
+
+    if sold_out_before is True and sold_out_now is False:
+        add_alert(
+            alerts,
+            state,
+            f"mase_soldout_disappeared::{url}",
+            ALERT_COOLDOWN_URGENT_HOURS,
+            "🚨🚨 URGENTE - MESSAGGIO ESAURITO/PRENOTATO SPARITO 🚨🚨\n\n"
+            f"Fonte: {name}\n"
+            f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n"
+            f"Link: {url}\n\n"
+            "Prima la pagina indicava risorse/fondi prenotati o esauriti. Ora quel messaggio non risulta più presente.\n\n"
+            "Controlla subito il portale MASE con SPID/CIE."
+        )
+
+    if available_before is not True and available_now:
+        add_alert(
+            alerts,
+            state,
+            f"mase_available_phrase::{url}",
+            ALERT_COOLDOWN_URGENT_HOURS,
+            "🚨🚨 URGENTE - FRASE DI DISPONIBILITÀ TROVATA 🚨🚨\n\n"
+            f"Fonte: {name}\n"
+            f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n"
+            f"Link: {url}\n\n"
+            "Frasi trovate:\n"
+            + "\n".join([f"- {p}" for p in available_matches[:10]])
+            + "\n\n"
+            "Apri subito il portale e prova ad accedere con SPID/CIE.\n\n"
+            f"Anteprima:\n{make_snippet(text, available_matches)[:1200]}"
+        )
+
+    return alerts
+
+
+def classify_general_site(state, site, text, changed, first_run):
+    alerts = []
+
+    if first_run and not SEND_ON_FIRST_RUN:
+        return alerts
+
+    if not changed:
+        return alerts
+
+    has_auto = contains_any(text, AUTO_WORDS)
+    has_bad_topic = contains_any(text, BAD_TOPICS)
+    has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
+
+    if has_bad_topic and not has_auto:
+        return alerts
+
+    if has_auto and has_important:
+        add_alert(
+            alerts,
+            state,
+            f"general_site_changed::{site['url']}",
+            ALERT_COOLDOWN_IMPORTANT_HOURS,
+            "⚠️ POSSIBILE NOVITÀ BONUS AUTO ELETTRICHE\n\n"
+            f"Fonte: {site['name']}\n"
+            f"Controllo: {now_string()}\n"
+            f"Link: {site['url']}\n\n"
+            "La pagina è cambiata e contiene riferimenti ad auto elettriche, bonus, fondi, voucher o prenotazioni.\n\n"
+            f"Anteprima:\n{make_snippet(text)[:1200]}"
+        )
+
+    return alerts
+
+
+def check_sites(state):
+    alerts = []
+    errors = []
+
+    for site in SITES:
+        try:
+            text, read_method, api_results = get_page_text(site)
+            update_api_inventory(state, api_results)
+
+            current_hash = text_hash(text)
+            old_hash = state.get(site["url"], {}).get("hash")
+            first_run = old_hash is None
+            changed = old_hash != current_hash
+
+            if is_mase_like(site):
+                alerts.extend(classify_mase_page(state, site, text, changed, first_run, read_method))
+            else:
+                alerts.extend(classify_general_site(state, site, text, changed, first_run))
+
+            state[site["url"]] = {
+                "hash": current_hash,
+                "last_checked": now_string(),
+                "name": site["name"],
+                "type": site["type"],
+                "text_length": len(str(text).strip()),
+                "read_method": read_method,
+                "api_results_found": len(api_results),
+            }
+
+        except Exception as e:
+            errors.append(f"{site['name']}: {str(e)}")
+
+    state["_last_site_errors"] = errors[:10]
 
     return alerts
 
@@ -971,7 +1304,6 @@ def check_news(state):
                     f"Valutazione:\n{reason}\n\n"
                     f"Filtro data:\n"
                     f"Il bot considera solo notizie pubblicate oggi: {today}.\n\n"
-                    "Cosa fare:\n"
                     "Se parla di riapertura, fondi o voucher disponibili, controlla subito il portale MASE."
                 )
 
@@ -979,250 +1311,7 @@ def check_news(state):
             print(f"Errore controllo news '{query}': {e}")
 
     state["_seen_news"] = seen_news
-    return alerts
 
-
-# ----------------------------
-# CONTROLLO PAGINE MASE
-# ----------------------------
-
-def handle_suspicious_page(state, site, text, read_method):
-    alerts = []
-
-    suspicious, reasons = page_is_suspicious(site, text)
-
-    key = f"_suspicious::{site['url']}"
-    previous = state.get(key, {})
-
-    count = int(previous.get("count", 0))
-    last_alert = previous.get("last_alert")
-
-    if suspicious:
-        count += 1
-    else:
-        count = 0
-
-    state[key] = {
-        "count": count,
-        "last_alert": last_alert,
-        "last_checked": now_string(),
-        "name": site["name"],
-        "reasons": reasons,
-        "read_method": read_method,
-        "text_length": len(text.strip()),
-    }
-
-    should_alert = (
-        suspicious
-        and count >= SUSPICIOUS_PAGE_ALERT_AFTER
-        and hours_since(last_alert) >= SUSPICIOUS_PAGE_ALERT_COOLDOWN_HOURS
-    )
-
-    if should_alert:
-        state[key]["last_alert"] = now_string()
-
-        alerts.append(
-            "⚠️ CONTROLLO MASE ANCORA POCO AFFIDABILE\n\n"
-            f"Fonte: {site['name']}\n"
-            f"Link: {site['url']}\n"
-            f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n\n"
-            "Il bot ha provato anche con browser automatico Playwright, ma la pagina risulta ancora sospetta.\n\n"
-            "Possibili motivi:\n"
-            + "\n".join([f"- {r}" for r in reasons])
-            + "\n\n"
-            "Cosa significa:\n"
-            "La pagina potrebbe richiedere login, dati caricati da API interne, o bloccare la lettura automatica.\n\n"
-            "Cosa fare:\n"
-            "Controlla manualmente questa pagina appena puoi, soprattutto se riguarda Plafond/Login/Beneficiario."
-        )
-
-    return alerts
-
-
-def classify_mase_page(state, site, text, changed, first_run, read_method):
-    alerts = []
-
-    name = site["name"]
-    url = site["url"]
-
-    alerts.extend(handle_suspicious_page(state, site, text, read_method))
-
-    sold_out_matches = find_matching_phrases(text, MASE_SOLD_OUT_PHRASES)
-    available_matches = find_matching_phrases(text, MASE_AVAILABLE_PHRASES)
-    important_matches = find_matching_phrases(text, MASE_IMPORTANT_PHRASES)
-
-    sold_out_now = len(sold_out_matches) > 0
-    available_now = len(available_matches) > 0
-    important_now = len(important_matches) > 0
-
-    status_key = f"_mase_status::{url}"
-    previous = state.get(status_key, {})
-
-    sold_out_before = previous.get("sold_out")
-    available_before = previous.get("available")
-    previous_hash = previous.get("hash")
-
-    current_hash = text_hash(text)
-
-    state[status_key] = {
-        "sold_out": sold_out_now,
-        "available": available_now,
-        "important": important_now,
-        "sold_out_matches": sold_out_matches,
-        "available_matches": available_matches,
-        "important_matches": important_matches,
-        "hash": current_hash,
-        "last_checked": now_string(),
-        "name": name,
-        "read_method": read_method,
-        "text_length": len(text.strip()),
-    }
-
-    if first_run and not SEND_ON_FIRST_RUN:
-        return alerts
-
-    if sold_out_before is True and sold_out_now is False:
-        add_alert(
-            alerts,
-            state,
-            f"soldout_disappeared::{url}",
-            0.5,
-            "🚨🚨 URGENTE - POSSIBILE RIAPERTURA VOUCHER MASE 🚨🚨\n\n"
-            f"Fonte: {name}\n"
-            f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n"
-            f"Link: {url}\n\n"
-            "Cosa è successo:\n"
-            "Prima la pagina indicava che le risorse/fondi erano prenotati o esauriti.\n"
-            "Adesso quel messaggio non risulta più presente.\n\n"
-            "Cosa fare subito:\n"
-            "Accedi al portale MASE con SPID/CIE e controlla se puoi generare il voucher.\n\n"
-            "Link rapidi:\n"
-            "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
-            "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond"
-        )
-
-    if available_before is not True and available_now:
-        snippet = make_snippet(text, available_matches)
-
-        add_alert(
-            alerts,
-            state,
-            f"available_phrase::{url}",
-            0.5,
-            "🚨🚨 URGENTE - FRASE DI DISPONIBILITÀ TROVATA 🚨🚨\n\n"
-            f"Fonte: {name}\n"
-            f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n"
-            f"Link: {url}\n\n"
-            "Frasi trovate:\n"
-            + "\n".join([f"- {p}" for p in available_matches[:10]])
-            + "\n\n"
-            "Cosa significa:\n"
-            "La pagina contiene parole compatibili con fondi/voucher/piattaforma disponibili.\n\n"
-            "Azione consigliata:\n"
-            "Apri subito il portale e prova ad accedere con SPID/CIE.\n\n"
-            f"Anteprima:\n{snippet[:1200]}"
-        )
-
-    if changed and previous_hash is not None and important_now:
-        snippet = make_snippet(text, important_matches)
-
-        add_alert(
-            alerts,
-            state,
-            f"mase_page_changed::{url}",
-            6,
-            "⚠️ PAGINA MASE IMPORTANTE CAMBIATA\n\n"
-            f"Fonte: {name}\n"
-            f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n"
-            f"Link: {url}\n\n"
-            "La pagina è cambiata e contiene riferimenti a voucher, plafond, risorse, ISEE o beneficiario.\n"
-            "Non è una conferma di fondi disponibili, ma va controllata.\n\n"
-            f"Anteprima:\n{snippet[:1200]}"
-        )
-
-    return alerts
-
-
-def classify_general_site(state, site, text, changed, first_run):
-    alerts = []
-
-    if first_run and not SEND_ON_FIRST_RUN:
-        return alerts
-
-    if not changed:
-        return alerts
-
-    has_auto = contains_any(text, AUTO_WORDS)
-    has_bad_topic = contains_any(text, BAD_TOPICS)
-    has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
-
-    if has_bad_topic and not has_auto:
-        return alerts
-
-    if has_auto and has_important:
-        snippet = make_snippet(text)
-
-        add_alert(
-            alerts,
-            state,
-            f"general_changed::{site['url']}",
-            6,
-            "⚠️ POSSIBILE NOVITÀ BONUS AUTO ELETTRICHE\n\n"
-            f"Fonte: {site['name']}\n"
-            f"Controllo: {now_string()}\n"
-            f"Link: {site['url']}\n\n"
-            "La pagina è cambiata e contiene riferimenti ad auto elettriche, bonus, fondi, voucher o prenotazioni.\n\n"
-            f"Anteprima:\n{snippet[:1200]}"
-        )
-
-    return alerts
-
-
-def check_sites(state):
-    alerts = []
-    errors = []
-
-    for site in SITES:
-        name = site["name"]
-        url = site["url"]
-
-        try:
-            text, read_method, api_results = get_page_text(site)
-            current_hash = text_hash(text)
-
-            old_hash = state.get(url, {}).get("hash")
-            first_run = old_hash is None
-            changed = old_hash != current_hash
-
-            if is_mase_like(site):
-                alerts.extend(analyze_api_results(state, site, api_results))
-                alerts.extend(classify_mase_page(state, site, text, changed, first_run, read_method))
-            else:
-                alerts.extend(classify_general_site(state, site, text, changed, first_run))
-
-            state[url] = {
-                "hash": current_hash,
-                "last_checked": now_string(),
-                "name": name,
-                "type": site["type"],
-                "text_length": len(text.strip()),
-                "read_method": read_method,
-                "api_results_found": len(api_results),
-            }
-
-        except Exception as e:
-            errors.append(f"{name}: {str(e)}")
-
-    if errors:
-        print("Errori controllo siti:")
-        for error in errors[:10]:
-            print(error)
-
-    state["_last_site_errors"] = errors[:10]
     return alerts
 
 
@@ -1246,104 +1335,126 @@ def should_send_alive_message(state):
     if last_alive_day == today:
         return False
 
-    if now_italy().hour >= ALIVE_MESSAGE_HOUR:
-        return True
+    return now_italy().hour >= ALIVE_MESSAGE_HOUR
 
-    return False
+
+def build_direct_api_status_text(state):
+    direct = state.get("_direct_api_state", {})
+
+    plafond = direct.get("beneficiario_plafond", {})
+    grafico = direct.get("beneficiario_grafico", {})
+    versione_ben = direct.get("beneficiario_versione", {})
+    versione_es = direct.get("esercente_versione", {})
+
+    lines = []
+
+    if plafond:
+        residuo = plafond.get("residuoPlafond", 0)
+        totale = plafond.get("totalePlafond", 0)
+        prenotato = plafond.get("prenotatoStimato", 0)
+        residuo_percent = plafond.get("residuoPercent", 0)
+
+        lines.append(
+            "Plafond beneficiario:\n"
+            f"- Totale: {format_euro(totale)}\n"
+            f"- Prenotato stimato: {format_euro(prenotato)}\n"
+            f"- Residuo: {format_euro(residuo)} ({residuo_percent}%)\n"
+            f"- Ultimo controllo: {plafond.get('last_checked', 'N/D')}"
+        )
+    else:
+        lines.append("Plafond beneficiario: non letto.")
+
+    if grafico:
+        lines.append(
+            "Voucher:\n"
+            f"- Totali: {grafico.get('totaleVoucher', 'N/D')}\n"
+            f"- Validati: {grafico.get('totaleVoucherValidati', 'N/D')}\n"
+            f"- Non validati: {grafico.get('totaleVoucherNonValidati', 'N/D')}"
+        )
+
+    if versione_ben or versione_es:
+        lines.append(
+            "Versioni portale:\n"
+            f"- Beneficiario: {versione_ben.get('versione', 'N/D')}\n"
+            f"- Esercente: {versione_es.get('versione', 'N/D')}"
+        )
+
+    return "\n\n".join(lines)
 
 
 def build_status_text(state):
-    mase_statuses = []
+    statuses = []
 
     for key, value in state.items():
         if not key.startswith("_mase_status::"):
             continue
 
         name = value.get("name", "MASE")
-        sold_out = value.get("sold_out")
         available = value.get("available")
-        checked = value.get("last_checked", "N/D")
+        sold_out = value.get("sold_out")
         read_method = value.get("read_method", "N/D")
         text_length = value.get("text_length", "N/D")
+        checked = value.get("last_checked", "N/D")
 
         if available:
-            status = "🚨 possibile disponibilità rilevata"
+            status = "🚨 possibile disponibilità nel testo"
         elif sold_out:
-            status = "❌ risorse/fondi ancora prenotati o esauriti"
+            status = "❌ testo indica esaurito/prenotato"
         else:
-            status = "⚠️ stato non chiarissimo"
+            status = "ℹ️ nessuna frase forte"
 
-        mase_statuses.append(
-            f"- {name}: {status} | metodo: {read_method} | testo: {text_length} caratteri | ultimo controllo: {checked}"
+        statuses.append(
+            f"- {name}: {status} | metodo: {read_method} | testo: {text_length} caratteri | ultimo: {checked}"
         )
 
-    if not mase_statuses:
+    if not statuses:
         return "Nessuno stato MASE salvato ancora."
 
-    return "\n".join(mase_statuses[:10])
-
-
-def build_api_status_text(state):
-    inventory = state.get("_api_inventory", {})
-
-    if not inventory:
-        return "Nessun endpoint API/JSON utile scoperto finora."
-
-    lines = []
-    for _, item in list(inventory.items())[-8:]:
-        url = item.get("url", "N/D")
-        source = item.get("source_page", "N/D")
-        available = item.get("available")
-        sold_out = item.get("sold_out")
-        last_seen = item.get("last_seen", "N/D")
-
-        if available:
-            status = "🚨 possibile disponibilità"
-        elif sold_out:
-            status = "❌ esaurito/prenotato"
-        else:
-            status = "ℹ️ monitorato"
-
-        lines.append(f"- {status} | {source} | ultimo: {last_seen}\n  {url[:140]}")
-
-    return "\n".join(lines)
+    return "\n".join(statuses[:8])
 
 
 def build_summary(state):
-    errors = state.get("_last_site_errors", [])
-    api_count = len(state.get("_api_inventory", {}))
+    site_errors = state.get("_last_site_errors", [])
+    direct_errors = state.get("_direct_api_errors", [])
 
-    error_text = "0 errori recenti" if not errors else "\n".join([f"- {e}" for e in errors[:5]])
+    error_lines = []
+
+    if site_errors:
+        error_lines.extend([f"- Sito: {e}" for e in site_errors[:5]])
+
+    if direct_errors:
+        error_lines.extend([f"- API: {e}" for e in direct_errors[:5]])
+
+    error_text = "0 errori recenti" if not error_lines else "\n".join(error_lines)
 
     return (
-        "📊 RIEPILOGO BOT BONUS AUTO ELETTRICHE\n\n"
+        "📊 RIEPILOGO BOT BONUS AUTO ELETTRICHE - V7\n\n"
         f"Ora controllo: {now_string()}\n\n"
-        "Stato MASE:\n"
+        "API MASE dirette:\n"
+        f"{build_direct_api_status_text(state)}\n\n"
+        "Stato pagine MASE:\n"
         f"{build_status_text(state)}\n\n"
-        "API Hunter:\n"
-        f"Endpoint utili scoperti: {api_count}\n"
-        f"{build_api_status_text(state)}\n\n"
         "Filtro news:\n"
         f"Il bot considera solo notizie pubblicate oggi: {today_italy()}.\n\n"
         "Errori recenti:\n"
         f"{error_text}\n\n"
         "Conclusione:\n"
-        "Se non hai ricevuto avvisi URGENTI, al momento il bot non ha rilevato conferme forti di voucher/fondi disponibili."
+        "Ora la priorità è il controllo diretto delle API MASE. Se il residuo plafond aumenta in modo utile, ti avviso subito."
     )
 
 
 def build_alive_message(state):
-    errors = state.get("_last_site_errors", [])
-    api_count = len(state.get("_api_inventory", {}))
+    site_errors = state.get("_last_site_errors", [])
+    direct_errors = state.get("_direct_api_errors", [])
 
     return (
-        "✅ BOT BONUS AUTO ATTIVO\n\n"
+        "✅ BOT BONUS AUTO ATTIVO - V7\n\n"
         f"Ultimo controllo: {now_string()}\n"
         f"News controllate: solo pubblicate oggi ({today_italy()})\n"
-        f"Endpoint API/JSON utili scoperti: {api_count}\n"
-        f"Errori recenti: {len(errors)}\n\n"
-        "Stato rapido MASE:\n"
-        f"{build_status_text(state)}\n\n"
+        f"Errori siti: {len(site_errors)}\n"
+        f"Errori API dirette: {len(direct_errors)}\n\n"
+        "API MASE dirette:\n"
+        f"{build_direct_api_status_text(state)}\n\n"
         "Sto continuando a controllare ogni 5 minuti tramite cron-job.org + GitHub Actions."
     )
 
@@ -1369,6 +1480,7 @@ def main():
 
     alerts = []
 
+    alerts.extend(check_direct_mase_apis(state))
     alerts.extend(check_sites(state))
     alerts.extend(check_news(state))
 
