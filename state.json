@@ -1,67 +1,67 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Ecobonus MIMIT - Auto",
     "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Ecobonus MIMIT - Contributi",
     "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Ecobonus MIMIT - Risorse stanziate",
     "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "02f5dd11f3f82c336d7d731b0d209eeeb18429511800c316fd6585889f8b3e79",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Ecobonus MIMIT - Avvisi e notizie",
     "type": "mimit"
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MIMIT - Ecobonus Automotive",
     "type": "mimit"
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "132fc3447c4449fd502e6608caf8e3bb27585f8cb354d394f739987547fff9ea",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MIMIT - Incentivi Aggiornamenti",
     "type": "mimit"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "type": "mase"
   },
   "https://sportelloincentivi.regione.campania.it/": {
     "hash": "c305f426436b80288b340def60c15c63e99d4d49a955d8464e31eda459b18d9b",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Regione Campania - Sportello Incentivi",
     "type": "regione"
   },
   "https://www.regione.campania.it/regione-informa/notizie": {
     "hash": "3d589b2ac92d3d60f8f7f8e2edc6337375e1a6379448ba627c20e069790f86c7",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Regione Campania - News",
     "type": "regione"
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "Ecobonus MIMIT - Cos'è",
     "type": "mimit"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Login Beneficiario",
     "type": "mase"
   },
@@ -790,6 +790,51 @@
       "published": "Fri, 02 Jan 2026 08:00:00 GMT",
       "level": "IGNORE",
       "saved_at": "02/07/2026 15:04"
+    },
+    "283cab11fa026b3cb31cb81da6de424a54628c4e02a217f6cb4aa67c7e2ffa3f": {
+      "title": "Bonus fino a 800 euro: ottenerlo è più facile del previsto - Virgilio",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOb2Nuam1EV2dvMHZsWS1xQmdEc285QzJNVUJoaVhMcUlRNnJWenIzbDh3bUR2dFR2ZTJzbzRQS2pZb1N2dUZ2SDhqTkdtQklNaG92ZEFoN2doUkRaM3gxbC1OZDVfcWJXNlBmQUhuaDZWNTRDc01lVWpNRG91RFdpM1I5Y3JqS3lqY0VpaDlZRQ?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Thu, 02 Jul 2026 12:46:31 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:08",
+      "news_start_date": "2026-07-02"
+    },
+    "41de5d906184dca0c84ee2c1855ef8826321c24e6d7fd9afb91ddf24368b50d9": {
+      "title": "Svolta green a Bruxelles: fondi UE svincolati per auto elettriche e pompe di calore - Agenzia stampa Mobilità",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOYUwtdkFIWXJMckstVVRvVHYyeXpaeS1sY3dhU2NrbVJhai1tck9KTmV4WXMzOVlyV2pUS2Fka1B3emFPRnVuRmJGUHVNdEY4Um1HMjZKbnZFZmRCNmJsbWFZZ3lDYzBxdUpFRjRuTXNmX2FEdFlqRnprMzlYVVNtYkZ1R3l0ZkI4VXVzczZTQUFzVkJIaWZYVnZFd1hHNkxuZHU0LWpBS2RfbDBLN3BmMDFhTG5nUzlZRGpnUkY4VDdNQQ?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Thu, 02 Jul 2026 14:00:51 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:08",
+      "news_start_date": "2026-07-02"
+    },
+    "7483a2be51c237aa615f2dcbb5d06711e9db7b7e5f15cbbe31abd37868bb3196": {
+      "title": "Via libera a incentivi auto elettriche e pompe di calore nel Patto di stabilità: cosa cambia con la decisione UE - Partitaiva.it",
+      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5mSW9kUHRVajVoV0JkUjhBeHhySVpDZUd4b0JxNVNFMnBTbjhZc1NnVzdrUGlCLUZhZUEtQmtwanM5SmsxeXB2MkJRQjZoWHFOQm93REVmNEhOVUZieFhNYXNXQWJjOXNKNmplWC1CaHRqQ2hxR3Z2aVBn?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Thu, 02 Jul 2026 12:15:50 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:08",
+      "news_start_date": "2026-07-02"
+    },
+    "21ad1b8caf87740d74240a5afbf1a7fb3e08b072e0f243409b7fce6a73e94db4": {
+      "title": "Bonus carburanti autotrasporto, credito d’imposta anche agli autobus - PMI.it",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOX2JWU0puS0QwVWlaUGIteTlDMEJaY24ta2syRFBnMGJ1YkwxaVhNSzJ6MV9vYmZQaVdZWnJtLW4zOHFtLVJjYi1yVE1HSFpBaFhTZFBJZFF5bHRqN1pVOFhkN3EyQXBnaWFpLXFYT3pNQVlIU3pnMEUwYV9GTXQ1M1VjbDJTUENMNW85dTJUUjdQNHpFSUpR?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Thu, 02 Jul 2026 13:34:14 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:08",
+      "news_start_date": "2026-07-02"
+    },
+    "37f93fd3e58aabaaa06c346f9953f69a40428ef8c87cc0c67fe3b8bb433d8a14": {
+      "title": "La guerra dei 14 miliardi di euro: cosa c’entra l’auto italiana - SICURAUTO.it",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNYjVYc3dNV1Y5ZG5uQlk3dXNJeWNPUjRPcy1DeExRdjRSd1RORXM4c2ZHRENfNHFaMHRDeGZ4aWJpTjNMSXhqQTFibDBnNTFHMWFha2JwSnNsTl80VmY4dkpUdE5kM3FPZFhzaG15VTZMYXJWTkYzU3FkZ3JlSWNsWHhlT0dCZWxUeVVnRW5pc05yWE9oMlRvWGtXOFlqQnJfdTROWXdYSUFyT0R4eGtGeFlCMA?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Thu, 02 Jul 2026 13:34:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:08",
+      "news_start_date": "2026-07-02"
     }
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/index.html": {
@@ -809,7 +854,7 @@
       "categoria m1"
     ],
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Home Bonus Veicoli Elettrici"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
@@ -822,7 +867,7 @@
       "veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Login Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
@@ -835,12 +880,12 @@
       "veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Home Beneficiario"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Home Beneficiario",
     "type": "mase"
   },
@@ -854,14 +899,15 @@
       "veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Plafond"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:06",
+    "last_checked": "02/07/2026 15:08",
     "name": "MASE - Plafond",
     "type": "mase"
   },
-  "_last_summary_sent": "02/07/2026 15:04"
+  "_last_summary_sent": "02/07/2026 15:04",
+  "_news_start_date": "2026-07-02"
 }
