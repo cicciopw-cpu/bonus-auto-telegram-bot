@@ -24,7 +24,7 @@ ALIVE_MESSAGE_HOUR = 9
 NEWS_KEEP_DAYS = 30
 MAX_SEEN_NEWS = 500
 
-MIN_MASE_TEXT_LENGTH = 350
+DEEP_PAGE_CHECK_EVERY_HOURS = 1
 
 PLAFOND_URGENT_INCREASE_EURO = 10000
 PLAFOND_IMPORTANT_INCREASE_EURO = 1000
@@ -69,6 +69,33 @@ DIRECT_API_ENDPOINTS = [
     },
 ]
 
+OFFICIAL_DOCUMENTS = [
+    {
+        "key": "manuale_beneficiari",
+        "name": "Manuale Beneficiari MASE",
+        "url": f"{MASE_BENEFICIARIO_BASE}/assets/docs/Manuale_beneficiari.pdf",
+    },
+    {
+        "key": "manuale_esercenti",
+        "name": "Manuale Esercenti MASE",
+        "url": f"{MASE_ESERCENTE_BASE}/assets/docs/Manuale_esercenti.pdf",
+    },
+    {
+        "key": "faq_veicoli_elettrici",
+        "name": "FAQ Bonus Veicoli Elettrici",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/assets/docs/FAQ_Veicoli_Elettrici.pdf",
+    },
+    {
+        "key": "condizioni_beneficiari",
+        "name": "Condizioni generali Beneficiari",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/assets/docs/Condizioni_generali_beneficiari.pdf",
+    },
+    {
+        "key": "condizioni_esercenti",
+        "name": "Condizioni generali Esercenti",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/assets/docs/Condizioni_generali_esercenti.pdf",
+    },
+]
 
 MASE_SOLD_OUT_PHRASES = [
     "tutte le risorse risultano al momento prenotate",
@@ -93,7 +120,6 @@ MASE_SOLD_OUT_PHRASES = [
     "voucher non disponibile",
     "voucher non disponibili",
 ]
-
 
 MASE_AVAILABLE_PHRASES = [
     "voucher disponibili",
@@ -141,7 +167,6 @@ MASE_AVAILABLE_PHRASES = [
     "riaperti i termini",
 ]
 
-
 MASE_IMPORTANT_PHRASES = [
     "avviso importante",
     "plafond",
@@ -158,7 +183,6 @@ MASE_IMPORTANT_PHRASES = [
     "click day",
 ]
 
-
 JAVASCRIPT_SUSPICIOUS_WORDS = [
     "loading",
     "caricamento",
@@ -170,51 +194,45 @@ JAVASCRIPT_SUSPICIOUS_WORDS = [
     "runtime",
 ]
 
-
 API_URL_HINTS = [
     "api",
-    "rest",
-    "graphql",
     "json",
     "plafond",
     "voucher",
     "beneficiario",
     "esercente",
     "disponibil",
-    "fondo",
     "fondi",
     "risorse",
+    "avvisi",
     "config",
-    "domanda",
-    "prenot",
 ]
-
 
 SITES = [
     {
         "name": "MASE - Home Bonus Veicoli Elettrici",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/index.html",
-        "type": "mase",
+        "type": "mase_static",
     },
     {
         "name": "MASE - Login Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
-        "type": "mase",
+        "type": "mase_dynamic",
     },
     {
         "name": "MASE - Home Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home",
-        "type": "mase",
+        "type": "mase_dynamic",
     },
     {
         "name": "MASE - Plafond",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond",
-        "type": "mase",
+        "type": "mase_dynamic",
     },
     {
         "name": "MASE - Esercente / Concessionari",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/",
-        "type": "mase",
+        "type": "mase_dynamic",
     },
     {
         "name": "Ecobonus MIMIT - Cos'è",
@@ -263,7 +281,6 @@ SITES = [
     },
 ]
 
-
 NEWS_QUERIES = [
     "bonus veicoli elettrici MASE voucher disponibili",
     "bonus veicoli elettrici MASE fondi disponibili",
@@ -281,6 +298,26 @@ NEWS_QUERIES = [
     "Leapmotor T03 voucher MASE",
 ]
 
+TRUSTED_NEWS_SOURCES = [
+    "ministero",
+    "mase",
+    "mimit",
+    "gazzetta ufficiale",
+    "quattroruote",
+    "il sole 24 ore",
+    "hdmotori",
+    "insideevs",
+    "vaielettrico",
+    "alvolante",
+    "sicuroauto",
+    "ansa",
+    "rai",
+    "sky tg24",
+    "repubblica",
+    "corriere",
+    "fanpage",
+    "rinnovabili",
+]
 
 AUTO_WORDS = [
     "auto",
@@ -306,7 +343,6 @@ AUTO_WORDS = [
     "citycar elettrica",
 ]
 
-
 BAD_TOPICS = [
     "motocicli",
     "ciclomotori",
@@ -319,7 +355,6 @@ BAD_TOPICS = [
     "wallbox",
     "installatori",
 ]
-
 
 IMPORTANT_NEWS_WORDS = [
     "disponibili",
@@ -399,33 +434,10 @@ def save_state(state):
         json.dump(state, f, indent=2, ensure_ascii=False)
 
 
-def send_telegram(message):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-
-    payload = {
-        "chat_id": CHAT_ID,
-        "text": message,
-        "disable_web_page_preview": False,
-    }
-
-    response = requests.post(url, json=payload, timeout=45)
-    response.raise_for_status()
-
-
-def clean_text(html):
-    soup = BeautifulSoup(html, "html.parser")
-
-    for tag in soup(["script", "style", "noscript"]):
-        tag.decompose()
-
-    text = soup.get_text(" ", strip=True)
-    text = re.sub(r"\s+", " ", text)
-
-    return text
-
-
-def text_hash(text):
-    return hashlib.sha256(str(text).encode("utf-8")).hexdigest()
+def text_hash(value):
+    if isinstance(value, bytes):
+        return hashlib.sha256(value).hexdigest()
+    return hashlib.sha256(str(value).encode("utf-8")).hexdigest()
 
 
 def contains_any(text, words):
@@ -438,8 +450,14 @@ def find_matching_phrases(text, phrases):
     return [phrase for phrase in phrases if phrase.lower() in text_lower]
 
 
-def is_mase_like(site):
-    return site["type"] == "mase"
+def clean_text(html):
+    soup = BeautifulSoup(html, "html.parser")
+
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+
+    text = soup.get_text(" ", strip=True)
+    return re.sub(r"\s+", " ", text)
 
 
 def parse_saved_at(saved_at):
@@ -497,8 +515,20 @@ def make_snippet(text, phrases=None):
 
     start = max(0, min(positions) - 300)
     end = min(len(text), start + 1300)
-
     return text[start:end]
+
+
+def send_telegram(message, chat_id=None):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    payload = {
+        "chat_id": chat_id or CHAT_ID,
+        "text": message,
+        "disable_web_page_preview": False,
+    }
+
+    response = requests.post(url, json=payload, timeout=45)
+    response.raise_for_status()
 
 
 # ----------------------------
@@ -507,17 +537,12 @@ def make_snippet(text, phrases=None):
 
 def request_json(url):
     headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
-        ),
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
         "Accept": "application/json,text/plain,*/*",
     }
 
     response = requests.get(url, headers=headers, timeout=45)
     response.raise_for_status()
-
     return response.json()
 
 
@@ -545,8 +570,7 @@ def check_plafond_api(state, endpoint, data):
                 "direct_api_plafond_big_increase",
                 ALERT_COOLDOWN_URGENT_HOURS,
                 "🚨🚨 URGENTE - PLAFOND MASE AUMENTATO 🚨🚨\n\n"
-                f"Controllo: {now_string()}\n"
-                f"API: {endpoint['url']}\n\n"
+                f"Controllo: {now_string()}\n\n"
                 f"Residuo precedente: {format_euro(previous_residuo)}\n"
                 f"Residuo attuale: {format_euro(residuo)}\n"
                 f"Aumento rilevato: +{format_euro(diff)}\n\n"
@@ -554,7 +578,7 @@ def check_plafond_api(state, endpoint, data):
                 f"Prenotato stimato: {format_euro(prenotato)} ({prenotato_percent}%)\n"
                 f"Residuo: {format_euro(residuo)} ({residuo_percent}%)\n\n"
                 "Cosa fare subito:\n"
-                "Apri immediatamente il portale MASE con SPID/CIE e prova a verificare se il voucher è generabile.\n\n"
+                "Apri il portale MASE con SPID/CIE e controlla se il voucher è generabile.\n\n"
                 "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
                 "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond"
             )
@@ -565,27 +589,12 @@ def check_plafond_api(state, endpoint, data):
                 state,
                 "direct_api_plafond_small_increase",
                 ALERT_COOLDOWN_IMPORTANT_HOURS,
-                "⚠️ PLAFOND MASE AUMENTATO LEGGERMENTE\n\n"
-                f"Controllo: {now_string()}\n"
-                f"API: {endpoint['url']}\n\n"
+                "⚠️ PLAFOND MASE AUMENTATO\n\n"
+                f"Controllo: {now_string()}\n\n"
                 f"Residuo precedente: {format_euro(previous_residuo)}\n"
                 f"Residuo attuale: {format_euro(residuo)}\n"
                 f"Aumento rilevato: +{format_euro(diff)}\n\n"
-                "Non è ancora una conferma di voucher disponibili, ma è un movimento da controllare."
-            )
-
-        elif diff < 0:
-            add_alert(
-                alerts,
-                state,
-                "direct_api_plafond_decrease",
-                ALERT_COOLDOWN_INFO_HOURS,
-                "ℹ️ PLAFOND MASE DIMINUITO\n\n"
-                f"Controllo: {now_string()}\n"
-                f"Residuo precedente: {format_euro(previous_residuo)}\n"
-                f"Residuo attuale: {format_euro(residuo)}\n"
-                f"Variazione: {format_euro(diff)}\n\n"
-                "Questo può indicare movimenti tecnici o utilizzo/prenotazione di fondi."
+                "Non è ancora una conferma di voucher disponibili, ma è un movimento importante."
             )
 
     if previous_totale is not None and int(previous_totale) != totale:
@@ -598,7 +607,7 @@ def check_plafond_api(state, endpoint, data):
             f"Controllo: {now_string()}\n"
             f"Totale precedente: {format_euro(previous_totale)}\n"
             f"Totale attuale: {format_euro(totale)}\n\n"
-            "Questo può indicare una modifica importante delle risorse disponibili."
+            "Potrebbe indicare una modifica importante delle risorse disponibili."
         )
 
     return alerts
@@ -635,13 +644,10 @@ def check_grafico_api(state, endpoint, data):
             "direct_api_voucher_numbers_changed",
             ALERT_COOLDOWN_IMPORTANT_HOURS,
             "⚠️ NUMERI VOUCHER MASE CAMBIATI\n\n"
-            f"Controllo: {now_string()}\n"
-            f"API: {endpoint['url']}\n\n"
+            f"Controllo: {now_string()}\n\n"
             + "\n".join([f"- {c}" for c in changes])
             + "\n\n"
-            "Cosa significa:\n"
-            "Si è mosso il conteggio ufficiale dei voucher. Non è una conferma di fondi disponibili, ma può anticipare variazioni sul plafond.\n\n"
-            "Controlla il portale MASE se il movimento è importante."
+            "Il conteggio ufficiale dei voucher si è mosso. Non è una conferma di fondi disponibili, ma va controllato."
         )
 
     return alerts
@@ -652,7 +658,7 @@ def check_avvisi_api(state, endpoint, data):
     api_key = endpoint["key"]
     previous = state.get("_direct_api_state", {}).get(api_key, {})
 
-    body_text = json.dumps(data, ensure_ascii=False)
+    body_text = json.dumps(data, ensure_ascii=False, sort_keys=True)
     current_hash = text_hash(body_text)
     previous_hash = previous.get("hash")
 
@@ -667,8 +673,7 @@ def check_avvisi_api(state, endpoint, data):
                 "direct_api_avvisi_available",
                 ALERT_COOLDOWN_URGENT_HOURS,
                 "🚨 AVVISO MASE CON POSSIBILE DISPONIBILITÀ\n\n"
-                f"Controllo: {now_string()}\n"
-                f"API: {endpoint['url']}\n\n"
+                f"Controllo: {now_string()}\n\n"
                 "Frasi trovate:\n"
                 + "\n".join([f"- {p}" for p in available_matches[:10]])
                 + "\n\n"
@@ -682,36 +687,10 @@ def check_avvisi_api(state, endpoint, data):
                 "direct_api_avvisi_changed",
                 ALERT_COOLDOWN_IMPORTANT_HOURS,
                 "⚠️ AVVISI MASE CAMBIATI\n\n"
-                f"Controllo: {now_string()}\n"
-                f"API: {endpoint['url']}\n\n"
-                "Gli avvisi ufficiali sono cambiati e contengono parole importanti come voucher, plafond, rottamazione o PNRR.\n\n"
+                f"Controllo: {now_string()}\n\n"
+                "Gli avvisi ufficiali sono cambiati e contengono parole importanti.\n\n"
                 f"Anteprima:\n{make_snippet(body_text, important_matches)[:1200]}"
             )
-
-    return alerts
-
-
-def check_versione_api(state, endpoint, data):
-    alerts = []
-    api_key = endpoint["key"]
-    previous = state.get("_direct_api_state", {}).get(api_key, {})
-
-    versione = data.get("versione")
-    previous_versione = previous.get("versione")
-
-    if previous_versione is not None and versione and previous_versione != versione:
-        add_alert(
-            alerts,
-            state,
-            f"direct_api_version_changed::{api_key}",
-            ALERT_COOLDOWN_INFO_HOURS,
-            "ℹ️ VERSIONE PORTALE MASE CAMBIATA\n\n"
-            f"Controllo: {now_string()}\n"
-            f"Portale: {endpoint['name']}\n"
-            f"Versione precedente: {previous_versione}\n"
-            f"Versione attuale: {versione}\n\n"
-            "Non è una conferma di fondi disponibili, ma indica un aggiornamento tecnico del portale."
-        )
 
     return alerts
 
@@ -719,7 +698,6 @@ def check_versione_api(state, endpoint, data):
 def check_direct_mase_apis(state):
     alerts = []
     errors = []
-
     direct_state = state.get("_direct_api_state", {})
 
     if not isinstance(direct_state, dict):
@@ -741,9 +719,6 @@ def check_direct_mase_apis(state):
             elif endpoint["kind"] == "avvisi":
                 alerts.extend(check_avvisi_api(state, endpoint, data))
 
-            elif endpoint["kind"] == "versione":
-                alerts.extend(check_versione_api(state, endpoint, data))
-
             record = {
                 "name": endpoint["name"],
                 "url": endpoint["url"],
@@ -756,7 +731,6 @@ def check_direct_mase_apis(state):
             if endpoint["kind"] == "plafond":
                 residuo = int(data.get("residuoPlafond", 0) or 0)
                 totale = int(data.get("totalePlafond", 0) or 0)
-
                 record["residuoPlafond"] = residuo
                 record["totalePlafond"] = totale
                 record["prenotatoStimato"] = max(totale - residuo, 0)
@@ -777,38 +751,103 @@ def check_direct_mase_apis(state):
 
     state["_direct_api_state"] = direct_state
     state["_direct_api_errors"] = errors[:10]
-
     return alerts
 
 
 # ----------------------------
-# LETTURA PAGINE: REQUESTS + PLAYWRIGHT
+# DOCUMENTI UFFICIALI PDF / FAQ
+# ----------------------------
+
+def request_document(url):
+    headers = {
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
+        "Accept": "application/pdf,application/octet-stream,*/*",
+    }
+
+    response = requests.get(url, headers=headers, timeout=60)
+    response.raise_for_status()
+    return response.content, response.headers.get("content-type", "")
+
+
+def check_official_documents(state):
+    alerts = []
+    errors = []
+    docs_state = state.get("_official_documents_state", {})
+
+    if not isinstance(docs_state, dict):
+        docs_state = {}
+
+    for doc in OFFICIAL_DOCUMENTS:
+        key = doc["key"]
+
+        try:
+            content, content_type = request_document(doc["url"])
+            current_hash = text_hash(content)
+            previous = docs_state.get(key, {})
+            previous_hash = previous.get("hash")
+
+            if previous_hash is not None and previous_hash != current_hash:
+                add_alert(
+                    alerts,
+                    state,
+                    f"official_document_changed::{key}",
+                    ALERT_COOLDOWN_URGENT_HOURS,
+                    "🚨 DOCUMENTO UFFICIALE MASE CAMBIATO\n\n"
+                    f"Documento: {doc['name']}\n"
+                    f"Controllo: {now_string()}\n"
+                    f"Link: {doc['url']}\n\n"
+                    "Questo può indicare nuove regole, FAQ aggiornate o modifiche operative.\n"
+                    "Controllalo appena puoi."
+                )
+
+            docs_state[key] = {
+                "name": doc["name"],
+                "url": doc["url"],
+                "hash": current_hash,
+                "size_bytes": len(content),
+                "content_type": content_type,
+                "last_checked": now_string(),
+            }
+
+        except Exception as e:
+            errors.append(f"{doc['name']}: {str(e)}")
+
+    state["_official_documents_state"] = docs_state
+    state["_official_documents_errors"] = errors[:10]
+    return alerts
+
+
+# ----------------------------
+# PAGINE WEB: CONTROLLO LEGGERO + DEEP CHECK
 # ----------------------------
 
 def get_page_text_requests(url):
     headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
-        )
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
     }
 
     response = requests.get(url, headers=headers, timeout=45)
     response.raise_for_status()
-
     return clean_text(response.text)
 
 
+def is_mase_dynamic(site):
+    return site["type"] == "mase_dynamic"
+
+
+def is_mase_static(site):
+    return site["type"] == "mase_static"
+
+
 def page_is_suspicious(site, text):
-    if not is_mase_like(site):
+    if not site["type"].startswith("mase"):
         return False, []
 
     reasons = []
     text_clean = str(text).strip()
     text_lower = text_clean.lower()
 
-    if len(text_clean) < MIN_MASE_TEXT_LENGTH:
+    if len(text_clean) < 350:
         reasons.append(f"testo troppo corto ({len(text_clean)} caratteri)")
 
     if contains_any(text_lower, JAVASCRIPT_SUSPICIOUS_WORDS):
@@ -817,7 +856,7 @@ def page_is_suspicious(site, text):
     useful_words = MASE_SOLD_OUT_PHRASES + MASE_AVAILABLE_PHRASES + MASE_IMPORTANT_PHRASES
 
     if not contains_any(text_lower, useful_words):
-        reasons.append("mancano parole utili come voucher/plafond/risorse/beneficiario")
+        reasons.append("mancano parole utili")
 
     return len(reasons) > 0, reasons
 
@@ -845,18 +884,11 @@ def get_page_text_playwright(site):
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
-            args=[
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-            ],
+            args=["--no-sandbox", "--disable-dev-shm-usage"],
         )
 
         page = browser.new_page(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/120.0 Safari/537.36 BonusAutoBot/7.0"
-            ),
+            user_agent="Mozilla/5.0 BonusAutoBot/8.0",
             viewport={"width": 1366, "height": 900},
         )
 
@@ -869,10 +901,6 @@ def get_page_text_playwright(site):
                     return
 
                 body = response.text()
-
-                if not body:
-                    return
-
                 body_short = re.sub(r"\s+", " ", body).strip()[:25000]
 
                 if not contains_any(
@@ -912,8 +940,7 @@ def get_page_text_playwright(site):
 
         if not text.strip():
             try:
-                html = page.content()
-                text = clean_text(html)
+                text = clean_text(page.content())
             except Exception:
                 text = ""
 
@@ -922,38 +949,19 @@ def get_page_text_playwright(site):
     text = re.sub(r"\s+", " ", text).strip()
 
     unique = {}
-
     for item in api_results:
         unique[item["url"]] = item
 
     return text, list(unique.values())[:25]
 
 
-def get_page_text(site):
-    text = get_page_text_requests(site["url"])
-    read_method = "requests"
-    api_results = []
+def should_run_deep_page_check(state):
+    last = state.get("_last_deep_page_check")
 
-    suspicious, _ = page_is_suspicious(site, text)
+    if not last:
+        return True
 
-    if is_mase_like(site) and suspicious:
-        try:
-            rendered_text, discovered_api = get_page_text_playwright(site)
-            rendered_suspicious, _ = page_is_suspicious(site, rendered_text)
-
-            api_results = discovered_api
-
-            if rendered_text and (len(rendered_text) > len(text) or not rendered_suspicious):
-                text = rendered_text
-                read_method = "playwright"
-            else:
-                read_method = "requests_playwright_no_text_improvement"
-
-        except Exception as e:
-            print(f"Errore Playwright su {site['name']}: {e}")
-            read_method = "requests_playwright_failed"
-
-    return text, read_method, api_results
+    return hours_since(last) >= DEEP_PAGE_CHECK_EVERY_HOURS
 
 
 def update_api_inventory(state, api_results):
@@ -972,24 +980,20 @@ def update_api_inventory(state, api_results):
             continue
 
         endpoint_id = text_hash(url)
-
         old = inventory.get(endpoint_id, {})
         new_record = dict(old)
         new_record.update(api)
         new_record["last_seen"] = now_string()
-
         inventory[endpoint_id] = new_record
 
     if len(inventory) > 80:
-        items = list(inventory.items())[-80:]
-        inventory = dict(items)
+        inventory = dict(list(inventory.items())[-80:])
 
     state["_api_inventory"] = inventory
 
 
-def classify_mase_page(state, site, text, changed, first_run, read_method):
+def classify_mase_text(state, site, text, read_method, first_run):
     alerts = []
-
     url = site["url"]
     name = site["name"]
 
@@ -1000,13 +1004,12 @@ def classify_mase_page(state, site, text, changed, first_run, read_method):
     sold_out_now = len(sold_out_matches) > 0
     available_now = len(available_matches) > 0
 
-    status_key = f"_mase_status::{url}"
-    previous = state.get(status_key, {})
+    previous = state.get(f"_mase_status::{url}", {})
 
     sold_out_before = previous.get("sold_out")
     available_before = previous.get("available")
 
-    state[status_key] = {
+    state[f"_mase_status::{url}"] = {
         "sold_out": sold_out_now,
         "available": available_now,
         "important": bool(important_matches),
@@ -1043,7 +1046,7 @@ def classify_mase_page(state, site, text, changed, first_run, read_method):
             "🚨🚨 URGENTE - MESSAGGIO ESAURITO/PRENOTATO SPARITO 🚨🚨\n\n"
             f"Fonte: {name}\n"
             f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n"
+            f"Metodo: {read_method}\n"
             f"Link: {url}\n\n"
             "Prima la pagina indicava risorse/fondi prenotati o esauriti. Ora quel messaggio non risulta più presente.\n\n"
             "Controlla subito il portale MASE con SPID/CIE."
@@ -1058,12 +1061,11 @@ def classify_mase_page(state, site, text, changed, first_run, read_method):
             "🚨🚨 URGENTE - FRASE DI DISPONIBILITÀ TROVATA 🚨🚨\n\n"
             f"Fonte: {name}\n"
             f"Controllo: {now_string()}\n"
-            f"Metodo lettura: {read_method}\n"
+            f"Metodo: {read_method}\n"
             f"Link: {url}\n\n"
             "Frasi trovate:\n"
             + "\n".join([f"- {p}" for p in available_matches[:10]])
             + "\n\n"
-            "Apri subito il portale e prova ad accedere con SPID/CIE.\n\n"
             f"Anteprima:\n{make_snippet(text, available_matches)[:1200]}"
         )
 
@@ -1096,7 +1098,6 @@ def classify_general_site(state, site, text, changed, first_run):
             f"Fonte: {site['name']}\n"
             f"Controllo: {now_string()}\n"
             f"Link: {site['url']}\n\n"
-            "La pagina è cambiata e contiene riferimenti ad auto elettriche, bonus, fondi, voucher o prenotazioni.\n\n"
             f"Anteprima:\n{make_snippet(text)[:1200]}"
         )
 
@@ -1106,19 +1107,34 @@ def classify_general_site(state, site, text, changed, first_run):
 def check_sites(state):
     alerts = []
     errors = []
+    deep_due = should_run_deep_page_check(state)
 
     for site in SITES:
         try:
-            text, read_method, api_results = get_page_text(site)
-            update_api_inventory(state, api_results)
+            if is_mase_dynamic(site) and not deep_due:
+                old = state.get(site["url"], {})
+                old["last_skipped_deep_check"] = now_string()
+                old["skipped_reason"] = "deep check non dovuto, API dirette già controllate"
+                state[site["url"]] = old
+                continue
+
+            read_method = "requests"
+            api_results = []
+
+            if is_mase_dynamic(site):
+                text, api_results = get_page_text_playwright(site)
+                read_method = "playwright"
+                update_api_inventory(state, api_results)
+            else:
+                text = get_page_text_requests(site["url"])
 
             current_hash = text_hash(text)
             old_hash = state.get(site["url"], {}).get("hash")
             first_run = old_hash is None
             changed = old_hash != current_hash
 
-            if is_mase_like(site):
-                alerts.extend(classify_mase_page(state, site, text, changed, first_run, read_method))
+            if site["type"].startswith("mase"):
+                alerts.extend(classify_mase_text(state, site, text, read_method, first_run))
             else:
                 alerts.extend(classify_general_site(state, site, text, changed, first_run))
 
@@ -1135,13 +1151,15 @@ def check_sites(state):
         except Exception as e:
             errors.append(f"{site['name']}: {str(e)}")
 
-    state["_last_site_errors"] = errors[:10]
+    if deep_due:
+        state["_last_deep_page_check"] = now_string()
 
+    state["_last_site_errors"] = errors[:10]
     return alerts
 
 
 # ----------------------------
-# NEWS: SOLO OGGI
+# NEWS
 # ----------------------------
 
 def parse_news_date(entry):
@@ -1156,8 +1174,7 @@ def parse_news_date(entry):
         if parsed.tzinfo is None:
             parsed = parsed.replace(tzinfo=datetime.timezone.utc)
 
-        parsed_italy = parsed.astimezone(ZoneInfo("Europe/Rome"))
-        return parsed_italy.date()
+        return parsed.astimezone(ZoneInfo("Europe/Rome")).date()
     except Exception:
         return None
 
@@ -1176,8 +1193,20 @@ def google_news_rss_url(query):
     return f"https://news.google.com/rss/search?q={encoded_query}%20when:1d&hl=it&gl=IT&ceid=IT:it"
 
 
-def classify_news(title, summary):
-    text = f"{title} {summary}".lower()
+def get_news_source(entry):
+    source = entry.get("source", {})
+    if hasattr(source, "get"):
+        return source.get("title", "")
+    return ""
+
+
+def source_is_trusted(source, title):
+    text = f"{source} {title}".lower()
+    return any(src in text for src in TRUSTED_NEWS_SOURCES)
+
+
+def classify_news(title, summary, source):
+    text = f"{title} {summary} {source}".lower()
 
     has_auto = contains_any(text, AUTO_WORDS)
     has_bad_topic = contains_any(text, BAD_TOPICS)
@@ -1206,15 +1235,28 @@ def classify_news(title, summary):
         return "IGNORE", "Parla di moto/scooter/colonnine o temi non collegati alle auto elettriche."
 
     if has_auto and has_urgent:
-        return "URGENT", "La notizia contiene parole compatibili con apertura, disponibilità fondi o voucher."
+        return "URGENT", "Contiene parole compatibili con apertura, disponibilità fondi o voucher."
 
     if has_auto and has_important:
-        return "IMPORTANT", "La notizia parla di bonus/incentivi auto elettriche, ma non conferma necessariamente fondi disponibili."
+        return "IMPORTANT", "Parla di bonus/incentivi auto elettriche, ma non conferma fondi disponibili."
 
     if "mase" in text or "mimit" in text or "ecobonus" in text:
-        return "INFO", "La notizia cita MASE/MIMIT/Ecobonus, ma non contiene segnali forti di disponibilità."
+        return "INFO", "Cita MASE/MIMIT/Ecobonus, ma non contiene segnali forti."
 
     return "IGNORE", "Notizia non abbastanza pertinente."
+
+
+def should_notify_news(level, source, title):
+    trusted = source_is_trusted(source, title)
+    official_hint = contains_any(f"{source} {title}", ["mase", "mimit", "ministero", "ecobonus"])
+
+    if level == "URGENT":
+        return trusted or official_hint
+
+    if level == "IMPORTANT":
+        return trusted and official_hint
+
+    return False
 
 
 def cleanup_seen_news(state):
@@ -1225,12 +1267,10 @@ def cleanup_seen_news(state):
         return
 
     cutoff = now_italy() - datetime.timedelta(days=NEWS_KEEP_DAYS)
-
     cleaned_items = []
 
     for news_id, item in seen_news.items():
-        saved_at = item.get("saved_at")
-        parsed = parse_saved_at(saved_at)
+        parsed = parse_saved_at(item.get("saved_at"))
 
         if parsed is None:
             continue
@@ -1257,14 +1297,14 @@ def check_news(state):
 
     for query in NEWS_QUERIES:
         try:
-            feed_url = google_news_rss_url(query)
-            feed = feedparser.parse(feed_url)
+            feed = feedparser.parse(google_news_rss_url(query))
 
             for entry in feed.entries[:8]:
                 title = entry.get("title", "").strip()
                 link = entry.get("link", "").strip()
                 summary = entry.get("summary", "").strip()
                 published = entry.get("published", "Data non disponibile")
+                source = get_news_source(entry)
 
                 if not title or not link:
                     continue
@@ -1277,10 +1317,11 @@ def check_news(state):
                 if news_id in seen_news:
                     continue
 
-                level, reason = classify_news(title, summary)
+                level, reason = classify_news(title, summary, source)
 
                 seen_news[news_id] = {
                     "title": title,
+                    "source": source,
                     "link": link,
                     "query": query,
                     "published": published,
@@ -1289,7 +1330,7 @@ def check_news(state):
                     "news_day_filter": str(today),
                 }
 
-                if level not in ["URGENT", "IMPORTANT"]:
+                if not should_notify_news(level, source, title):
                     continue
 
                 emoji = "🚨" if level == "URGENT" else "⚠️"
@@ -1297,27 +1338,134 @@ def check_news(state):
 
                 alerts.append(
                     f"{emoji} NEWS {label} - BONUS AUTO ELETTRICHE\n\n"
-                    f"Ricerca: {query}\n"
+                    f"Fonte: {source or 'N/D'}\n"
                     f"Titolo: {title}\n"
                     f"Data: {published}\n"
                     f"Link: {link}\n\n"
                     f"Valutazione:\n{reason}\n\n"
-                    f"Filtro data:\n"
-                    f"Il bot considera solo notizie pubblicate oggi: {today}.\n\n"
-                    "Se parla di riapertura, fondi o voucher disponibili, controlla subito il portale MASE."
+                    "Il bot filtra solo notizie pubblicate oggi e da fonti più affidabili."
                 )
 
         except Exception as e:
             print(f"Errore controllo news '{query}': {e}")
 
     state["_seen_news"] = seen_news
-
     return alerts
 
 
 # ----------------------------
-# RIEPILOGO E BOT VIVO
+# MESSAGGI STATUS
 # ----------------------------
+
+def build_direct_api_status_text(state):
+    direct = state.get("_direct_api_state", {})
+
+    plafond = direct.get("beneficiario_plafond", {})
+    grafico = direct.get("beneficiario_grafico", {})
+    versione_ben = direct.get("beneficiario_versione", {})
+    versione_es = direct.get("esercente_versione", {})
+
+    lines = []
+
+    if plafond:
+        residuo = plafond.get("residuoPlafond", 0)
+        totale = plafond.get("totalePlafond", 0)
+        prenotato = plafond.get("prenotatoStimato", 0)
+        residuo_percent = plafond.get("residuoPercent", 0)
+
+        lines.append(
+            "🎯 Stato principale:\n"
+            "Nessuna riapertura utile rilevata, salvo avviso urgente separato.\n\n"
+            "📌 Plafond beneficiario:\n"
+            f"- Totale: {format_euro(totale)}\n"
+            f"- Prenotato stimato: {format_euro(prenotato)}\n"
+            f"- Residuo: {format_euro(residuo)} ({residuo_percent}%)\n"
+            f"- Ultimo controllo API: {plafond.get('last_checked', 'N/D')}"
+        )
+    else:
+        lines.append("🎯 Plafond beneficiario: non letto.")
+
+    if grafico:
+        lines.append(
+            "🎟️ Voucher:\n"
+            f"- Totali: {grafico.get('totaleVoucher', 'N/D')}\n"
+            f"- Validati: {grafico.get('totaleVoucherValidati', 'N/D')}\n"
+            f"- Non validati: {grafico.get('totaleVoucherNonValidati', 'N/D')}"
+        )
+
+    if versione_ben or versione_es:
+        lines.append(
+            "🛠️ Versioni portale:\n"
+            f"- Beneficiario: {versione_ben.get('versione', 'N/D')}\n"
+            f"- Esercente: {versione_es.get('versione', 'N/D')}"
+        )
+
+    return "\n\n".join(lines)
+
+
+def build_docs_status_text(state):
+    docs = state.get("_official_documents_state", {})
+
+    if not docs:
+        return "Documenti ufficiali: baseline non ancora creata."
+
+    lines = []
+
+    for _, item in docs.items():
+        lines.append(
+            f"- {item.get('name', 'Documento')}: OK | ultimo controllo {item.get('last_checked', 'N/D')}"
+        )
+
+    return "\n".join(lines[:8])
+
+
+def build_recent_news_text(state):
+    seen = state.get("_seen_news", {})
+
+    if not seen:
+        return "Nessuna news salvata."
+
+    items = list(seen.values())
+    today = str(today_italy())
+    today_items = [x for x in items if x.get("news_day_filter") == today]
+
+    interesting = [
+        x for x in today_items
+        if x.get("level") in ["URGENT", "IMPORTANT"]
+    ]
+
+    if not interesting:
+        return "Nessuna news urgente/importante di oggi."
+
+    lines = []
+
+    for item in interesting[-5:]:
+        lines.append(
+            f"- [{item.get('level')}] {item.get('title')}\n  Fonte: {item.get('source', 'N/D')}"
+        )
+
+    return "\n".join(lines)
+
+
+def build_status_text(state):
+    site_errors = state.get("_last_site_errors", [])
+    api_errors = state.get("_direct_api_errors", [])
+    doc_errors = state.get("_official_documents_errors", [])
+
+    return (
+        "📊 STATUS BOT BONUS AUTO - V8\n\n"
+        f"Ora: {now_string()}\n\n"
+        f"{build_direct_api_status_text(state)}\n\n"
+        "📄 Documenti ufficiali:\n"
+        f"{build_docs_status_text(state)}\n\n"
+        "📰 News:\n"
+        f"{build_recent_news_text(state)}\n\n"
+        "⚠️ Errori:\n"
+        f"- Siti: {len(site_errors)}\n"
+        f"- API: {len(api_errors)}\n"
+        f"- Documenti: {len(doc_errors)}"
+    )
+
 
 def should_send_summary(state):
     last_summary = state.get("_last_summary_sent")
@@ -1338,124 +1486,28 @@ def should_send_alive_message(state):
     return now_italy().hour >= ALIVE_MESSAGE_HOUR
 
 
-def build_direct_api_status_text(state):
-    direct = state.get("_direct_api_state", {})
-
-    plafond = direct.get("beneficiario_plafond", {})
-    grafico = direct.get("beneficiario_grafico", {})
-    versione_ben = direct.get("beneficiario_versione", {})
-    versione_es = direct.get("esercente_versione", {})
-
-    lines = []
-
-    if plafond:
-        residuo = plafond.get("residuoPlafond", 0)
-        totale = plafond.get("totalePlafond", 0)
-        prenotato = plafond.get("prenotatoStimato", 0)
-        residuo_percent = plafond.get("residuoPercent", 0)
-
-        lines.append(
-            "Plafond beneficiario:\n"
-            f"- Totale: {format_euro(totale)}\n"
-            f"- Prenotato stimato: {format_euro(prenotato)}\n"
-            f"- Residuo: {format_euro(residuo)} ({residuo_percent}%)\n"
-            f"- Ultimo controllo: {plafond.get('last_checked', 'N/D')}"
-        )
-    else:
-        lines.append("Plafond beneficiario: non letto.")
-
-    if grafico:
-        lines.append(
-            "Voucher:\n"
-            f"- Totali: {grafico.get('totaleVoucher', 'N/D')}\n"
-            f"- Validati: {grafico.get('totaleVoucherValidati', 'N/D')}\n"
-            f"- Non validati: {grafico.get('totaleVoucherNonValidati', 'N/D')}"
-        )
-
-    if versione_ben or versione_es:
-        lines.append(
-            "Versioni portale:\n"
-            f"- Beneficiario: {versione_ben.get('versione', 'N/D')}\n"
-            f"- Esercente: {versione_es.get('versione', 'N/D')}"
-        )
-
-    return "\n\n".join(lines)
-
-
-def build_status_text(state):
-    statuses = []
-
-    for key, value in state.items():
-        if not key.startswith("_mase_status::"):
-            continue
-
-        name = value.get("name", "MASE")
-        available = value.get("available")
-        sold_out = value.get("sold_out")
-        read_method = value.get("read_method", "N/D")
-        text_length = value.get("text_length", "N/D")
-        checked = value.get("last_checked", "N/D")
-
-        if available:
-            status = "🚨 possibile disponibilità nel testo"
-        elif sold_out:
-            status = "❌ testo indica esaurito/prenotato"
-        else:
-            status = "ℹ️ nessuna frase forte"
-
-        statuses.append(
-            f"- {name}: {status} | metodo: {read_method} | testo: {text_length} caratteri | ultimo: {checked}"
-        )
-
-    if not statuses:
-        return "Nessuno stato MASE salvato ancora."
-
-    return "\n".join(statuses[:8])
-
-
 def build_summary(state):
-    site_errors = state.get("_last_site_errors", [])
-    direct_errors = state.get("_direct_api_errors", [])
-
-    error_lines = []
-
-    if site_errors:
-        error_lines.extend([f"- Sito: {e}" for e in site_errors[:5]])
-
-    if direct_errors:
-        error_lines.extend([f"- API: {e}" for e in direct_errors[:5]])
-
-    error_text = "0 errori recenti" if not error_lines else "\n".join(error_lines)
-
     return (
-        "📊 RIEPILOGO BOT BONUS AUTO ELETTRICHE - V7\n\n"
-        f"Ora controllo: {now_string()}\n\n"
-        "API MASE dirette:\n"
+        "📊 RIEPILOGO BOT BONUS AUTO - V8\n\n"
         f"{build_direct_api_status_text(state)}\n\n"
-        "Stato pagine MASE:\n"
-        f"{build_status_text(state)}\n\n"
-        "Filtro news:\n"
-        f"Il bot considera solo notizie pubblicate oggi: {today_italy()}.\n\n"
-        "Errori recenti:\n"
-        f"{error_text}\n\n"
+        "📄 Documenti:\n"
+        f"{build_docs_status_text(state)}\n\n"
+        "📰 News:\n"
+        f"{build_recent_news_text(state)}\n\n"
         "Conclusione:\n"
-        "Ora la priorità è il controllo diretto delle API MASE. Se il residuo plafond aumenta in modo utile, ti avviso subito."
+        "Se non hai ricevuto avvisi URGENTI separati, il bot non ha rilevato una riapertura utile del plafond."
     )
 
 
 def build_alive_message(state):
-    site_errors = state.get("_last_site_errors", [])
-    direct_errors = state.get("_direct_api_errors", [])
-
     return (
-        "✅ BOT BONUS AUTO ATTIVO - V7\n\n"
+        "✅ BOT BONUS AUTO ATTIVO - V8\n\n"
         f"Ultimo controllo: {now_string()}\n"
-        f"News controllate: solo pubblicate oggi ({today_italy()})\n"
-        f"Errori siti: {len(site_errors)}\n"
-        f"Errori API dirette: {len(direct_errors)}\n\n"
-        "API MASE dirette:\n"
-        f"{build_direct_api_status_text(state)}\n\n"
-        "Sto continuando a controllare ogni 5 minuti tramite cron-job.org + GitHub Actions."
+        "Controllo principale: API MASE dirette ogni 5 minuti.\n"
+        "Deep check pagine: circa ogni 1 ora.\n"
+        "Documenti ufficiali: monitorati.\n"
+        "News: solo di oggi e filtrate meglio.\n\n"
+        f"{build_direct_api_status_text(state)}"
     )
 
 
@@ -1470,6 +1522,111 @@ def maybe_send_summary_and_alive(state, alerts):
 
 
 # ----------------------------
+# COMANDI TELEGRAM
+# ----------------------------
+
+def get_telegram_updates(state):
+    offset = state.get("_telegram_update_offset")
+    params = {"timeout": 0}
+
+    if offset is not None:
+        params["offset"] = offset
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
+    response = requests.get(url, params=params, timeout=30)
+    response.raise_for_status()
+
+    data = response.json()
+    return data.get("result", [])
+
+
+def command_name(text):
+    first = text.strip().split()[0].lower()
+    return first.split("@")[0]
+
+
+def handle_telegram_commands(state):
+    try:
+        updates = get_telegram_updates(state)
+    except Exception as e:
+        state["_telegram_command_error"] = str(e)
+        return
+
+    if not updates:
+        return
+
+    max_update_id = state.get("_telegram_update_offset", 0) - 1
+    now_ts = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
+
+    for update in updates:
+        update_id = update.get("update_id")
+
+        if update_id is not None:
+            max_update_id = max(max_update_id, update_id)
+
+        message = update.get("message") or update.get("edited_message") or {}
+        text = message.get("text", "")
+        chat = message.get("chat", {})
+        chat_id = chat.get("id")
+        msg_date = message.get("date", 0)
+
+        if not text.startswith("/"):
+            continue
+
+        if str(chat_id) != str(CHAT_ID):
+            continue
+
+        if msg_date and now_ts - int(msg_date) > 3600:
+            continue
+
+        cmd = command_name(text)
+
+        if cmd in ["/start", "/help"]:
+            send_telegram(
+                "🤖 Comandi disponibili:\n\n"
+                "/status - stato completo del bot\n"
+                "/plafond - stato plafond e voucher\n"
+                "/news - ultime news importanti di oggi\n"
+                "/docs - stato documenti ufficiali\n"
+                "/check - mostra l’ultimo controllo disponibile\n\n"
+                "Il bot controlla automaticamente ogni 5 minuti.",
+                chat_id=chat_id,
+            )
+
+        elif cmd in ["/status", "/check"]:
+            send_telegram(build_status_text(state), chat_id=chat_id)
+
+        elif cmd == "/plafond":
+            send_telegram(
+                "🎯 STATO PLAFOND / VOUCHER\n\n"
+                f"{build_direct_api_status_text(state)}",
+                chat_id=chat_id,
+            )
+
+        elif cmd == "/news":
+            send_telegram(
+                "📰 NEWS IMPORTANTI DI OGGI\n\n"
+                f"{build_recent_news_text(state)}",
+                chat_id=chat_id,
+            )
+
+        elif cmd == "/docs":
+            send_telegram(
+                "📄 DOCUMENTI UFFICIALI MONITORATI\n\n"
+                f"{build_docs_status_text(state)}",
+                chat_id=chat_id,
+            )
+
+        else:
+            send_telegram(
+                "Comando non riconosciuto. Scrivi /help.",
+                chat_id=chat_id,
+            )
+
+    state["_telegram_update_offset"] = max_update_id + 1
+
+
+# ----------------------------
 # MAIN
 # ----------------------------
 
@@ -1481,6 +1638,7 @@ def main():
     alerts = []
 
     alerts.extend(check_direct_mase_apis(state))
+    alerts.extend(check_official_documents(state))
     alerts.extend(check_sites(state))
     alerts.extend(check_news(state))
 
@@ -1490,6 +1648,10 @@ def main():
 
     for alert in alerts:
         send_telegram(alert)
+
+    handle_telegram_commands(state)
+
+    save_state(state)
 
 
 if __name__ == "__main__":
