@@ -1,58 +1,69 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Ecobonus MIMIT - Auto"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Ecobonus MIMIT - Auto",
+    "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Ecobonus MIMIT - Contributi"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Ecobonus MIMIT - Contributi",
+    "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Ecobonus MIMIT - Risorse stanziate"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Ecobonus MIMIT - Risorse stanziate",
+    "type": "mimit"
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "02f5dd11f3f82c336d7d731b0d209eeeb18429511800c316fd6585889f8b3e79",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Ecobonus MIMIT - Avvisi e notizie"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Ecobonus MIMIT - Avvisi e notizie",
+    "type": "mimit"
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "02/07/2026 15:01",
-    "name": "MIMIT - Ecobonus automotive"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MIMIT - Ecobonus Automotive",
+    "type": "mimit"
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "132fc3447c4449fd502e6608caf8e3bb27585f8cb354d394f739987547fff9ea",
-    "last_checked": "02/07/2026 15:01",
-    "name": "MIMIT - Incentivi aggiornamenti"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MIMIT - Incentivi Aggiornamenti",
+    "type": "mimit"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Home"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Home Bonus Veicoli Elettrici",
+    "type": "mase"
   },
   "https://sportelloincentivi.regione.campania.it/": {
     "hash": "c305f426436b80288b340def60c15c63e99d4d49a955d8464e31eda459b18d9b",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Regione Campania - Sportello Incentivi"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Regione Campania - Sportello Incentivi",
+    "type": "regione"
   },
   "https://www.regione.campania.it/regione-informa/notizie": {
     "hash": "3d589b2ac92d3d60f8f7f8e2edc6337375e1a6379448ba627c20e069790f86c7",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Regione Campania - News"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Regione Campania - News",
+    "type": "regione"
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Ecobonus MIMIT - Cos'è"
+    "last_checked": "02/07/2026 15:04",
+    "name": "Ecobonus MIMIT - Cos'è",
+    "type": "mimit"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Login Beneficiario",
+    "type": "mase"
   },
   "_seen_news": {
     "277aecbb1903cfe6a32e4c4baff87969ead3c9d1d6e3f495b5515b442d430a87": {
@@ -467,44 +478,390 @@
       "query": "bonus auto elettriche 11000 euro",
       "published": "Mon, 01 Sep 2025 07:00:00 GMT",
       "saved_at": "02/07/2026 10:20"
+    },
+    "8d9d4c859035667dafb3d56c2171acb077347174adba0ec692dd04a7494aa07c": {
+      "title": "Investimento 4.5 - Programma di rinnovo del parco veicoli privati e commerciali leggeri con veicoli elettrici - Ministero dell'Ambiente e della Sicurezza energetica",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNTzhLendvN3Y2N2VrX002WGZ0bFNTQVhmbTVKME1jUmVYa0FsNl94RFdGRU5tS2UwbC0xTk1BSzVrWVNNVmpLVDJKcTJMMHBCUjh6X1ZjamNlX2RyWkNSeDJIczJYaThyZEVGQzl4Ukl6SE9pMTY3OWFDWTV1TVROV2U5NlhaYjhDTy0yNmM3eENJcnB0S3pBdkxxLTd4YkNQbkc2RFphd0M1MGlMd3dNeWVCWEpxMWxkQ2FpTUpQSWM0WXN5UXNHOGF4VmpKTFhhRVdLN3RR?oc=5",
+      "query": "bonus veicoli elettrici MASE voucher disponibili",
+      "published": "Thu, 11 Sep 2025 14:06:24 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "0a4266c8451c45e496ffff539cca491e8a5d43efe90e490cf453b0d9286a8575": {
+      "title": "Gli incentivi auto elettriche sono finiti, ma potrebbero ritornare - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPVnQ0MU41XzE5VlpaVXRYRjZGcTZYNHFhclpqUVR3T1hWREV4UFowNjFXbjBPcDkySXY2dHphdHZFSXkzOUl3WlQ3T0U0OW5FNGtBcjZuc19wM3BCaHZPY3p6bDkwSVI2bjA4Qm9hd1U4aF9ycjJYVnI3dlpaQ25GMTVselBsZHVYLWxtYQ?oc=5",
+      "query": "bonus veicoli elettrici MASE voucher disponibili",
+      "published": "Tue, 25 Nov 2025 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "a79ed1084a0d2211fabda0aeb03d84eec72710c3b04aa43bbc8581dfdcc33df9": {
+      "title": "Incentivi auto elettriche 2026: quando escono - AutoScout24",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOaWZ3eXdxaktmU0dLdHo2N0RwM2Rwa1hZeUljODJJNktaaFRLNktZNXdZRDRMVlZqWFJfenE4MXRZaVdoRTVLdDZwdUJWRWh2SkRNSUhsbUdPMERuZXJzeTZoSUFKUC1VakMwTmFnbzl0OUU0eFdEUUp3UWd0ZHNYM2dtRFkxbnhDM3czUDE3UlVfSngtRmNIQ0xYaXJ3ZlBoTmYtUjIxSTkzemtsQ3BwUlNPdXl0aHZHMjM5UHpaLUwyai1ZR1N0Mw?oc=5",
+      "query": "bonus veicoli elettrici MASE fondi disponibili",
+      "published": "Wed, 06 May 2026 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "9ff211f191bf9f015a6c3c4dc053db5215b3af6d06f0c588efc942349cc55aa9": {
+      "title": "Incentivi auto finiti! Esauriti i fondi bonus veicoli elettrici, ma c'è ancora speranza... - Everyeye Auto",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOdEFZMDBhVXJjQnlsd0lpM0tlYVZqcG5BQ1NKRFNJZVY1ZzZFeFdfQlhQMkU3ZHBEZVhZdFFUY2hjWm9NbXk0cG1IQy1qXzFjMDU5TDgxbndLOEhvQkdteUp6bFNkWmxvNVBoMUs4RzJtNHM2Q3EwR1hQVVh2YzJwN2M2aWlpTjNicjRVbm81YjZPOWVvYVhIbUFpaXFDX2Z0eUVvY01GV3E1NFE1MUZMa3VwNG9wM1k?oc=5",
+      "query": "bonus veicoli elettrici MASE fondi disponibili",
+      "published": "Thu, 23 Oct 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "e76574e957abf2d54cc9ac9211003aaee10d14615b2c30827a47d7b24646176c": {
+      "title": "Gli incentivi auto elettriche ripartono sabato 22 novembre - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5JUGlKUkZHcUhDaUZPNlgyZTlwaGpacG5rVjE0end6YUx4S2YtZ2VwU3cxOHQwc3MwSDl1Y2g1c1dTNjlBYzhQM2VOVXB3SjN5YmpXTmREVEM1Y0F3enMtUmROdDFVeEhJSDNIeDlPUlBRZzNaZDVXUW53MA?oc=5",
+      "query": "voucher auto elettriche MASE disponibili",
+      "published": "Thu, 20 Nov 2025 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "e85572d34470999bf80c56d698fef786450db0342da3d31b3e0d50a181a36a06": {
+      "title": "Bonus auto elettriche, potrebbe tornare il plafond. Secondo click day il 22 novembre - Rinnovabili",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPVVZucWRxYU4zUGFZUDhpNmZTaEs3aXdxRldjVjhNMU4yUWlsZG9jTGlXMGNxV2IwWmVrdVBJRG5sNE82MUxfM2RLMVYtUG9Ta0g1bU03LXpyUU5qOGw1Q3NCSl8xbFAxYVctdlhqVFBvaTY3SHFvY3RWZ1R0WElxZUl2VnJMMlhzRmY1cEc4UTNwS29GbG9mQWNfd2htZjBMSFNCcW5Gbm1paWM2ekdFQnllRV8wRGpEalduaVpUY0ZRNmhSeXJGZThR0gHPAUFVX3lxTFBkZjFtaEQ5QWVwdE9Hc21ENEFGbXM2eWRRQTBOREE2amRxSWRQN0RvUTFZNGNXeFF0V3RVcndmcTVHTU9GN19wVlEwdVBmMEVueUVJSkgyQ1dKUXBmZEZ0SVFDWS1VZnNFYW4tYzV3Q2FkNXlpaEhXeEtQV2hqc2NjYzBoTkR1SG1mbDByZ2g2Q3dDQjZwNjNGQVU5XzdFU0lVVlVvWkdtaGJfaGp1QkZ4SkFaUnV0QmhVWXlodUU1X3pNM2paU3l1Y09LZkY5RQ?oc=5",
+      "query": "voucher auto elettriche MASE disponibili",
+      "published": "Thu, 20 Nov 2025 08:00:00 GMT",
+      "level": "URGENT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "5bcd500b672cd7686af3f665c95bc26b91f9d54ce0edb498cfbe72194e5ebc97": {
+      "title": "Oggi ripartono gli incentivi auto elettriche 2025: scatta il nuovo click day (nuova possibilità 23 novembre) - HDmotori",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQemtlb3lSRlFjMFRFWlZtTThmTzhzcElORjFGWjJ0OC1BTkp2d1FOTUN1MkRNT0FRRjc2UmMxTEhhZnVJLWlrNG1pN2pkTFkxZVc2QWstemtyU0dsWmcwSjNaWWhtTXh4UDRadXhFc2FvczBSOW92amtWY0Q5ZzRQQ1MyNEdFTGUtVGc?oc=5",
+      "query": "bonus auto elettriche voucher disponibile",
+      "published": "Sat, 22 Nov 2025 08:00:00 GMT",
+      "level": "URGENT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "d931cb8e481315df47e3257f2d60594ca8f9794843b04944782f21ca63c20b92": {
+      "title": "Auto elettriche, i bonus possono tornare? Cosa sappiamo sul ripescaggio - Virgilio",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNNkNFcGdLYWMwZUtpeDdpQWo4MTFRWWNqOTJqS0FFb0lFUUQ3bk1takNMZFJpTlNJVEV6bTdXdDdNWkpBdjZYd3dWM0QwNUNBRnNIS0hQam9icmNWTGVQTHlYY1VJY0RMWWNCNEpNSzAtTXpseHlwbzd0VnRra1k0U1VQbHJRUEEwQUxoU1h4Wi1oSE5qMjhxbFhMWTE?oc=5",
+      "query": "bonus auto elettriche voucher disponibile",
+      "published": "Mon, 05 Jan 2026 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "836becaa336c5458adb206282e0998327173d965e15d6e22bdbcee8c02fbd0df": {
+      "title": "Bonus auto 2025: incentivi PNRR fino al 30 giugno 2026 | Enel - enel.it",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1LZ0RIQmRGbWpNS19kblQ0OHcwNHNKV1JKZkxtMUxYTTczWVRLcjlNaTYybWc3UnQwNF9pTm1oYm55clNUWEg2NE1rMEp1dGtZUDRZeER4MDdlV2c?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Tue, 16 Dec 2025 18:31:13 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "82eba905d5cfe8320c7a44b969615b68275759d1ada8752fcac23b4d2f3b26b7": {
+      "title": "Bonus auto elettriche, esaurito plafond di 595 milioni in poco più di 24 ore. Cosa sapere - Sky TG24",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQLXB0OUszVnh2UkMyXzRvRGZuSWc2b2daQXE0cFNrUXhkcTdtRFFoeFVhS1AwWkJ6U0YtSWc5U2haNDFyNHQ2c2JUMk92UFJZU3duMWh3dWN6eEZmTUtVLVJoYXlBSDA4LUJ2Wlc0UUw4SThJV0lqeTlnYmlkSUJYSGVEMUhUREdnRVJ3UkRQX2hCbVdPaHc?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Sat, 25 Oct 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "ddb9da22085ef46f4e36b41b4c7524f19d25e74c9fb917fd487a49661ccca947": {
+      "title": "Incentivi auto 2025: riattivata la piattaforma del MASE per voucher e immatricolazioni - Motorionline.com",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNbk1PX00xbG4yajMwdEx0d2M4ekY5eGp5czVDMzV1bUd5cndUbTFvMVRNT1V0S1E3MnJwZFgyS18wUzdNZHpWOTkxaWZ6eVRUeTVKM1c2UUktM1o0dDZ6NFAzclRhYUl2bWNjTzdLbzhwOFA1ellhSFJFMUlBWEwyRTNESWhvY0pXUTlOMXR0LUFIdjJVSGp2RG5NSElDM2FWTFA2eDlEYVB1eFZqaUtrb2I1T0p6dw?oc=5",
+      "query": "MASE bonus veicoli elettrici riapertura piattaforma",
+      "published": "Fri, 31 Oct 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "f7e8fd1449190d07fa4773e90b228dcd677dbb6ba615e13ad6c3a98b97556317": {
+      "title": "Incentivi Auto 2025: voucher non usati di nuovo a dicembre? - Newsauto.it",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNZjBodFFHV2Z3QS1uYzJsT2NKclgtaXQwTktzRFVDRWtJWXlDdmFPaVVzWDFEbm5RdWJGTWlhb3ZBTW5id0hHdGZqMUFYbTBPQnlJczY2Y2tVcEFUcHlfZGlYV3ZzVy1RSWZhU2hRWEhlUG8wN21wRFBzQ0RXUHRxZXNGU1VHQ0U2QjdBdEl2ajM1ejNFSnhyRFRMWlg3dw?oc=5",
+      "query": "MASE bonus veicoli elettrici riapertura piattaforma",
+      "published": "Tue, 25 Nov 2025 08:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "c7e6974fa7df0ab8aec48af8e24ac12ff3aa483c825dc457ef0abf8b768480b0": {
+      "title": "Boom di richieste in 6 ore: 45.000 bonus auto elettriche prenotati, ma le risorse potrebbero ritornare - Hardware Upgrade",
+      "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxOV2diZWFFeGRyTGRlYVo2U184Ni1jamh4YkVXLUdWUWk2aXBoQnh3d19HUnBMNUI4MzNMYjEwUUpJTHJLQ1IxLTBPdXBfZG5qaUxPWkZ4ZE9UZk5PUlZ1S0VxLS1pa3MyUy1id0RwRkVFQlhHUzFJYXJ2Y2p2VllHLWw2ZWlvR3FXbUFNcG15UVduUVRyMmo1VUNYcFc0MlBaRFZManZNRk9WcTZnOHluSVR1RkRwTllTblV3ZXZ3dFdhckVXeUdQWmdhV0VYQ19ueGo1Y0RyNEpaTTA1RTJCSEprUloxUTlLYXk5bTVObmwxZmxmakE?oc=5",
+      "query": "MASE bonus veicoli elettrici riapertura piattaforma",
+      "published": "Thu, 23 Oct 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "49b05d7307fd2c7630663c616e389991b6b6b0ff15a51aabe8cdbd6daff60995": {
+      "title": "Incentivi auto, non parte il “Click Day” sul sito del Mase. Ma c’è il tutorial per fare richiesta - Moveo by Telepass",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1MbG9iek5PdGdxa3d2cTdqbjRuZ3NaTW5NSUJaUktUUDlnbFlzZ2VjeGJoTkJhQ1RwcTlzUEw0UkZBZ3ZqenptSWVvQmRzWW5MZ2JlV1V1M0cxYzlxT1FCYUlROTd1V0E?oc=5",
+      "query": "MASE bonus veicoli elettrici riapertura piattaforma",
+      "published": "Wed, 15 Oct 2025 07:00:00 GMT",
+      "level": "URGENT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "76684c391cad065aa26f00cb6546188772ff63a21b0968edf21d3495356717f0": {
+      "title": "Incentivi auto elettriche 2025, oggi il click day: come richiedere il bonus - Sky TG24",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQVDBTc1JBTTNBX3ZjQmtDb244UHNBQlhaUDB4dmpzOGJ3N2lVbEtWOFAtempDeFRVaVJ1d2hadUFCUk03b19ZRGxuakxDMzVRRXNpMEExMk4wR0phWVBvcHBmSk5zdVBnUlc4WmdBZWtTNFNlSWlOcmhPZ0I2Q2xQMmdkdmxmSUJsOWFlUlFCdXd4X29CRlE?oc=5",
+      "query": "MASE voucher auto elettriche sportello aperto",
+      "published": "Wed, 22 Oct 2025 07:00:00 GMT",
+      "level": "URGENT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "a6189c34f0098d05877b58396515fab74a7922be210e48a00679310274561544": {
+      "title": "PNRR M2C2 Inv. 4.5 “Programma di rinnovo del parco veicoli privati e commerciali leggeri con veicoli elettrici“ - Provincia autonoma di Trento",
+      "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNM2FRd2lHd0VMUGJURm1DVmRBRVc2NU4xQlhZRmZSdUtNYlZNNU94N09IaGVnOTZlc0dKc3VfSGdndEpxRldDVWV6Yk1aMFB2cTZ0d1VLejhkNmtZeEJ5VW1WMkdaYjk3c1o2RFRJZ1doNXE4T2w5UDZhdXhwazVYa3BiTHpHN0JrQk1BQU9IaUp3MXdYUDkwTkgxZVh4emRkNl9VX3hzcm1Sa0tIRVF5SmV3MzNsQzZ6eGd2X0NfcGdPQjQyUENUNXozM2xhX184eGNNVEFSMzVqRUVPSEg3a1J5cw?oc=5",
+      "query": "MASE voucher auto elettriche sportello aperto",
+      "published": "Thu, 02 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "d221c76bd34e9a30c96b551ad123867f0c9cbeb8acb82daca6e99ca98a465853": {
+      "title": "Dal 22 ottobre 2025 attivo lo sportello per il bonus veicoli elettrici - Confcommercio",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9DeVEtRlBoTmlFeHBEcENjN29ZWnFPNVVZTjdKZzh4TDRwTDJkNkRjMnkwX0RPbjhObEhOaklQaE1STzQ2TmRLS2Q3a0htdFpCSHoxZDdja2kxMVVGaTFCS3BON3BndXgtQTdkSWN1WQ?oc=5",
+      "query": "MASE voucher auto elettriche sportello aperto",
+      "published": "Wed, 22 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "09d0e81da94c434dc9784c634c12690859dcba9be36f0b8053f3a7cd6f1bd91c": {
+      "title": "Auto elettriche, incentivi al via: ecco tutto quello che occorre sapere - Avvenire",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQRkVZeDRKQTBhd0dIelkzTFFiek9WSVNnSG5aMDMwcGMwX3NwX1Yxclo5Z0RXbDFxN2hVMjNZa1B0cld2emlQNFBySnlCVHJRa1lHZ3ZDa0Y0ZW9LT3VwaGRLS3pWN1RoWkRKUTgxRndtV0lPTUw5a1BMcFdIZHFuV1lkaXl4OXdQQjZuNjhoLWtzMm5BdEYtMEZab053Z0lnUktfbXg3aTJIbFVLRUpXLUF4VEpwZw?oc=5",
+      "query": "MASE voucher auto elettriche sportello aperto",
+      "published": "Tue, 21 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "ef47c8298c76e237381ff428c3b3c7f1455077bc101a5eac5a10c69a18cab579": {
+      "title": "Decreto incentivi in Gazzetta: quello che c'è da sapere - ACI Automobile Club d’Italia",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQa3BCbzNhQkxzRDc1TXNrSU5haTduY2xXVkR3LXREdXpNRWpyZVR0Q3hYRXZJLWRmd3hqWU5JNXFBWjlwbWxjNVVNYzFGMl95QUhGbG80ZlZQRzdWWnpGSjY4dktBRTk3STVaVUxseTNOSFNuWDVHdV9yajdkUEIzbUxiMVRFcmZueThhRWVFeW0yYnJtVWZDX20tMk5xQmRlOEJ2OTVB?oc=5",
+      "query": "bonus veicoli elettrici beneficiario plafond",
+      "published": "Tue, 09 Sep 2025 08:03:28 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "2d87569d21eedcaf5b26fb8f298c55a1439a9cd7c2beeaab623c4a9726d09bf7": {
+      "title": "Bonus veicoli elettrici: come presentare domanda dal 22 ottobre 2025 - Ipsoa",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOOF9lQ083NW5Hdkg1SE5rcC1hdDV4ZWhVaXJiUm1BX1E0dnN5bWx3N0I5VjdzX1ZzWllnWXg5SnJJOU1FTnd1OGdEUzlPTUFLcDQ1NzhVZFZfc19DRkJyVkpVRy1rWGIwRTFCaVV2dkZzUXdxQUx3YjY0djM1MmhtandoZWZPVTRrYl9pdlNmWHpvc011YWNqS05Zc18wSFRTZld3WEk1eHFtQ1ZLWTUxRg?oc=5",
+      "query": "bonus veicoli elettrici beneficiario plafond",
+      "published": "Thu, 16 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "3595f03d49a315267b470dd9f03fd101a8a0bf07a84ffd23407c067ed303d537": {
+      "title": "Bonus per le auto elettriche: tutto quello che c’è da sapere - la Repubblica",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZVZTTF9TUGRnSTRmOEdOdU1IM0hWOThNNFRSRjRWUGZLNVRRZkEzSzVWNG11T1hpRnhlZjB5ajJFZi00OXdpdkRWelhQQ3QxQWkxanNKU0pqNDRIMmVqNkZQQ1BSV3htZ19kVS1zTjZpMExNUVI1ano5eDBkQTRSMXhrMGpFYkIwUXVxTnMyWGxFbnd1RXJFQXJYcmxaTGvSAaQBQVVfeXFMT21qUXVTQy1tNC1hRTlwdXZkRHl6YktJaFlGZkRIWkE3UUNkLTFqUTRiVmpXamdOWUh1d1RNTUg4TkhWY05nbGtGOUdWcU16dk5aaE9VZm4yLVJTcUViVEFkbERfM1BTdzZzcVV3dERVcWZVNHd0TGtLRmpjc0pMb1lvSktWTU1lVkxGYWZhT3BSSURYbVY2WTJnZVhIeFFkZUUzeUI?oc=5",
+      "query": "bonus veicoli elettrici beneficiario plafond",
+      "published": "Thu, 25 Sep 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "23f5941321b7b9112e5b81ad3d34753ee5c500c967792095201ac37ad60b2dbd": {
+      "title": "Come prenotare gli incentivi auto elettriche 2025 - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSUpVc3FiTlFLcWZRcVRFVHJhS1ktVzBFT2xmNDNoZURyU2dNa0lKYVJuM3VpSnRDMWpKZ2JIbUg5QXZyeXhKQlNqQ2ZNSDE3Zl9xU0pTZFJBQVQ1ZFFtWDFrWnB4dnVIODRwZDVKZkZ5VnFhTjNIY3RrVzU5cDRvYnlzTGZPWFI0?oc=5",
+      "query": "ecobonus auto elettriche apertura prenotazioni",
+      "published": "Thu, 20 Nov 2025 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "609fa1bb28ce9522d2c87728aad116676264ff6c810af5655f07d3398fad77bd": {
+      "title": "Incentivi, salta il click day del 15 ottobre: se ne riparla fra una settimana - Vaielettrico",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1BRldweDhPVzVtSUhHbkJ3R3ZjaFNqZVJPLTllM3lSR2pITnBfS1NrdE80RmpGdlVaWUc3SE9rcFFCb3V1ZHZwVnU1QWJna0xremluZEhUeUpOb2JpZ0VkN3BZcm92QXJFRV82dTRTeFJIdkU?oc=5",
+      "query": "ecobonus auto elettriche apertura prenotazioni",
+      "published": "Thu, 16 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "c9ea91439e21379ba3af80f634e090157562927317b3a2c2798ea7bc2d16da06": {
+      "title": "Ecoincentivi auto elettriche, ora c’è la data: dal 15 ottobre parte la piattaforma Sogei - DMove",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNQWhfOEVfY1VCa2M3NllfSzg1S0NKeGJLU0MwSGpoM1NZOEZ2OVNZTk5YZnBQQ2o3SGMxQ24zenl5RjU4RTM1UnF0a1BHSWJIZVZXOFRvdnRBcDNCcDhhdGN3T3oyaTJ6NkVYYk1YOTR6SmFQTC1QaDJRN3NwczJwY2E1M0dnVTIwd1B6dzFOZGo3V2FFajEyNFFqY19ubURFaHdxa1FTNlJXS0ZLRlFIdQ?oc=5",
+      "query": "ecobonus auto elettriche apertura prenotazioni",
+      "published": "Mon, 15 Sep 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "265b7474238efd46499248fbb61142d811be908b48eea5f0bd055bd916e4bf33": {
+      "title": "Le auto elettriche più economiche da comprare con gli incentivi - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQdkZsUU1JamVLWFBTZFhXRUlkU3VPMndEalZOYXF6OEU2czlmQnlISFhKaHJfT21HSHVIOG9FRTJDek12ODRvMGtGcnM0UUdKb0hSamJoT1JVZmhvcnlLVy1oX19MWmhvYy1GUnladjRycV8ycXB1QTl1U0JfV00yVFd0b0Q4dw?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Thu, 20 Nov 2025 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "11426da81f4e9fefdf25c0ae35ca98fad534587914b774f6424df5bd51d432ee": {
+      "title": "Con gli incentivi auto 2025 quali elettriche costano meno di 15.000 euro? - DMove",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNM1pBWVpyZDFfX0dIbVlmTHMwa1ZJTDRPS051dlJlUUVKZTZsQlhSS0RENWFnTjhqUXdkZ0YtLUk5ZUVwaEdIdXpSN0did2czWk1tZ0ItMno5NjdoY3Jjd085N0dTSGIySElOMUo4TVNjUTQ5cHRKYkhmWmQ3TkFIcnc2b2JaTjVtSlJxUUJ0QjkwdkRrWnhvUFlIdnlSaG8?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Fri, 10 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "a888656a8c5ec407f86772942e87c2f74132b69138524eeb821bed40ed1bdb06": {
+      "title": "Ecobonus - Le elettriche economiche sotto i 10 mila euro (con gli incentivi) - Quattroruote",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVHZxWEhUVWRpYWpqam9qQkJaeGlheXFmZEZOcllUX0JLNHRjT0RBb1lDQlZhR2h4LVNjZVdqX01RNm92eFJJOEdEYXViQWEzLWxyOUtzQTZDOE9rMXBTT2dEdGFiNVJIQ1I0dUJReC1XNnNhMUJQalV6bFpSVzhzYlBuSS1pZ2tBblVnZmh1UVpfU0lQLXFWUHBIOGNQY3hraXRaa3VnaWZ4Q3psSEc5NF9LN3dVUjZ5alNYQXpVb2FpUQ?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Mon, 13 Oct 2025 07:00:00 GMT",
+      "level": "INFO",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "6f560ff32c11c60a038c446e21d2e9719bbb7dc1eb0d0a055a2e4128c2f92509": {
+      "title": "BYD offre fino a 10000 euro di bonus per l’acquisto di un’auto nuovo. E non serve l’ISEE - Rinnovabili",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPQkZnMWJOWjNUazVSWlQ1bW9VVnRYMFkwZDFKZ3I1RTY1NDV1dy1uNUhQdXcteWNWeHU1TVNBQUk4TmlkTHpTWHNJZnZnWnh0RTlfbS1ROFhnR0g0WUZNSGw4aG5UUDllc25tQlVxTmp5NmR3WFZTQW9WekhyMUNDOThCeEhzX0NEcHhnWjIzS1pxQld3ZkZxRHl2Zjktbk03U3VDVmdLZzdFZUtyXzQyRE5NUjhBakdJcXppRlhhVnRlVE1ieWFKTXBrQ2jSAdIBQVVfeXFMT090VDRpeHVKTTQxTTlpV1RndXh2SThTYzIwV25neFdqWmowZWlaN1BweVJVM2drYU5NNnI1S0ZUZnludS0wLVVUbkc5dmdXOFVHS09jdTFRWVdqVlJFSWtWWDFJTk83RnFzSjFiRTFZNFdzOUQxdlJPWGRMdTZZd1dRN3pLMDJRaUIyS2dkTW9ra1hmUFFLZ2ZmbGIyV2tFc2Y3LVBYMktPTC1GMU1ZdGNDQlZZQ1NocW5sTTM4aWNvR20weFduOUpnaWQybmhROTN3?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Wed, 03 Sep 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "8edc721b80817bfe08ab45299d5e0195ef09c3a52445161c583ae6b5216c6329": {
+      "title": "BYD: offerte esclusive anticipano gli incentivi statali per l’acquisto di auto - Il Sole 24 ORE",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSnRvSnpGbVhFcjlMVk5keEt5YXNxbXVhaE5JNmxhb1BLalNESmJVbW5QU1g4WU1DTk56T1hnenQ1V3UyWDNOV3VURDFRUjBDN1daUk1Mc3F0X3I0a0JVMFk4RW5JaUZtQWg0bGUxZjVfUkRZb29lMlE0VjQtcXcxUEcyaHpBRVVmcmNCZ1BqODBpekt5TC1Ea1hSSjA?oc=5",
+      "query": "incentivi auto elettriche 10000 euro",
+      "published": "Mon, 08 Sep 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "39190ca2f82fadbae50bc91d4fbecf1b7a538ed924b0ace39c22bf4bf56c68cf": {
+      "title": "Quali auto elettriche comprare con il bonus 2025: dai modelli low-cost alle più care - Rinnovabili",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPUGw5dWZ1T2JDQ1BVNUFfenZoX0ZxVXV3eU5YNXZvYjlrQS1GUU1nSzkzQWxvcFZVbTJJa3M2WHVwZmxoczh3eEs4SllCWDFlQjlybTV1aXE1RmtiWVpUZFg4MElxMGQtYWJ6akNnTXdpbk9ZMlBGV21ackpvM0ZXdG1VdmFHMThqRDRmWUZVSWFiVDRuc2ozM3hPSkJMZkhhY1JYRNIBqgFBVV95cUxPRWUzZXVjcEJpM2FrN3J4STNBOWNVZmktdnJzSndWMzFJTGpfTVcwc1dmWHJuaFh0cEU5SmpqeTFzdU1ZZ3BybVkxNFE3UzY3S1VtZ0JuUmVmOHpZV3RQOEFZTU4zeHZ3YzIwUktCSDd6MFMyRjUwRzNhQjcxRTVIQXF3bXN1b0s0MUpKdllJQ1ZwMllESjMxZi13VlJ6bkU1QzRONVF1YzU4QQ?oc=5",
+      "query": "incentivi auto elettriche 11000 euro",
+      "published": "Thu, 23 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "a68c68b8262ff6b29f5164bb0d8fa3e3120270410cda0be6f7e203072de1d82d": {
+      "title": "Tutte le auto elettriche da comprare con gli incentivi 2025 - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBlVEEtSmhPaGJWV2dmR3piMFQzRmVVa294bkNOcHdoZVZ5enVzRHRsSlJBdkl4MWtkMXpfbFFTX25adkhneFlSNEJONkhKcmlJbVItOUFIN09LSXVfa0FJSFpJMFhlMmx1UTcxaTZHNEhNM0hiX1Vv?oc=5",
+      "query": "incentivi auto elettriche 11000 euro",
+      "published": "Wed, 22 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "153ffa6146a5d68fd0531178a068a2e99daad85fc543f78236478a2966a863a2": {
+      "title": "Incentivi auto elettriche: ufficiale il bonus fino a 11mila euro - ACI Automobile Club d’Italia",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQUWpXYzRjanJfYUlBcHdOT2FNUXVQa3ZWdzFWZlVUU0RFWW5rZlhBbHI3QzY5YVpKX0hhNVp1MVpYeW1aQVY2MS02YXNmZ3c5TThseVkxS3c0cWlmZzVWVUhIamg2RHlpNHpXeDJjR1pTLThjeUNhandSQnNzR043cDJOSnd0MjBwX2lqQWdqLU9RbEpZYk1PWTZMd0V4M1pBcWZFQlNoS0c?oc=5",
+      "query": "incentivi auto elettriche 11000 euro",
+      "published": "Fri, 08 Aug 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "c45a003f437d2fdf16f15af155ef45c9956d3ba07342d2dcdc759c30e8de40cd": {
+      "title": "Incentivi auto 2025, 10 modelli scontati fino a 11.000 euro - Il Sole 24 ORE",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQVWNVeEVWYXNYV2hIZmpuaFdId3B4aGNwcmVfOE1QY2VuYmEzUU5pQXlIVnY5Wm5JMlNRSlpTdXBrY0R3TnZ6bklDQnZtbmwxVWY1R0F5U09jdlNLaURJc0szZnZvTFBHT0lqYkQ2WUxncFVjNmRjRVEzWDBMMEZoZlgtWmxjcGpEUWRnS3VpdTJ4R3B1SkdfaHhfQ1c?oc=5",
+      "query": "incentivi auto elettriche 11000 euro",
+      "published": "Tue, 09 Sep 2025 07:00:00 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "c0aab6095e9d9a9ba0da57c614322b3d0dcb8239d88a5b9b338b9d97a3997ee3": {
+      "title": "Il successone della Leapmotor T03: solo effetto-bonus? No… - Vaielettrico",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPUXlhOXNLZ3I5eGtSVzJ6LXdYS2dHOGp6RVVfelpnZGRXdHktZVhvbG5KT202YkI3TmJFTzlMMmhkVk82SS1yNm9uZ2lTUEtpZGJ1UkZPaF9xaU9rRF9mUnJxb0xPbDZPMlBaXzJpaXJrZkxMZlNYVWh3ZlF1RlFHeUNlWS1tcjZFakx2Mg?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Tue, 05 May 2026 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "6c77a8ad7e67c0bdc66780bb9785d77958e34989664eca8bc069ba87123d30e0": {
+      "title": "Leapmotor T03, il miracolo degli incentivi: ora è quarta nel gotha elettrico d'Europa | Quattroruote.it - Quattroruote",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNQW5CMExaWXBsNXY4ZzdnVGZTWWt0NUhPX3NIdk1Ud2RJcmdqaF90ZU9ucU45SzZESVRvdzU4eTZGanoza1FQVjVEUnJwaGJWaktSNTEzRlBsYmh0T1c2UU9ualdDczhnVWVvQnpBOXc1dnp4UERRbDVRNklHYnpJamhfN3pkWktudnhJWk5PRdIBlAFBVV95cUxNUDVQMGUyOG5wc3dsQ3dpSkFNSUd6LVFieE5NV3JSZFg4cXFIYXpOUmx3OFZiUTNvbEFCMzlCdU5Nb1E4NXNFNnhQbDRjV1cyWFFhN0VvOWpzTVhwb21yUEV1SUNfOE9XbDh5TWpwYUlXejlZM0c0UEVOMnpuYUMxeGxlZGhyeWh1ZDBwVnVYMDdNcW1S?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Fri, 20 Mar 2026 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "12adf6c287b60df8e4743e1cd059fe3ed2e2482da8da5310b7a337d208e9774e": {
+      "title": "Promozione Leapmotor T03: perché conviene e perché no - InsideEVs Italia",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTFB5SVBqWk9ucm1RTkVmcnJ2UWlEQS1OOEFkM0pUdnM0UmRpd3ZFcHUyeUx4ZWRQZnRZMzQ2dWJta0d6MUhrSHRxWjVWZWQxU1lfa1hoMlNkZVJOQ09iMnc2dDNSZ1JXYlU2amZvQVNRWmZOMk9Ec1JLNGl3Yw?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Thu, 16 Oct 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "4f62739c6804289a21c5b736e010e27552da183fc8199f0dd333a9f60d667108": {
+      "title": "Promozione Leapmotor T03, perché conviene e perché no - Motor1.com Italia",
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9IY0k2U2NNYkJDcmRzT2hyb2VQMG1jQ1E4UWEwdnJTeGQzaU9BcTE0VERnQy1jX1lsMFRINlljeXhNbVNlSmhsUTNuakJqc19ldFBXNzVtcnA5d2EwVnFobkY0dGJwNEV6bHJtU25mUXd1dw?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Thu, 18 Sep 2025 07:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "48623d86b2dc61cbd221b0e92b7ff9625b0919832c3f474fe7c91385abab99af": {
+      "title": "Incentivi Mase, la T03 domina il mercato elettrico italiano - Agenzia stampa Mobilità",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPcERDai00WW5seG42cUhqUGFoV001NWREU25mUzJNdDZjUFcxTHJMY1hYVVl6a0I2TmUybEZZZ2hJQVlzS0QtdVktVGM5cFlsUUF3dW1sdHdxWURsWkY5cFdzZ0ZoNTVHVGNrMU0yWXg5U1I3UkZLMExVcjluVldmbm5VcnhCeHBBb0tEdEVaNnFSSlBRNmhfVmNMNzQzMW1kMWc?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Fri, 19 Jun 2026 15:45:08 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 15:04"
+    },
+    "ad4b16fdcf869563f0b0943aa470a86e086118115e32183d2a6767b108934c9f": {
+      "title": "Auto elettriche da acquistare con gli incentivi 2025 a meno di 15.000 euro - Auto Rattix",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPUEJaSXA0bnJmYVhBZTJNN1YtT3NnUm1nOW4ybVp4OEdCR0ZfTDFEbmFCUWVjZ2pwakNwcFpLb3ltT25lZU1XMlM1LW55cjFTUmRkTHQ0MTRGWHB2eC1GTDRhd3FjNE1kbWVCOURTWnVLanVHSWlraXR6bVhNQWxJcXpfTS1BdEdfSHZrTzhmZUoxSmVsY2N6YzFxVTVvNi1FVEpLWk9zTkxGMm1fbG1TYlNNZmhUeHJnTmNQb1BOVkdHUdIBxwFBVV95cUxNM1FjRTBUZVlSa2hUTjNwaFpRV2poUERSMnZqM3FuVFVTVkF0aldLY2tXdTdiTnNTaW9yQzR5MExQV29HUnJicGYtNFZzQzZTaGxGT3pqUXFVZWFGNE56UFNvc1V3ZlVtdkh4YXluY08wZmhMbFRFWm9fVmxkVHh5SGI3QTN0Wkp4RWc2RVcxdW1tVENlNUdCNjlMNTFRZURtUHdhS2ZNSFp6cU1XVmNORXJkSlB5Tko3ZDh0cWJEWkJBdGRlcEpZ?oc=5",
+      "query": "Leapmotor T03 incentivo bonus elettrica",
+      "published": "Fri, 02 Jan 2026 08:00:00 GMT",
+      "level": "IGNORE",
+      "saved_at": "02/07/2026 15:04"
     }
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "sold_out": false,
-    "availability": false,
+    "available": false,
+    "important": true,
+    "sold_out_matches": [],
+    "available_matches": [],
+    "important_matches": [
+      "plafond",
+      "voucher",
+      "beneficiario",
+      "fua",
+      "isee",
+      "rottamazione",
+      "veicoli elettrici",
+      "categoria m1"
+    ],
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Home"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Home Bonus Veicoli Elettrici"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "sold_out": false,
-    "availability": false,
+    "available": false,
+    "important": true,
+    "sold_out_matches": [],
+    "available_matches": [],
+    "important_matches": [
+      "veicoli elettrici"
+    ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Login Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "sold_out": false,
-    "availability": false,
+    "available": false,
+    "important": true,
+    "sold_out_matches": [],
+    "available_matches": [],
+    "important_matches": [
+      "veicoli elettrici"
+    ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Home Beneficiario"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Home Beneficiario",
+    "type": "mase"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "sold_out": false,
-    "availability": false,
+    "available": false,
+    "important": true,
+    "sold_out_matches": [],
+    "available_matches": [],
+    "important_matches": [
+      "veicoli elettrici"
+    ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Plafond"
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Plafond"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 15:01",
-    "name": "Bonus Veicoli Elettrici MASE - Plafond"
-  }
+    "last_checked": "02/07/2026 15:04",
+    "name": "MASE - Plafond",
+    "type": "mase"
+  },
+  "_last_summary_sent": "02/07/2026 15:04"
 }
