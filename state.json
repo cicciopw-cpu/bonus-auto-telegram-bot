@@ -1,47 +1,49 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "Ecobonus MIMIT - Auto",
     "type": "mimit",
     "text_length": 6056
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "Ecobonus MIMIT - Contributi",
     "type": "mimit",
     "text_length": 4912
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "Ecobonus MIMIT - Risorse stanziate",
     "type": "mimit",
     "text_length": 3010
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "02f5dd11f3f82c336d7d731b0d209eeeb18429511800c316fd6585889f8b3e79",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "Ecobonus MIMIT - Avvisi e notizie",
     "type": "mimit",
     "text_length": 3979
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "02/07/2026 15:16",
+    "last_checked": "02/07/2026 17:20",
     "name": "MIMIT - Ecobonus Automotive",
-    "type": "mimit"
+    "type": "mimit",
+    "text_length": 3320
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "132fc3447c4449fd502e6608caf8e3bb27585f8cb354d394f739987547fff9ea",
-    "last_checked": "02/07/2026 15:16",
+    "last_checked": "02/07/2026 17:20",
     "name": "MIMIT - Incentivi Aggiornamenti",
-    "type": "mimit"
+    "type": "mimit",
+    "text_length": 3954
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "type": "mase",
     "text_length": 1813
@@ -62,19 +64,28 @@
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "Ecobonus MIMIT - Cos'è",
     "type": "mimit",
     "text_length": 2639
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Login Beneficiario",
     "type": "mase",
     "text_length": 23
   },
   "_seen_news": {
+    "8c054390ed22598731cc1f6cd524ea2ad9cb01ad32e12d3f9ee2d2e24239ced3": {
+      "title": "Wallbox in casa e in condominio: lo Stato copre fino all’80%, ma i fondi non dureranno per sempre - benessereconomico.it",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNY1V6ODhrQmJ2cnljLWUtUUtoX0hCZzFtUEZDVDZkLVU0RWpmNVRpaWZPdGtXTzJwQkwxUlZ4SG56RXpPU1M1MWh0dkpjaGxLV2NQOXQtR3U1UHRTNk1mQ2dnLUNHQlZtcjJFNGhvc3VjUFo5aDNqUDFTaDNzWTMyZXdqdEVtSDYyV2tmOTRkQnhOUlVvV1ljT0IxM0luQzltUmwxaFhVcmtodl9zNTc5S2xmaWdETjVqVmN2b2J5MjI?oc=5",
+      "query": "bonus auto elettriche fondi disponibili",
+      "published": "Wed, 01 Jul 2026 22:35:49 GMT",
+      "level": "IMPORTANT",
+      "saved_at": "02/07/2026 17:20",
+      "news_day_filter": "2026-07-02"
+    },
     "283cab11fa026b3cb31cb81da6de424a54628c4e02a217f6cb4aa67c7e2ffa3f": {
       "title": "Bonus fino a 800 euro: ottenerlo è più facile del previsto - Virgilio",
       "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOb2Nuam1EV2dvMHZsWS1xQmdEc285QzJNVUJoaVhMcUlRNnJWenIzbDh3bUR2dFR2ZTJzbzRQS2pZb1N2dUZ2SDhqTkdtQklNaG92ZEFoN2doUkRaM3gxbC1OZDVfcWJXNlBmQUhuaDZWNTRDc01lVWpNRG91RFdpM1I5Y3JqS3lqY0VpaDlZRQ?oc=5",
@@ -844,15 +855,6 @@
       "query": "MASE voucher auto elettriche",
       "published": "Fri, 24 Oct 2025 07:00:00 GMT",
       "saved_at": "28/06/2026 15:40"
-    },
-    "8c054390ed22598731cc1f6cd524ea2ad9cb01ad32e12d3f9ee2d2e24239ced3": {
-      "title": "Wallbox in casa e in condominio: lo Stato copre fino all’80%, ma i fondi non dureranno per sempre - benessereconomico.it",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNY1V6ODhrQmJ2cnljLWUtUUtoX0hCZzFtUEZDVDZkLVU0RWpmNVRpaWZPdGtXTzJwQkwxUlZ4SG56RXpPU1M1MWh0dkpjaGxLV2NQOXQtR3U1UHRTNk1mQ2dnLUNHQlZtcjJFNGhvc3VjUFo5aDNqUDFTaDNzWTMyZXdqdEVtSDYyV2tmOTRkQnhOUlVvV1ljT0IxM0luQzltUmwxaFhVcmtodl9zNTc5S2xmaWdETjVqVmN2b2J5MjI?oc=5",
-      "query": "bonus auto elettriche fondi disponibili",
-      "published": "Wed, 01 Jul 2026 22:35:49 GMT",
-      "level": "IMPORTANT",
-      "saved_at": "02/07/2026 17:20",
-      "news_day_filter": "2026-07-02"
     }
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/index.html": {
@@ -874,7 +876,7 @@
       "pnrr"
     ],
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Bonus Veicoli Elettrici"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
@@ -888,7 +890,7 @@
       "bonus veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Login Beneficiario"
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
@@ -902,12 +904,12 @@
       "bonus veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Beneficiario"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Beneficiario",
     "type": "mase",
     "text_length": 23
@@ -923,12 +925,12 @@
       "bonus veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Plafond"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Plafond",
     "type": "mase",
     "text_length": 23
@@ -938,41 +940,41 @@
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "count": 0,
     "last_alert": null,
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "reasons": []
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
-    "count": 1,
+    "count": 2,
     "last_alert": null,
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Login Beneficiario",
     "reasons": [
       "testo troppo corto (23 caratteri)"
     ]
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
-    "count": 1,
+    "count": 2,
     "last_alert": null,
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Home Beneficiario",
     "reasons": [
       "testo troppo corto (23 caratteri)"
     ]
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
-    "count": 1,
+    "count": 2,
     "last_alert": null,
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Plafond",
     "reasons": [
       "testo troppo corto (23 caratteri)"
     ]
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/": {
-    "count": 1,
+    "count": 2,
     "last_alert": null,
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Esercente / Concessionari",
     "reasons": [
       "testo troppo corto (23 caratteri)"
@@ -989,19 +991,17 @@
       "bonus veicoli elettrici"
     ],
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Esercente / Concessionari"
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/": {
     "hash": "05d0f8a1747cdc51cb7d1758d0312b91c5cbdb9b2acef2a2c34f7bbefe6ee95c",
-    "last_checked": "02/07/2026 17:18",
+    "last_checked": "02/07/2026 17:20",
     "name": "MASE - Esercente / Concessionari",
     "type": "mase",
     "text_length": 23
   },
   "_last_site_errors": [
-    "MIMIT - Ecobonus Automotive: HTTPSConnectionPool(host='www.mimit.gov.it', port=443): Max retries exceeded with url: /it/incentivi/ecobonus-automotive (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mimit.gov.it', port=443) at 0x7f9adb478d10>, 'Connection to www.mimit.gov.it timed out. (connect timeout=45)'))",
-    "MIMIT - Incentivi Aggiornamenti: HTTPSConnectionPool(host='www.mimit.gov.it', port=443): Max retries exceeded with url: /it/incentivi-aggiornamenti (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.mimit.gov.it', port=443) at 0x7f9adb47af90>, 'Connection to www.mimit.gov.it timed out. (connect timeout=45)'))",
     "MASE - Comunicati ufficiali: 404 Client Error: Not Found for url: https://www.mase.gov.it/portale/comunicati"
   ],
   "_last_alive_day": "2026-07-02"
