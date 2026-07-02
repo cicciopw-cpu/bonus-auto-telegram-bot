@@ -15,6 +15,7 @@ BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 STATE_FILE = "state.json"
+BOT_VERSION = "V9"
 
 SEND_ON_FIRST_RUN = False
 
@@ -215,6 +216,31 @@ SITES = [
         "type": "mase_static",
     },
     {
+        "name": "MASE - Investimento 4.5 PNRR",
+        "url": "https://www.mase.gov.it/portale/investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici",
+        "type": "mase_institutional",
+    },
+    {
+        "name": "MASE - Bando Bonus Veicoli Elettrici",
+        "url": "https://www.mase.gov.it/portale/-/bando-per-la-concessione-incentivi-a-fondo-perduto-previsti-nel-piano-nazionale-di-ripresa-e-resilienza-pnrr-missione-2-componente-2-investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici-",
+        "type": "mase_institutional",
+    },
+    {
+        "name": "MASE - Sportello Bonus Veicoli Elettrici",
+        "url": "https://www.mase.gov.it/portale/-/auto-bonus-veicoli-elettrici-dal-22/10-aperto-lo-sportello-per-cittadini-e-microimprese",
+        "type": "mase_institutional",
+    },
+    {
+        "name": "MASE - PNRR",
+        "url": "https://www.mase.gov.it/portale/pnrr",
+        "type": "mase_institutional",
+    },
+    {
+        "name": "MASE - Archivio News PNRR",
+        "url": "https://www.mase.gov.it/portale/archivio-news-pnrr",
+        "type": "mase_institutional",
+    },
+    {
         "name": "MASE - Login Beneficiario",
         "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
         "type": "mase_dynamic",
@@ -284,20 +310,19 @@ SITES = [
 NEWS_QUERIES = [
     "bonus veicoli elettrici MASE voucher disponibili",
     "bonus veicoli elettrici MASE fondi disponibili",
-    "voucher auto elettriche MASE disponibili",
-    "bonus auto elettriche voucher disponibile",
-    "bonus auto elettriche fondi disponibili",
+    "bonus veicoli elettrici MASE plafond residuo",
+    "bonus veicoli elettrici MASE fondi residui",
+    "bonus veicoli elettrici MASE voucher scaduti",
+    "bonus veicoli elettrici MASE voucher non utilizzati",
     "MASE bonus veicoli elettrici riapertura piattaforma",
+    "MASE bonus veicoli elettrici riattivazione sportello",
     "MASE voucher auto elettriche sportello aperto",
-    "bonus veicoli elettrici beneficiario plafond",
+    "MASE Investimento 4.5 veicoli elettrici voucher",
+    "Sogei bonus veicoli elettrici voucher",
     "ecobonus auto elettriche apertura prenotazioni",
-    "incentivi auto elettriche 10000 euro",
-    "incentivi auto elettriche 11000 euro",
-    "Leapmotor T03 incentivo bonus elettrica",
-    "Leapmotor T03 bonus 11000 euro",
-    "Leapmotor T03 voucher MASE",
+    "incentivi auto elettriche 10000 euro MASE",
+    "incentivi auto elettriche 11000 euro MASE",
 ]
-
 TRUSTED_NEWS_SOURCES = [
     "ministero",
     "mase",
@@ -317,6 +342,9 @@ TRUSTED_NEWS_SOURCES = [
     "corriere",
     "fanpage",
     "rinnovabili",
+    "aci",
+    "automobile club",
+    "open innovation",
 ]
 
 AUTO_WORDS = [
@@ -345,15 +373,62 @@ AUTO_WORDS = [
 
 BAD_TOPICS = [
     "motocicli",
+    "motociclo",
     "ciclomotori",
+    "ciclomotore",
     "scooter",
+    "quadricicli",
+    "quadriciclo",
     "due ruote",
     "bici elettriche",
     "biciclette elettriche",
+    "e-bike",
+    "ebike",
     "monopattini",
+    "monopattino",
     "colonnine",
+    "colonnina",
+    "ricarica domestica",
+    "punti di ricarica",
+    "punto di ricarica",
+    "stazioni di ricarica",
+    "infrastrutture di ricarica",
+    "bonus colonnine",
     "wallbox",
+    "wall box",
+    "wall-box",
+    "condominio",
+    "condomini",
+    "garage",
+    "box auto",
     "installatori",
+    "pompe di calore",
+]
+
+OFFICIAL_BONUS_CONTEXT_WORDS = [
+    "bonus veicoli elettrici",
+    "investimento 4.5",
+    "m2c2",
+    "pnrr m2c2",
+    "mase",
+    "sogei",
+]
+
+REAL_VOUCHER_SIGNAL_WORDS = [
+    "voucher",
+    "plafond",
+    "fondi disponibili",
+    "fondi residui",
+    "risorse disponibili",
+    "risorse residue",
+    "sportello",
+    "piattaforma",
+    "prenotazioni",
+    "domande",
+    "riapertura",
+    "riattivazione",
+    "scaduti",
+    "non utilizzati",
 ]
 
 IMPORTANT_NEWS_WORDS = [
@@ -537,7 +612,7 @@ def send_telegram(message, chat_id=None):
 
 def request_json(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/9.0",
         "Accept": "application/json,text/plain,*/*",
     }
 
@@ -760,7 +835,7 @@ def check_direct_mase_apis(state):
 
 def request_document(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/9.0",
         "Accept": "application/pdf,application/octet-stream,*/*",
     }
 
@@ -823,7 +898,7 @@ def check_official_documents(state):
 
 def get_page_text_requests(url):
     headers = {
-        "User-Agent": "Mozilla/5.0 BonusAutoBot/8.0",
+        "User-Agent": "Mozilla/5.0 BonusAutoBot/9.0",
     }
 
     response = requests.get(url, headers=headers, timeout=45)
@@ -888,7 +963,7 @@ def get_page_text_playwright(site):
         )
 
         page = browser.new_page(
-            user_agent="Mozilla/5.0 BonusAutoBot/8.0",
+            user_agent="Mozilla/5.0 BonusAutoBot/9.0",
             viewport={"width": 1366, "height": 900},
         )
 
@@ -1082,10 +1157,9 @@ def classify_general_site(state, site, text, changed, first_run):
         return alerts
 
     has_auto = contains_any(text, AUTO_WORDS)
-    has_bad_topic = contains_any(text, BAD_TOPICS)
     has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
 
-    if has_bad_topic and not has_auto:
+    if has_disqualifying_topic(text):
         return alerts
 
     if has_auto and has_important:
@@ -1205,12 +1279,28 @@ def source_is_trusted(source, title):
     return any(src in text for src in TRUSTED_NEWS_SOURCES)
 
 
+def is_official_bonus_context(text):
+    text = str(text).lower()
+    return contains_any(text, OFFICIAL_BONUS_CONTEXT_WORDS) and contains_any(text, REAL_VOUCHER_SIGNAL_WORDS)
+
+
+def has_disqualifying_topic(text):
+    text = str(text).lower()
+
+    if not contains_any(text, BAD_TOPICS):
+        return False
+
+    # Se parla di wallbox/colonnine/moto/scooter va scartata, tranne quando il testo
+    # è chiaramente dentro il programma ufficiale MASE Bonus Veicoli Elettrici.
+    return not is_official_bonus_context(text)
+
+
 def classify_news(title, summary, source):
     text = f"{title} {summary} {source}".lower()
 
     has_auto = contains_any(text, AUTO_WORDS)
-    has_bad_topic = contains_any(text, BAD_TOPICS)
     has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
+    official_bonus_context = is_official_bonus_context(text)
 
     urgent_words = [
         "disponibili",
@@ -1221,34 +1311,49 @@ def classify_news(title, summary, source):
         "sportello riaperto",
         "piattaforma aperta",
         "piattaforma attiva",
+        "piattaforma riaperta",
+        "piattaforma riattivata",
         "voucher disponibili",
         "fondi disponibili",
+        "fondi residui",
         "risorse disponibili",
+        "risorse residue",
         "click day",
         "prenotazioni aperte",
         "domande aperte",
+        "voucher scaduti",
+        "voucher non utilizzati",
+        "tornano disponibili",
+        "torna disponibile",
     ]
 
     has_urgent = contains_any(text, urgent_words)
 
-    if has_bad_topic and not has_auto:
-        return "IGNORE", "Parla di moto/scooter/colonnine o temi non collegati alle auto elettriche."
+    if has_disqualifying_topic(text):
+        return "IGNORE", "Scartata: parla di wallbox/colonnine/moto/scooter/ricarica o temi fuori dal voucher auto MASE."
 
-    if has_auto and has_urgent:
-        return "URGENT", "Contiene parole compatibili con apertura, disponibilità fondi o voucher."
+    if official_bonus_context and has_urgent:
+        return "URGENT", "Contesto ufficiale MASE/Bonus Veicoli Elettrici con segnali di voucher, plafond, fondi o riapertura."
 
-    if has_auto and has_important:
-        return "IMPORTANT", "Parla di bonus/incentivi auto elettriche, ma non conferma fondi disponibili."
+    if has_auto and has_urgent and contains_any(text, ["voucher", "plafond", "fondi", "risorse", "sportello", "piattaforma"]):
+        return "URGENT", "Contiene parole compatibili con apertura, disponibilità fondi, plafond o voucher auto."
+
+    if official_bonus_context or (has_auto and has_important and contains_any(text, ["mase", "mimit", "ministero", "sogei", "ecobonus"])):
+        return "IMPORTANT", "Parla del bonus/incentivo auto elettriche con segnali collegati a MASE/MIMIT/Sogei."
 
     if "mase" in text or "mimit" in text or "ecobonus" in text:
-        return "INFO", "Cita MASE/MIMIT/Ecobonus, ma non contiene segnali forti."
+        return "INFO", "Cita MASE/MIMIT/Ecobonus, ma non contiene segnali forti sul voucher auto."
 
     return "IGNORE", "Notizia non abbastanza pertinente."
 
 
 def should_notify_news(level, source, title):
+    text = f"{source} {title}".lower()
     trusted = source_is_trusted(source, title)
-    official_hint = contains_any(f"{source} {title}", ["mase", "mimit", "ministero", "ecobonus"])
+    official_hint = contains_any(text, ["mase", "mimit", "ministero", "sogei", "bonus veicoli elettrici"])
+
+    if has_disqualifying_topic(text):
+        return False
 
     if level == "URGENT":
         return trusted or official_hint
@@ -1447,13 +1552,72 @@ def build_recent_news_text(state):
     return "\n".join(lines)
 
 
+def build_sources_text(state):
+    lines = [
+        f"🔎 FONTI MONITORATE - {BOT_VERSION}",
+        "",
+        f"API MASE dirette: {len(DIRECT_API_ENDPOINTS)}",
+        f"Documenti ufficiali: {len(OFFICIAL_DOCUMENTS)}",
+        f"Pagine/siti controllati: {len(SITES)}",
+        f"Query Google News: {len(NEWS_QUERIES)}",
+        "",
+        "Fonti principali:",
+        "- Portale Bonus Veicoli Elettrici MASE",
+        "- API plafond/grafico/versione/avvisi MASE",
+        "- Manuali, FAQ e condizioni ufficiali MASE",
+        "- Pagine MASE Investimento 4.5 / PNRR / Archivio News PNRR",
+        "- Ecobonus MIMIT e aggiornamenti MIMIT, con filtro stretto",
+        "- Google News, solo oggi e filtrate anti-falsi positivi",
+    ]
+
+    return "\n".join(lines)
+
+
+def build_debug_text(state):
+    site_errors = state.get("_last_site_errors", [])
+    api_errors = state.get("_direct_api_errors", [])
+    doc_errors = state.get("_official_documents_errors", [])
+    seen_news = state.get("_seen_news", {})
+    api_inventory = state.get("_api_inventory", {})
+    telegram_error = state.get("_telegram_command_error")
+
+    lines = [
+        f"🧪 DEBUG BOT BONUS AUTO - {BOT_VERSION}",
+        "",
+        f"Ora: {now_string()}",
+        f"Ultimo deep check pagine: {state.get('_last_deep_page_check', 'N/D')}",
+        f"News salvate: {len(seen_news) if isinstance(seen_news, dict) else 0}",
+        f"Endpoint scoperti via Playwright: {len(api_inventory) if isinstance(api_inventory, dict) else 0}",
+        "",
+        "Errori:",
+        f"- Siti: {len(site_errors)}",
+        f"- API: {len(api_errors)}",
+        f"- Documenti: {len(doc_errors)}",
+        f"- Telegram comandi: {telegram_error or 'OK'}",
+    ]
+
+    if site_errors:
+        lines.append("\nUltimi errori siti:")
+        lines.extend([f"- {err}" for err in site_errors[:5]])
+
+    if api_errors:
+        lines.append("\nUltimi errori API:")
+        lines.extend([f"- {err}" for err in api_errors[:5]])
+
+    if doc_errors:
+        lines.append("\nUltimi errori documenti:")
+        lines.extend([f"- {err}" for err in doc_errors[:5]])
+
+    return "\n".join(lines)
+
+
 def build_status_text(state):
     site_errors = state.get("_last_site_errors", [])
     api_errors = state.get("_direct_api_errors", [])
     doc_errors = state.get("_official_documents_errors", [])
 
     return (
-        "📊 STATUS BOT BONUS AUTO - V8\n\n"
+        "📊 STATUS BOT BONUS AUTO - V9\n\n"
         f"Ora: {now_string()}\n\n"
         f"{build_direct_api_status_text(state)}\n\n"
         "📄 Documenti ufficiali:\n"
@@ -1488,7 +1652,7 @@ def should_send_alive_message(state):
 
 def build_summary(state):
     return (
-        "📊 RIEPILOGO BOT BONUS AUTO - V8\n\n"
+        "📊 RIEPILOGO BOT BONUS AUTO - V9\n\n"
         f"{build_direct_api_status_text(state)}\n\n"
         "📄 Documenti:\n"
         f"{build_docs_status_text(state)}\n\n"
@@ -1501,7 +1665,7 @@ def build_summary(state):
 
 def build_alive_message(state):
     return (
-        "✅ BOT BONUS AUTO ATTIVO - V8\n\n"
+        "✅ BOT BONUS AUTO ATTIVO - V9\n\n"
         f"Ultimo controllo: {now_string()}\n"
         "Controllo principale: API MASE dirette ogni 5 minuti.\n"
         "Deep check pagine: circa ogni 1 ora.\n"
@@ -1588,6 +1752,8 @@ def handle_telegram_commands(state):
                 "/plafond - stato plafond e voucher\n"
                 "/news - ultime news importanti di oggi\n"
                 "/docs - stato documenti ufficiali\n"
+                "/fonti - elenco fonti monitorate\n"
+                "/debug - diagnostica tecnica rapida\n"
                 "/check - mostra l’ultimo controllo disponibile\n\n"
                 "Il bot controlla automaticamente ogni 5 minuti.",
                 chat_id=chat_id,
@@ -1616,6 +1782,12 @@ def handle_telegram_commands(state):
                 f"{build_docs_status_text(state)}",
                 chat_id=chat_id,
             )
+
+        elif cmd == "/fonti":
+            send_telegram(build_sources_text(state), chat_id=chat_id)
+
+        elif cmd == "/debug":
+            send_telegram(build_debug_text(state), chat_id=chat_id)
 
         else:
             send_telegram(
