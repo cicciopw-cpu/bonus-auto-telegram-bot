@@ -13,260 +13,238 @@ CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
 
 STATE_FILE = "state.json"
 
+# False = non manda avvisi inutili al primo giro.
 SEND_ON_FIRST_RUN = False
 
+# Riepilogo automatico ogni 12 ore.
+SUMMARY_EVERY_HOURS = 12
 
-MASE_SOLD_OUT_TEXT = "tutte le risorse risultano al momento prenotate"
 
-MASE_AVAILABILITY_PHRASES = [
-    "fondi disponibili",
-    "risorse disponibili",
+# Frase critica attuale vista sul portale MASE.
+MASE_SOLD_OUT_PHRASES = [
+    "tutte le risorse risultano al momento prenotate",
+    "risorse risultano al momento prenotate",
+    "risorse al momento prenotate",
+    "risorse prenotate",
+    "fondi prenotati",
+    "plafond esaurito",
+    "fondi esauriti",
+    "risorse esaurite",
+]
+
+
+# Frasi che indicano possibile disponibilità fondi/voucher.
+MASE_AVAILABLE_PHRASES = [
     "voucher disponibili",
     "voucher disponibile",
-    "piattaforma riattivata",
-    "riattivati sulla piattaforma",
-    "richiedere il voucher",
-    "richiedi il voucher",
-    "domanda disponibile",
-    "presenta domanda",
-    "sportello aperto",
+    "fondi disponibili",
+    "fondo disponibile",
+    "risorse disponibili",
+    "risorsa disponibile",
     "plafond disponibile",
-    "disponibilità consultando la pagina plafond",
+    "disponibilità plafond",
+    "sportello aperto",
+    "piattaforma aperta",
+    "piattaforma attiva",
+    "piattaforma riattivata",
+    "prenotazioni aperte",
+    "domande aperte",
+    "presenta domanda",
+    "presentare domanda",
+    "richiedi il voucher",
+    "richiedere il voucher",
+    "richiesta voucher",
+    "genera voucher",
+    "generare voucher",
+    "accedi per richiedere",
+    "è possibile richiedere",
+    "sono disponibili risorse",
+    "sono disponibili fondi",
+    "riapertura dello sportello",
+    "riapertura piattaforma",
+    "riaperti i termini",
+]
+
+
+# Frasi che non indicano ancora disponibilità, ma sono importanti.
+MASE_IMPORTANT_PHRASES = [
+    "avviso importante",
+    "plafond",
+    "risorse",
+    "voucher",
+    "beneficiario",
+    "fua",
+    "isee",
+    "rottamazione",
+    "veicoli elettrici",
+    "categoria m1",
 ]
 
 
 SITES = [
     {
+        "name": "MASE - Home Bonus Veicoli Elettrici",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/index.html",
+        "type": "mase",
+        "important": True,
+    },
+    {
+        "name": "MASE - Login Beneficiario",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
+        "type": "mase",
+        "important": True,
+    },
+    {
+        "name": "MASE - Home Beneficiario",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home",
+        "type": "mase",
+        "important": True,
+    },
+    {
+        "name": "MASE - Plafond",
+        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond",
+        "type": "mase",
+        "important": True,
+    },
+    {
         "name": "Ecobonus MIMIT - Cos'è",
         "url": "https://ecobonus.mimit.gov.it/cose",
+        "type": "mimit",
         "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Auto",
         "url": "https://ecobonus.mimit.gov.it/auto",
+        "type": "mimit",
         "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Contributi",
         "url": "https://ecobonus.mimit.gov.it/contributi",
+        "type": "mimit",
         "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Risorse stanziate",
         "url": "https://ecobonus.mimit.gov.it/risorse-stanziate",
+        "type": "mimit",
         "important": True,
     },
     {
         "name": "Ecobonus MIMIT - Avvisi e notizie",
         "url": "https://ecobonus.mimit.gov.it/avvisi-notizie",
+        "type": "mimit",
         "important": True,
     },
     {
-        "name": "MIMIT - Ecobonus automotive",
+        "name": "MIMIT - Ecobonus Automotive",
         "url": "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive",
+        "type": "mimit",
         "important": True,
     },
     {
-        "name": "MIMIT - Incentivi aggiornamenti",
+        "name": "MIMIT - Incentivi Aggiornamenti",
         "url": "https://www.mimit.gov.it/it/incentivi-aggiornamenti",
-        "important": True,
-    },
-    {
-        "name": "Bonus Veicoli Elettrici MASE - Home",
-        "url": "https://www.bonusveicolielettrici.mase.gov.it/index.html",
-        "important": True,
-    },
-    {
-        "name": "Bonus Veicoli Elettrici MASE - Login Beneficiario",
-        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login",
-        "important": True,
-    },
-    {
-        "name": "Bonus Veicoli Elettrici MASE - Home Beneficiario",
-        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home",
-        "important": True,
-    },
-    {
-        "name": "Bonus Veicoli Elettrici MASE - Plafond",
-        "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond",
+        "type": "mimit",
         "important": True,
     },
     {
         "name": "Regione Campania - Sportello Incentivi",
         "url": "https://sportelloincentivi.regione.campania.it/",
+        "type": "regione",
         "important": True,
     },
     {
         "name": "Regione Campania - News",
         "url": "https://www.regione.campania.it/regione-informa/notizie",
+        "type": "regione",
         "important": False,
     },
 ]
 
 
 NEWS_QUERIES = [
-    "bonus auto elettriche 10000 euro",
-    "bonus auto elettriche 11000 euro",
-    "voucher auto elettriche",
-    "voucher veicoli elettrici MASE",
-    "incentivi auto elettriche MASE",
-    "ecobonus auto elettriche apertura",
-    "ecobonus auto elettriche prenotazioni",
-    "bonus veicoli elettrici beneficiario",
-    "incentivi rottamazione auto elettriche",
-    "fondi auto elettriche disponibili",
-    "bonus auto elettriche ISEE 40000",
-    "bonus auto elettriche ISEE 30000",
-    "Leapmotor T03 incentivo",
-    "Leapmotor T03 bonus auto elettrica",
-    "MIMIT bonus auto elettriche",
-    "MASE voucher auto elettriche",
+    "bonus veicoli elettrici MASE voucher disponibili",
+    "bonus veicoli elettrici MASE fondi disponibili",
+    "voucher auto elettriche MASE disponibili",
+    "bonus auto elettriche voucher disponibile",
+    "bonus auto elettriche fondi disponibili",
+    "MASE bonus veicoli elettrici riapertura piattaforma",
+    "MASE voucher auto elettriche sportello aperto",
+    "bonus veicoli elettrici beneficiario plafond",
+    "ecobonus auto elettriche apertura prenotazioni",
+    "incentivi auto elettriche 10000 euro",
+    "incentivi auto elettriche 11000 euro",
+    "Leapmotor T03 incentivo bonus elettrica",
 ]
 
 
-KEYWORDS = [
+AUTO_WORDS = [
     "auto",
     "automobile",
     "automobili",
     "autovetture",
     "auto elettrica",
     "auto elettriche",
-    "elettrica",
-    "elettriche",
     "veicoli elettrici",
+    "categoria m1",
+    "m1",
     "bev",
-    "plug-in",
-    "plug in",
-    "phev",
-    "categoria m1",
-    "m1",
-    "0-20",
-    "0 - 20",
-    "0/20",
-    "g/km",
-    "co2",
-    "zero emissioni",
-    "emissioni zero",
-    "ecobonus",
-    "incentivo",
-    "incentivi",
-    "bonus",
-    "voucher",
-    "rottamazione",
-    "prenotazione",
-    "prenotazioni",
-    "piattaforma",
-    "fondi",
-    "risorse",
-    "disponibile",
-    "disponibili",
-    "apertura",
-    "riapertura",
-    "domande",
-    "bando",
-    "beneficiario",
-    "accedi",
-    "login",
-    "richiedi voucher",
-    "richiedi il voucher",
-    "voucher disponibile",
-    "voucher disponibili",
-    "piattaforma attiva",
-    "sportello aperto",
-    "plafond",
-    "leapmotor",
-    "t03",
-]
-
-
-AVAILABILITY_WORDS = [
-    "disponibile",
-    "disponibili",
-    "attiva",
-    "attivo",
-    "apertura",
-    "riapertura",
-    "prenotazioni",
-    "prenotazione",
-    "domande",
-    "fondo",
-    "fondi",
-    "risorse",
-    "bando",
-    "sportello",
-    "accedi",
-    "richiedi",
-    "richiedi voucher",
-    "richiedi il voucher",
-    "piattaforma attiva",
-    "sportello aperto",
-    "accesso",
-    "login",
-    "click day",
-    "plafond",
-]
-
-
-AUTO_FOCUS_WORDS = [
-    "auto",
-    "automobile",
-    "automobili",
-    "autovetture",
-    "auto elettrica",
-    "auto elettriche",
-    "categoria m1",
-    "m1",
-    "0-20",
-    "0 - 20",
-    "0/20",
-    "g/km",
-    "co2",
     "elettrica",
     "elettriche",
-    "bev",
-    "zero emissioni",
+    "0-20",
+    "0 - 20",
+    "g/km",
+    "co2",
     "emissioni zero",
+    "zero emissioni",
     "leapmotor",
     "t03",
 ]
 
 
-EXCLUDE_WORDS = [
+BAD_TOPICS = [
     "motocicli",
     "ciclomotori",
-    "due ruote",
     "scooter",
+    "due ruote",
     "bici elettriche",
     "biciclette elettriche",
     "monopattini",
-    "veicoli commerciali",
-    "installatori",
     "colonnine",
     "wallbox",
+    "installatori",
 ]
 
 
-AMOUNT_PATTERNS = [
-    r"10\.000\s*€",
-    r"10000\s*€",
-    r"10 mila",
-    r"11\.000\s*€",
-    r"11000\s*€",
-    r"12\.000\s*€",
-    r"12000\s*€",
-    r"13\.000\s*€",
-    r"13000\s*€",
-    r"13\.750\s*€",
-    r"13750\s*€",
-    r"14\.000\s*€",
-    r"14000\s*€",
-    r"15\.000\s*€",
-    r"15000\s*€",
-    r"20\.000\s*€",
-    r"20000\s*€",
-    r"22\.000\s*€",
-    r"22000\s*€",
+IMPORTANT_NEWS_WORDS = [
+    "disponibili",
+    "disponibile",
+    "riapertura",
+    "apertura",
+    "sportello aperto",
+    "piattaforma aperta",
+    "piattaforma attiva",
+    "voucher",
+    "fondi",
+    "risorse",
+    "plafond",
+    "prenotazioni",
+    "domande",
+    "click day",
+    "isee",
+    "rottamazione",
+    "mase",
+    "mimit",
+    "10.000",
+    "10000",
+    "11.000",
+    "11000",
 ]
+
+
+def now_string():
+    return datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 
 
 def load_state():
@@ -283,6 +261,19 @@ def load_state():
 def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
+
+
+def send_telegram(message):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    payload = {
+        "chat_id": CHAT_ID,
+        "text": message,
+        "disable_web_page_preview": False,
+    }
+
+    response = requests.post(url, json=payload, timeout=45)
+    response.raise_for_status()
 
 
 def clean_text(html):
@@ -302,7 +293,7 @@ def get_page_text(url):
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoTelegramBot/1.0"
+            "Chrome/120.0 Safari/537.36 BonusAutoBot/2.0"
         )
     }
 
@@ -321,160 +312,194 @@ def contains_any(text, words):
     return any(word.lower() in text_lower for word in words)
 
 
-def contains_amount_10000_or_more(text):
+def find_matching_phrases(text, phrases):
     text_lower = text.lower()
-
-    for pattern in AMOUNT_PATTERNS:
-        if re.search(pattern, text_lower):
-            return True
-
-    euro_amounts = re.findall(r"(\d{1,3}(?:\.\d{3})+|\d{5,})\s*€", text_lower)
-
-    for amount in euro_amounts:
-        try:
-            value = int(amount.replace(".", ""))
-            if value >= 10000:
-                return True
-        except Exception:
-            pass
-
-    return False
+    return [phrase for phrase in phrases if phrase.lower() in text_lower]
 
 
-def make_snippet(text):
+def make_snippet(text, phrases=None):
     text_lower = text.lower()
+    phrases = phrases or []
+
     positions = []
 
-    for word in KEYWORDS + AVAILABILITY_WORDS + MASE_AVAILABILITY_PHRASES:
+    for word in phrases + MASE_AVAILABLE_PHRASES + MASE_SOLD_OUT_PHRASES + IMPORTANT_NEWS_WORDS + AUTO_WORDS:
         pos = text_lower.find(word.lower())
         if pos != -1:
             positions.append(pos)
 
     if not positions:
-        return text[:700]
+        return text[:900]
 
-    start = max(0, min(positions) - 250)
-    end = min(len(text), start + 900)
+    start = max(0, min(positions) - 300)
+    end = min(len(text), start + 1300)
 
     return text[start:end]
 
 
-def send_telegram(message):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-
-    payload = {
-        "chat_id": CHAT_ID,
-        "text": message,
-        "disable_web_page_preview": False,
-    }
-
-    response = requests.post(url, json=payload, timeout=45)
-    response.raise_for_status()
-
-
-def is_mase_site(url):
-    return "bonusveicolielettrici.mase.gov.it" in url
-
-
-def check_mase_special_status(state, name, url, text, changed, first_run):
+def classify_mase_page(state, site, text, changed, first_run):
     alerts = []
 
-    if not is_mase_site(url):
-        return alerts
+    name = site["name"]
+    url = site["url"]
 
     text_lower = text.lower()
 
-    sold_out_now = MASE_SOLD_OUT_TEXT in text_lower
-    has_availability_now = any(phrase in text_lower for phrase in MASE_AVAILABILITY_PHRASES)
+    sold_out_matches = find_matching_phrases(text, MASE_SOLD_OUT_PHRASES)
+    available_matches = find_matching_phrases(text, MASE_AVAILABLE_PHRASES)
+    important_matches = find_matching_phrases(text, MASE_IMPORTANT_PHRASES)
+
+    sold_out_now = len(sold_out_matches) > 0
+    available_now = len(available_matches) > 0
+    important_now = len(important_matches) > 0
 
     status_key = f"_mase_status::{url}"
-    previous_status = state.get(status_key, {})
+    previous = state.get(status_key, {})
 
-    sold_out_before = previous_status.get("sold_out")
-    availability_before = previous_status.get("availability")
-    previous_hash = previous_status.get("hash")
+    sold_out_before = previous.get("sold_out")
+    available_before = previous.get("available")
+    previous_hash = previous.get("hash")
 
     current_hash = text_hash(text)
 
     state[status_key] = {
         "sold_out": sold_out_now,
-        "availability": has_availability_now,
+        "available": available_now,
+        "important": important_now,
+        "sold_out_matches": sold_out_matches,
+        "available_matches": available_matches,
+        "important_matches": important_matches,
         "hash": current_hash,
-        "last_checked": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "last_checked": now_string(),
         "name": name,
     }
 
     if first_run and not SEND_ON_FIRST_RUN:
         return alerts
 
-    # CASO 1: prima c'era il messaggio "risorse prenotate", ora non c'è più.
+    # CASO PIÙ IMPORTANTE:
+    # prima c'era il messaggio fondi prenotati/esauriti, ora non c'è più.
     if sold_out_before is True and sold_out_now is False:
         alerts.append(
-            "🚨 ATTENZIONE MASE: IL MESSAGGIO 'RISORSE PRENOTATE' È SPARITO\n\n"
+            "🚨🚨 URGENTE - POSSIBILE RIAPERTURA VOUCHER MASE 🚨🚨\n\n"
             f"Fonte: {name}\n"
+            f"Controllo: {now_string()}\n"
             f"Link: {url}\n\n"
-            "Prima la pagina diceva che tutte le risorse erano prenotate. "
-            "Ora quel messaggio non risulta più presente. Controlla subito la piattaforma."
+            "Cosa è successo:\n"
+            "Prima la pagina indicava che le risorse/fondi erano prenotati o esauriti.\n"
+            "Adesso quel messaggio non risulta più presente.\n\n"
+            "Cosa può significare:\n"
+            "Potrebbero aver aggiornato il portale, riaperto fondi o modificato lo stato del plafond.\n\n"
+            "Cosa fare subito:\n"
+            "Accedi al portale MASE con SPID/CIE e controlla se puoi generare il voucher."
         )
 
-    # CASO 2: compaiono frasi di disponibilità.
-    if availability_before is not True and has_availability_now:
-        snippet = make_snippet(text)
+    # Compare una frase di disponibilità.
+    if available_before is not True and available_now:
+        snippet = make_snippet(text, available_matches)
 
         alerts.append(
-            "🚨 POSSIBILE DISPONIBILITÀ VOUCHER MASE\n\n"
+            "🚨🚨 URGENTE - FRASE DI DISPONIBILITÀ TROVATA 🚨🚨\n\n"
             f"Fonte: {name}\n"
+            f"Controllo: {now_string()}\n"
             f"Link: {url}\n\n"
-            "La pagina contiene frasi compatibili con fondi/voucher/piattaforma disponibile.\n\n"
+            "Frasi trovate:\n"
+            + "\n".join([f"- {p}" for p in available_matches[:8]])
+            + "\n\n"
+            "Cosa significa:\n"
+            "La pagina contiene parole compatibili con fondi/voucher/piattaforma disponibili.\n\n"
+            "Azione consigliata:\n"
+            "Apri subito il portale e prova ad accedere con SPID/CIE.\n\n"
             f"Anteprima:\n{snippet[:1200]}"
         )
 
-    # CASO 3: cambia la pagina MASE e riguarda plafond/avviso importante.
-    if changed and previous_hash is not None:
-        if "plafond" in text_lower or "avviso importante" in text_lower or "risorse" in text_lower:
-            snippet = make_snippet(text)
+    # Cambia una pagina MASE importante contenente plafond/avvisi/risorse.
+    if changed and previous_hash is not None and important_now:
+        snippet = make_snippet(text, important_matches)
 
-            alerts.append(
-                "⚠️ PAGINA MASE CAMBIATA\n\n"
-                f"Fonte: {name}\n"
-                f"Link: {url}\n\n"
-                "La pagina MASE è cambiata e contiene riferimenti a plafond, risorse o avvisi importanti. "
-                "Verifica se sono tornati disponibili fondi o voucher.\n\n"
-                f"Anteprima:\n{snippet[:1200]}"
-            )
+        alerts.append(
+            "⚠️ PAGINA MASE IMPORTANTE CAMBIATA\n\n"
+            f"Fonte: {name}\n"
+            f"Controllo: {now_string()}\n"
+            f"Link: {url}\n\n"
+            "La pagina è cambiata e contiene riferimenti a voucher, plafond, risorse, ISEE o beneficiario.\n"
+            "Non è una conferma di fondi disponibili, ma va controllata.\n\n"
+            f"Anteprima:\n{snippet[:1200]}"
+        )
 
     return alerts
 
 
-def should_alert(text, changed, first_run, site_important):
-    text_lower = text.lower()
-
-    has_auto_focus = any(word in text_lower for word in AUTO_FOCUS_WORDS)
-    has_excluded_topic = any(word in text_lower for word in EXCLUDE_WORDS)
-
-    has_bonus_words = contains_any(text, KEYWORDS)
-    has_availability = contains_any(text, AVAILABILITY_WORDS)
-    has_big_amount = contains_amount_10000_or_more(text)
+def classify_general_site(state, site, text, changed, first_run):
+    alerts = []
 
     if first_run and not SEND_ON_FIRST_RUN:
-        return False
+        return alerts
 
     if not changed:
-        return False
+        return alerts
 
-    if has_excluded_topic and not has_auto_focus:
-        return False
+    text_lower = text.lower()
 
-    if not has_auto_focus:
-        return False
+    has_auto = contains_any(text, AUTO_WORDS)
+    has_bad_topic = contains_any(text, BAD_TOPICS)
+    has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
 
-    if site_important and has_bonus_words and has_availability:
-        return True
+    if has_bad_topic and not has_auto:
+        return alerts
 
-    if has_big_amount and has_bonus_words:
-        return True
+    if has_auto and has_important:
+        snippet = make_snippet(text)
 
-    return False
+        alerts.append(
+            "⚠️ POSSIBILE NOVITÀ BONUS AUTO ELETTRICHE\n\n"
+            f"Fonte: {site['name']}\n"
+            f"Controllo: {now_string()}\n"
+            f"Link: {site['url']}\n\n"
+            "La pagina è cambiata e contiene riferimenti ad auto elettriche, bonus, fondi, voucher o prenotazioni.\n\n"
+            f"Anteprima:\n{snippet[:1200]}"
+        )
+
+    return alerts
+
+
+def check_sites(state):
+    alerts = []
+    errors = []
+
+    for site in SITES:
+        name = site["name"]
+        url = site["url"]
+
+        try:
+            text = get_page_text(url)
+            current_hash = text_hash(text)
+
+            old_hash = state.get(url, {}).get("hash")
+            first_run = old_hash is None
+            changed = old_hash != current_hash
+
+            if site["type"] == "mase":
+                alerts.extend(classify_mase_page(state, site, text, changed, first_run))
+            else:
+                alerts.extend(classify_general_site(state, site, text, changed, first_run))
+
+            state[url] = {
+                "hash": current_hash,
+                "last_checked": now_string(),
+                "name": name,
+                "type": site["type"],
+            }
+
+        except Exception as e:
+            errors.append(f"{name}: {str(e)}")
+
+    if errors:
+        print("Errori controllo siti:")
+        for error in errors[:10]:
+            print(error)
+
+    return alerts
 
 
 def google_news_rss_url(query):
@@ -482,65 +507,42 @@ def google_news_rss_url(query):
     return f"https://news.google.com/rss/search?q={encoded_query}&hl=it&gl=IT&ceid=IT:it"
 
 
-def is_relevant_news(title, summary):
+def classify_news(title, summary):
     text = f"{title} {summary}".lower()
 
-    main_topics = [
-        "auto elettrica",
-        "auto elettriche",
-        "veicoli elettrici",
-        "ecobonus",
-        "bonus",
-        "voucher",
-        "incentivi",
-        "incentivo",
-        "rottamazione",
-        "mase",
-        "mimit",
-        "leapmotor",
-        "t03",
-    ]
+    has_auto = contains_any(text, AUTO_WORDS)
+    has_bad_topic = contains_any(text, BAD_TOPICS)
+    has_important = contains_any(text, IMPORTANT_NEWS_WORDS)
 
-    good_signals = [
-        "apertura",
-        "riapertura",
-        "prenotazioni",
-        "domande",
-        "piattaforma",
-        "fondi",
+    urgent_words = [
         "disponibili",
         "disponibile",
-        "10.000",
-        "10000",
-        "11.000",
-        "11000",
-        "isee",
-        "beneficiario",
-        "sportello",
+        "riapertura",
+        "apertura",
+        "sportello aperto",
+        "piattaforma aperta",
+        "voucher disponibili",
+        "fondi disponibili",
+        "risorse disponibili",
         "click day",
-        "voucher",
+        "prenotazioni aperte",
     ]
 
-    bad_topics = [
-        "moto",
-        "motocicli",
-        "scooter",
-        "bici elettriche",
-        "biciclette elettriche",
-        "monopattini",
-        "colonnine",
-        "wallbox",
-    ]
+    has_urgent = contains_any(text, urgent_words)
 
-    has_main_topic = any(word in text for word in main_topics)
-    has_good_signal = any(word in text for word in good_signals)
-    has_bad_topic = any(word in text for word in bad_topics)
-    has_auto_word = any(word in text for word in AUTO_FOCUS_WORDS)
+    if has_bad_topic and not has_auto:
+        return "IGNORE", "Parla di moto/scooter/colonnine o temi non collegati alle auto elettriche."
 
-    if has_bad_topic and not has_auto_word:
-        return False
+    if has_auto and has_urgent:
+        return "URGENT", "La notizia contiene parole compatibili con apertura, disponibilità fondi o voucher."
 
-    return has_main_topic and has_good_signal
+    if has_auto and has_important:
+        return "IMPORTANT", "La notizia parla di bonus/incentivi auto elettriche, ma non conferma necessariamente fondi disponibili."
+
+    if "mase" in text or "mimit" in text or "ecobonus" in text:
+        return "INFO", "La notizia cita MASE/MIMIT/Ecobonus, ma non contiene segnali forti di disponibilità."
+
+    return "IGNORE", "Notizia non abbastanza pertinente."
 
 
 def check_news(state):
@@ -566,88 +568,110 @@ def check_news(state):
                 if news_id in seen_news:
                     continue
 
-                if not is_relevant_news(title, summary):
-                    continue
-
-                message = (
-                    "📰 NUOVA NOTIZIA BONUS AUTO ELETTRICHE\n\n"
-                    f"Ricerca: {query}\n"
-                    f"Titolo: {title}\n"
-                    f"Data: {published}\n"
-                    f"Link: {link}\n\n"
-                    "Motivo: nuova notizia collegata a bonus, voucher, incentivi, fondi, "
-                    "apertura piattaforma o auto elettriche."
-                )
-
-                alerts.append(message)
+                level, reason = classify_news(title, summary)
 
                 seen_news[news_id] = {
                     "title": title,
                     "link": link,
                     "query": query,
                     "published": published,
-                    "saved_at": datetime.datetime.now().strftime("%d/%m/%Y %H:%M"),
+                    "level": level,
+                    "saved_at": now_string(),
                 }
 
+                if level == "IGNORE":
+                    continue
+
+                if level == "URGENT":
+                    emoji = "🚨"
+                    label = "URGENTE"
+                elif level == "IMPORTANT":
+                    emoji = "⚠️"
+                    label = "IMPORTANTE"
+                else:
+                    emoji = "ℹ️"
+                    label = "INFORMATIVA"
+
+                # Mandiamo Telegram solo per urgente/importante.
+                # Le informative vengono salvate ma non spammate.
+                if level not in ["URGENT", "IMPORTANT"]:
+                    continue
+
+                alerts.append(
+                    f"{emoji} NEWS {label} - BONUS AUTO ELETTRICHE\n\n"
+                    f"Ricerca: {query}\n"
+                    f"Titolo: {title}\n"
+                    f"Data: {published}\n"
+                    f"Link: {link}\n\n"
+                    f"Valutazione:\n{reason}\n\n"
+                    "Cosa fare:\n"
+                    "Se parla di riapertura, fondi o voucher disponibili, controlla subito il portale MASE."
+                )
+
         except Exception as e:
-            print(f"Errore controllo news per ricerca '{query}': {e}")
+            print(f"Errore controllo news '{query}': {e}")
 
     state["_seen_news"] = seen_news
 
     return alerts
 
 
-def check_sites(state):
-    alerts = []
-    errors = []
+def should_send_summary(state):
+    last_summary = state.get("_last_summary_sent")
 
-    now = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+    if not last_summary:
+        return True
 
-    for site in SITES:
-        name = site["name"]
-        url = site["url"]
+    try:
+        last = datetime.datetime.strptime(last_summary, "%d/%m/%Y %H:%M")
+        diff = datetime.datetime.now() - last
+        return diff.total_seconds() >= SUMMARY_EVERY_HOURS * 3600
+    except Exception:
+        return True
 
-        try:
-            text = get_page_text(url)
-            current_hash = text_hash(text)
 
-            old_hash = state.get(url, {}).get("hash")
-            first_run = old_hash is None
-            changed = old_hash != current_hash
+def build_summary(state):
+    mase_statuses = []
 
-            mase_alerts = check_mase_special_status(state, name, url, text, changed, first_run)
-            alerts.extend(mase_alerts)
+    for key, value in state.items():
+        if not key.startswith("_mase_status::"):
+            continue
 
-            if should_alert(text, changed, first_run, site.get("important", False)):
-                snippet = make_snippet(text)
+        name = value.get("name", "MASE")
+        sold_out = value.get("sold_out")
+        available = value.get("available")
+        checked = value.get("last_checked", "N/D")
 
-                message = (
-                    "🚗 POSSIBILE BONUS AUTO ELETTRICHE DISPONIBILE / AGGIORNATO\n\n"
-                    f"Fonte: {name}\n"
-                    f"Controllo: {now}\n"
-                    f"Link: {url}\n\n"
-                    "Motivo: la pagina è cambiata e contiene parole collegate ad auto elettriche, "
-                    "bonus, incentivi, fondi, voucher, rottamazione o apertura piattaforma.\n\n"
-                    f"Anteprima:\n{snippet[:1200]}"
-                )
+        if available:
+            status = "🚨 possibile disponibilità rilevata"
+        elif sold_out:
+            status = "❌ risorse/fondi ancora prenotati o esauriti"
+        else:
+            status = "⚠️ messaggio fondi prenotati non rilevato"
 
-                alerts.append(message)
+        mase_statuses.append(f"- {name}: {status} | ultimo controllo: {checked}")
 
-            state[url] = {
-                "hash": current_hash,
-                "last_checked": now,
-                "name": name,
-            }
+    if not mase_statuses:
+        mase_text = "Nessuno stato MASE salvato ancora."
+    else:
+        mase_text = "\n".join(mase_statuses[:8])
 
-        except Exception as e:
-            errors.append(f"{name}: {str(e)}")
+    return (
+        "📊 RIEPILOGO BOT BONUS AUTO ELETTRICHE\n\n"
+        f"Ora controllo: {now_string()}\n\n"
+        "Stato MASE:\n"
+        f"{mase_text}\n\n"
+        "Conclusione:\n"
+        "Se non hai ricevuto avvisi URGENTI, al momento il bot non ha rilevato conferme forti di voucher/fondi disponibili.\n\n"
+        "Nota:\n"
+        "Il bot resta attivo e controlla automaticamente siti ufficiali e news."
+    )
 
-    if errors:
-        print("Errori durante il controllo siti:")
-        for error in errors[:10]:
-            print(error)
 
-    return alerts
+def maybe_send_summary(state, alerts):
+    if should_send_summary(state):
+        alerts.append(build_summary(state))
+        state["_last_summary_sent"] = now_string()
 
 
 def main():
@@ -655,11 +679,10 @@ def main():
 
     alerts = []
 
-    site_alerts = check_sites(state)
-    alerts.extend(site_alerts)
+    alerts.extend(check_sites(state))
+    alerts.extend(check_news(state))
 
-    news_alerts = check_news(state)
-    alerts.extend(news_alerts)
+    maybe_send_summary(state, alerts)
 
     save_state(state)
 
