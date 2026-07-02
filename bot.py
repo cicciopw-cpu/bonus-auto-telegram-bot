@@ -5,6 +5,7 @@ import hashlib
 import datetime
 import requests
 import feedparser
+from email.utils import parsedate_to_datetime
 from bs4 import BeautifulSoup
 
 
@@ -20,7 +21,7 @@ SEND_ON_FIRST_RUN = False
 SUMMARY_EVERY_HOURS = 12
 
 
-# Frase critica attuale vista sul portale MASE.
+# Frasi che indicano che i fondi/voucher NON sono disponibili.
 MASE_SOLD_OUT_PHRASES = [
     "tutte le risorse risultano al momento prenotate",
     "risorse risultano al momento prenotate",
@@ -66,7 +67,7 @@ MASE_AVAILABLE_PHRASES = [
 ]
 
 
-# Frasi che non indicano ancora disponibilità, ma sono importanti.
+# Frasi importanti, ma non necessariamente segnale di disponibilità.
 MASE_IMPORTANT_PHRASES = [
     "avviso importante",
     "plafond",
@@ -293,7 +294,7 @@ def get_page_text(url):
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoBot/2.0"
+            "Chrome/120.0 Safari/537.36 BonusAutoBot/2.1"
         )
     }
 
@@ -337,13 +338,66 @@ def make_snippet(text, phrases=None):
     return text[start:end]
 
 
+# ----------------------------
+# FILTRO NEWS DA OGGI IN POI
+# ----------------------------
+
+def get_news_start_date(state):
+    """
+    La prima volta che il bot gira dopo questa versione,
+    salva la data di oggi come data di partenza.
+    Da quel momento considera solo news pubblicate da quel giorno in poi.
+    """
+    if "_news_start_date" not in state:
+        state["_news_start_date"] = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    return datetime.datetime.strptime(state["_news_start_date"], "%Y-%m-%d").date()
+
+
+def parse_news_date(entry):
+    """
+    Legge la data pubblicata da Google News RSS.
+    Se non riesce a leggerla, restituisce None.
+    """
+    published = entry.get("published", "")
+
+    if not published:
+        return None
+
+    try:
+        parsed = parsedate_to_datetime(published)
+
+        if parsed.tzinfo is not None:
+            parsed = parsed.astimezone(datetime.timezone.utc).replace(tzinfo=None)
+
+        return parsed.date()
+    except Exception:
+        return None
+
+
+def is_news_from_today_or_future(entry, state):
+    """
+    True solo se la notizia è pubblicata dalla data di partenza in poi.
+    Le news senza data vengono ignorate per evitare articoli vecchi.
+    """
+    start_date = get_news_start_date(state)
+    news_date = parse_news_date(entry)
+
+    if news_date is None:
+        return False
+
+    return news_date >= start_date
+
+
+# ----------------------------
+# CONTROLLO SITI MASE / MIMIT
+# ----------------------------
+
 def classify_mase_page(state, site, text, changed, first_run):
     alerts = []
 
     name = site["name"]
     url = site["url"]
-
-    text_lower = text.lower()
 
     sold_out_matches = find_matching_phrases(text, MASE_SOLD_OUT_PHRASES)
     available_matches = find_matching_phrases(text, MASE_AVAILABLE_PHRASES)
@@ -377,7 +431,7 @@ def classify_mase_page(state, site, text, changed, first_run):
     if first_run and not SEND_ON_FIRST_RUN:
         return alerts
 
-    # CASO PIÙ IMPORTANTE:
+    # Caso principale:
     # prima c'era il messaggio fondi prenotati/esauriti, ora non c'è più.
     if sold_out_before is True and sold_out_now is False:
         alerts.append(
@@ -438,8 +492,6 @@ def classify_general_site(state, site, text, changed, first_run):
 
     if not changed:
         return alerts
-
-    text_lower = text.lower()
 
     has_auto = contains_any(text, AUTO_WORDS)
     has_bad_topic = contains_any(text, BAD_TOPICS)
@@ -502,9 +554,15 @@ def check_sites(state):
     return alerts
 
 
+# ----------------------------
+# CONTROLLO NEWS SOLO DA OGGI
+# ----------------------------
+
 def google_news_rss_url(query):
     encoded_query = requests.utils.quote(query)
-    return f"https://news.google.com/rss/search?q={encoded_query}&hl=it&gl=IT&ceid=IT:it"
+
+    # when:1d prova a limitare Google News alle ultime 24 ore.
+    return f"https://news.google.com/rss/search?q={encoded_query}%20when:1d&hl=it&gl=IT&ceid=IT:it"
 
 
 def classify_news(title, summary):
@@ -521,6 +579,7 @@ def classify_news(title, summary):
         "apertura",
         "sportello aperto",
         "piattaforma aperta",
+        "piattaforma attiva",
         "voucher disponibili",
         "fondi disponibili",
         "risorse disponibili",
@@ -549,6 +608,8 @@ def check_news(state):
     alerts = []
     seen_news = state.get("_seen_news", {})
 
+    start_date = get_news_start_date(state)
+
     for query in NEWS_QUERIES:
         try:
             feed_url = google_news_rss_url(query)
@@ -561,6 +622,11 @@ def check_news(state):
                 published = entry.get("published", "Data non disponibile")
 
                 if not title or not link:
+                    continue
+
+                # Filtro fondamentale:
+                # ignora tutto ciò che è precedente alla data di partenza.
+                if not is_news_from_today_or_future(entry, state):
                     continue
 
                 news_id = hashlib.sha256(link.encode("utf-8")).hexdigest()
@@ -577,6 +643,7 @@ def check_news(state):
                     "published": published,
                     "level": level,
                     "saved_at": now_string(),
+                    "news_start_date": str(start_date),
                 }
 
                 if level == "IGNORE":
@@ -592,8 +659,7 @@ def check_news(state):
                     emoji = "ℹ️"
                     label = "INFORMATIVA"
 
-                # Mandiamo Telegram solo per urgente/importante.
-                # Le informative vengono salvate ma non spammate.
+                # Telegram solo per urgente/importante.
                 if level not in ["URGENT", "IMPORTANT"]:
                     continue
 
@@ -604,6 +670,8 @@ def check_news(state):
                     f"Data: {published}\n"
                     f"Link: {link}\n\n"
                     f"Valutazione:\n{reason}\n\n"
+                    f"Filtro data:\n"
+                    f"Il bot considera solo notizie dal {start_date} in poi.\n\n"
                     "Cosa fare:\n"
                     "Se parla di riapertura, fondi o voucher disponibili, controlla subito il portale MASE."
                 )
@@ -615,6 +683,10 @@ def check_news(state):
 
     return alerts
 
+
+# ----------------------------
+# RIEPILOGO PERIODICO
+# ----------------------------
 
 def should_send_summary(state):
     last_summary = state.get("_last_summary_sent")
@@ -656,15 +728,19 @@ def build_summary(state):
     else:
         mase_text = "\n".join(mase_statuses[:8])
 
+    news_start_date = state.get("_news_start_date", "non impostata")
+
     return (
         "📊 RIEPILOGO BOT BONUS AUTO ELETTRICHE\n\n"
         f"Ora controllo: {now_string()}\n\n"
         "Stato MASE:\n"
         f"{mase_text}\n\n"
+        f"Filtro news:\n"
+        f"Il bot considera solo notizie dal {news_start_date} in poi.\n\n"
         "Conclusione:\n"
         "Se non hai ricevuto avvisi URGENTI, al momento il bot non ha rilevato conferme forti di voucher/fondi disponibili.\n\n"
         "Nota:\n"
-        "Il bot resta attivo e controlla automaticamente siti ufficiali e news."
+        "Il bot resta attivo e controlla automaticamente siti ufficiali e news recenti."
     )
 
 
@@ -673,6 +749,10 @@ def maybe_send_summary(state, alerts):
         alerts.append(build_summary(state))
         state["_last_summary_sent"] = now_string()
 
+
+# ----------------------------
+# MAIN
+# ----------------------------
 
 def main():
     state = load_state()
