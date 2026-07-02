@@ -8,6 +8,7 @@ import feedparser
 from email.utils import parsedate_to_datetime
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 
 BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
@@ -19,12 +20,18 @@ SEND_ON_FIRST_RUN = False
 
 SUMMARY_EVERY_HOURS = 12
 ALIVE_MESSAGE_HOUR = 9
+
 NEWS_KEEP_DAYS = 30
 MAX_SEEN_NEWS = 500
 
 MIN_MASE_TEXT_LENGTH = 350
 SUSPICIOUS_PAGE_ALERT_AFTER = 3
 SUSPICIOUS_PAGE_ALERT_COOLDOWN_HOURS = 6
+
+MAX_API_BODY_CHARS = 25000
+MAX_API_ENDPOINTS_IN_STATE = 80
+
+API_DISCOVERY_ENABLED = True
 
 
 MASE_SOLD_OUT_PHRASES = [
@@ -125,6 +132,25 @@ JAVASCRIPT_SUSPICIOUS_WORDS = [
     "abilita javascript",
     "webpack",
     "runtime",
+]
+
+
+API_URL_HINTS = [
+    "api",
+    "rest",
+    "graphql",
+    "json",
+    "plafond",
+    "voucher",
+    "beneficiario",
+    "esercente",
+    "disponibil",
+    "fondo",
+    "fondi",
+    "risorse",
+    "config",
+    "domanda",
+    "prenot",
 ]
 
 
@@ -366,21 +392,6 @@ def clean_text(html):
     return text
 
 
-def get_page_text(url):
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0 Safari/537.36 BonusAutoBot/3.0"
-        )
-    }
-
-    response = requests.get(url, headers=headers, timeout=45)
-    response.raise_for_status()
-
-    return clean_text(response.text)
-
-
 def text_hash(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -393,6 +404,32 @@ def contains_any(text, words):
 def find_matching_phrases(text, phrases):
     text_lower = text.lower()
     return [phrase for phrase in phrases if phrase.lower() in text_lower]
+
+
+def is_mase_like(site):
+    return site["type"] in ["mase", "mase_news"]
+
+
+def page_is_suspicious(site, text):
+    if not is_mase_like(site):
+        return False, []
+
+    reasons = []
+    text_clean = text.strip()
+    text_lower = text_clean.lower()
+
+    if len(text_clean) < MIN_MASE_TEXT_LENGTH:
+        reasons.append(f"testo troppo corto ({len(text_clean)} caratteri)")
+
+    if contains_any(text_lower, JAVASCRIPT_SUSPICIOUS_WORDS):
+        reasons.append("possibile pagina JavaScript/loading")
+
+    useful_words = MASE_SOLD_OUT_PHRASES + MASE_AVAILABLE_PHRASES + MASE_IMPORTANT_PHRASES
+
+    if not contains_any(text_lower, useful_words):
+        reasons.append("mancano parole utili come voucher/plafond/risorse/beneficiario")
+
+    return len(reasons) > 0, reasons
 
 
 def make_snippet(text, phrases=None):
@@ -429,6 +466,345 @@ def hours_since(timestamp_string):
         return 999999
 
     return (now_italy() - parsed).total_seconds() / 3600
+
+
+def alert_allowed(state, key, cooldown_hours):
+    cooldowns = state.get("_alert_cooldowns", {})
+    last = cooldowns.get(key)
+
+    if last is None:
+        return True
+
+    return hours_since(last) >= cooldown_hours
+
+
+def mark_alert_sent(state, key):
+    cooldowns = state.get("_alert_cooldowns", {})
+    cooldowns[key] = now_string()
+    state["_alert_cooldowns"] = cooldowns
+
+
+def add_alert(alerts, state, key, cooldown_hours, message):
+    if alert_allowed(state, key, cooldown_hours):
+        alerts.append(message)
+        mark_alert_sent(state, key)
+
+
+# ----------------------------
+# LETTURA PAGINE: REQUESTS + PLAYWRIGHT + API HUNTER
+# ----------------------------
+
+def get_page_text_requests(url):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0 Safari/537.36 BonusAutoBot/6.0"
+        )
+    }
+
+    response = requests.get(url, headers=headers, timeout=45)
+    response.raise_for_status()
+
+    return clean_text(response.text)
+
+
+def response_is_interesting(response):
+    try:
+        url = response.url.lower()
+        content_type = response.headers.get("content-type", "").lower()
+
+        if "json" in content_type:
+            return True
+
+        if any(hint in url for hint in API_URL_HINTS):
+            return True
+
+        return False
+    except Exception:
+        return False
+
+
+def body_looks_useful(body):
+    if not body:
+        return False
+
+    body_lower = body.lower().strip()
+
+    if body_lower.startswith("{") or body_lower.startswith("["):
+        return True
+
+    useful_words = (
+        MASE_SOLD_OUT_PHRASES
+        + MASE_AVAILABLE_PHRASES
+        + MASE_IMPORTANT_PHRASES
+        + ["plafond", "voucher", "risorse", "fondi", "beneficiario"]
+    )
+
+    return contains_any(body_lower, useful_words)
+
+
+def normalize_api_body(body):
+    if not body:
+        return ""
+
+    body = re.sub(r"\s+", " ", body).strip()
+
+    if len(body) > MAX_API_BODY_CHARS:
+        body = body[:MAX_API_BODY_CHARS]
+
+    return body
+
+
+def get_page_text_playwright(site):
+    api_results = []
+    url = site["url"]
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+            ],
+        )
+
+        page = browser.new_page(
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0 Safari/537.36 BonusAutoBot/6.0"
+            ),
+            viewport={"width": 1366, "height": 900},
+        )
+
+        def on_response(response):
+            if not API_DISCOVERY_ENABLED:
+                return
+
+            try:
+                if not response_is_interesting(response):
+                    return
+
+                status = response.status
+                if status < 200 or status >= 400:
+                    return
+
+                response_url = response.url
+                content_type = response.headers.get("content-type", "")
+
+                body = response.text()
+                body = normalize_api_body(body)
+
+                if not body_looks_useful(body):
+                    return
+
+                api_results.append({
+                    "url": response_url,
+                    "status": status,
+                    "content_type": content_type,
+                    "body": body,
+                    "hash": text_hash(body),
+                })
+
+            except Exception:
+                return
+
+        page.on("response", on_response)
+
+        page.goto(url, wait_until="domcontentloaded", timeout=60000)
+
+        try:
+            page.wait_for_load_state("networkidle", timeout=20000)
+        except Exception:
+            pass
+
+        page.wait_for_timeout(5000)
+
+        try:
+            text = page.locator("body").inner_text(timeout=15000)
+        except Exception:
+            text = ""
+
+        if not text.strip():
+            try:
+                html = page.content()
+                text = clean_text(html)
+            except Exception:
+                text = ""
+
+        browser.close()
+
+        text = re.sub(r"\s+", " ", text).strip()
+
+        unique = {}
+        for item in api_results:
+            unique[item["url"]] = item
+
+        api_results = list(unique.values())[:25]
+
+        return text, api_results
+
+
+def get_page_text(site):
+    text = get_page_text_requests(site["url"])
+    read_method = "requests"
+    api_results = []
+
+    suspicious, _ = page_is_suspicious(site, text)
+
+    if is_mase_like(site) and suspicious:
+        try:
+            rendered_text, discovered_api = get_page_text_playwright(site)
+            rendered_suspicious, _ = page_is_suspicious(site, rendered_text)
+
+            api_results = discovered_api
+
+            if rendered_text and (len(rendered_text) > len(text) or not rendered_suspicious):
+                text = rendered_text
+                read_method = "playwright"
+            else:
+                read_method = "requests_playwright_no_text_improvement"
+
+        except Exception as e:
+            print(f"Errore Playwright su {site['name']}: {e}")
+            read_method = "requests_playwright_failed"
+
+    return text, read_method, api_results
+
+
+# ----------------------------
+# API DISCOVERY / API HUNTER
+# ----------------------------
+
+def api_endpoint_id(url):
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()
+
+
+def analyze_api_results(state, site, api_results):
+    alerts = []
+
+    if not api_results:
+        return alerts
+
+    inventory = state.get("_api_inventory", {})
+    if not isinstance(inventory, dict):
+        inventory = {}
+
+    discovered_count = state.get("_api_discovered_count", 0)
+
+    for api in api_results:
+        url = api.get("url", "")
+        body = api.get("body", "")
+        status = api.get("status", "")
+        content_type = api.get("content_type", "")
+
+        if not url or not body:
+            continue
+
+        endpoint_id = api_endpoint_id(url)
+        previous = inventory.get(endpoint_id, {})
+
+        old_hash = previous.get("hash")
+        old_sold_out = previous.get("sold_out")
+        old_available = previous.get("available")
+
+        body_hash = text_hash(body)
+
+        sold_out_matches = find_matching_phrases(body, MASE_SOLD_OUT_PHRASES)
+        available_matches = find_matching_phrases(body, MASE_AVAILABLE_PHRASES)
+        important_matches = find_matching_phrases(body, MASE_IMPORTANT_PHRASES)
+
+        sold_out_now = len(sold_out_matches) > 0
+        available_now = len(available_matches) > 0
+        important_now = len(important_matches) > 0
+
+        is_new_endpoint = old_hash is None
+        changed = old_hash is not None and old_hash != body_hash
+
+        inventory[endpoint_id] = {
+            "url": url,
+            "source_page": site["name"],
+            "source_page_url": site["url"],
+            "status": status,
+            "content_type": content_type,
+            "hash": body_hash,
+            "sold_out": sold_out_now,
+            "available": available_now,
+            "important": important_now,
+            "sold_out_matches": sold_out_matches,
+            "available_matches": available_matches,
+            "important_matches": important_matches,
+            "last_seen": now_string(),
+            "body_preview": body[:800],
+        }
+
+        if is_new_endpoint:
+            discovered_count += 1
+
+        if available_now and old_available is not True:
+            snippet = make_snippet(body, available_matches)
+
+            add_alert(
+                alerts,
+                state,
+                f"api_available::{endpoint_id}",
+                0.5,
+                "🚨🚨 API HUNTER - POSSIBILE DISPONIBILITÀ TROVATA 🚨🚨\n\n"
+                f"Fonte pagina: {site['name']}\n"
+                f"Endpoint API/JSON rilevato:\n{url}\n\n"
+                "Frasi trovate:\n"
+                + "\n".join([f"- {p}" for p in available_matches[:10]])
+                + "\n\n"
+                "Cosa significa:\n"
+                "Il bot ha intercettato una risposta API/JSON che contiene parole compatibili con fondi/voucher disponibili.\n\n"
+                "Cosa fare subito:\n"
+                "Apri il portale MASE e prova ad accedere con SPID/CIE.\n\n"
+                "Link rapidi:\n"
+                "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
+                "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond\n\n"
+                f"Anteprima API:\n{snippet[:1200]}"
+            )
+
+        if old_sold_out is True and sold_out_now is False:
+            add_alert(
+                alerts,
+                state,
+                f"api_soldout_disappeared::{endpoint_id}",
+                0.5,
+                "🚨🚨 API HUNTER - STATO ESAURITO/PRENOTATO SPARITO 🚨🚨\n\n"
+                f"Fonte pagina: {site['name']}\n"
+                f"Endpoint API/JSON:\n{url}\n\n"
+                "Cosa è successo:\n"
+                "Prima questa API conteneva frasi compatibili con risorse/fondi prenotati o esauriti.\n"
+                "Ora quelle frasi non risultano più presenti.\n\n"
+                "Cosa fare subito:\n"
+                "Controlla immediatamente il portale MASE."
+            )
+
+        if changed and important_now:
+            add_alert(
+                alerts,
+                state,
+                f"api_changed::{endpoint_id}",
+                6,
+                "⚠️ API HUNTER - ENDPOINT IMPORTANTE CAMBIATO\n\n"
+                f"Fonte pagina: {site['name']}\n"
+                f"Endpoint API/JSON:\n{url}\n\n"
+                "L’endpoint è cambiato e contiene riferimenti importanti a voucher, plafond, risorse o beneficiario.\n"
+                "Non è una conferma di fondi disponibili, ma va controllato.\n\n"
+                f"Anteprima API:\n{body[:1200]}"
+            )
+
+    if len(inventory) > MAX_API_ENDPOINTS_IN_STATE:
+        items = list(inventory.items())
+        items = items[-MAX_API_ENDPOINTS_IN_STATE:]
+        inventory = dict(items)
+
+    state["_api_inventory"] = inventory
+    state["_api_discovered_count"] = discovered_count
+
+    return alerts
 
 
 # ----------------------------
@@ -610,28 +986,7 @@ def check_news(state):
 # CONTROLLO PAGINE MASE
 # ----------------------------
 
-def page_is_suspicious(site, text):
-    if site["type"] not in ["mase", "mase_news"]:
-        return False, []
-
-    reasons = []
-    text_lower = text.lower()
-
-    if len(text.strip()) < MIN_MASE_TEXT_LENGTH:
-        reasons.append(f"testo troppo corto ({len(text.strip())} caratteri)")
-
-    if contains_any(text, JAVASCRIPT_SUSPICIOUS_WORDS):
-        reasons.append("possibile pagina JavaScript/loading")
-
-    useful_words = MASE_SOLD_OUT_PHRASES + MASE_AVAILABLE_PHRASES + MASE_IMPORTANT_PHRASES
-
-    if not contains_any(text, useful_words):
-        reasons.append("mancano parole utili come voucher/plafond/risorse/beneficiario")
-
-    return len(reasons) > 0, reasons
-
-
-def handle_suspicious_page(state, site, text):
+def handle_suspicious_page(state, site, text, read_method):
     alerts = []
 
     suspicious, reasons = page_is_suspicious(site, text)
@@ -653,6 +1008,8 @@ def handle_suspicious_page(state, site, text):
         "last_checked": now_string(),
         "name": site["name"],
         "reasons": reasons,
+        "read_method": read_method,
+        "text_length": len(text.strip()),
     }
 
     should_alert = (
@@ -665,16 +1022,17 @@ def handle_suspicious_page(state, site, text):
         state[key]["last_alert"] = now_string()
 
         alerts.append(
-            "⚠️ CONTROLLO MASE POCO AFFIDABILE\n\n"
+            "⚠️ CONTROLLO MASE ANCORA POCO AFFIDABILE\n\n"
             f"Fonte: {site['name']}\n"
             f"Link: {site['url']}\n"
-            f"Controllo: {now_string()}\n\n"
-            "Il bot ha rilevato più controlli sospetti consecutivi.\n\n"
+            f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n\n"
+            "Il bot ha provato anche con browser automatico Playwright, ma la pagina risulta ancora sospetta.\n\n"
             "Possibili motivi:\n"
             + "\n".join([f"- {r}" for r in reasons])
             + "\n\n"
             "Cosa significa:\n"
-            "La pagina potrebbe essere caricata tramite JavaScript e il bot semplice potrebbe non leggere tutto.\n\n"
+            "La pagina potrebbe richiedere login, dati caricati da API interne, o bloccare la lettura automatica.\n\n"
             "Cosa fare:\n"
             "Controlla manualmente questa pagina appena puoi, soprattutto se riguarda Plafond/Login/Beneficiario."
         )
@@ -682,13 +1040,13 @@ def handle_suspicious_page(state, site, text):
     return alerts
 
 
-def classify_mase_page(state, site, text, changed, first_run):
+def classify_mase_page(state, site, text, changed, first_run, read_method):
     alerts = []
 
     name = site["name"]
     url = site["url"]
 
-    alerts.extend(handle_suspicious_page(state, site, text))
+    alerts.extend(handle_suspicious_page(state, site, text, read_method))
 
     sold_out_matches = find_matching_phrases(text, MASE_SOLD_OUT_PHRASES)
     available_matches = find_matching_phrases(text, MASE_AVAILABLE_PHRASES)
@@ -717,36 +1075,46 @@ def classify_mase_page(state, site, text, changed, first_run):
         "hash": current_hash,
         "last_checked": now_string(),
         "name": name,
+        "read_method": read_method,
+        "text_length": len(text.strip()),
     }
 
     if first_run and not SEND_ON_FIRST_RUN:
         return alerts
 
     if sold_out_before is True and sold_out_now is False:
-        alerts.append(
+        add_alert(
+            alerts,
+            state,
+            f"soldout_disappeared::{url}",
+            0.5,
             "🚨🚨 URGENTE - POSSIBILE RIAPERTURA VOUCHER MASE 🚨🚨\n\n"
             f"Fonte: {name}\n"
             f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n"
             f"Link: {url}\n\n"
             "Cosa è successo:\n"
             "Prima la pagina indicava che le risorse/fondi erano prenotati o esauriti.\n"
             "Adesso quel messaggio non risulta più presente.\n\n"
-            "Cosa può significare:\n"
-            "Potrebbero aver aggiornato il portale, riaperto fondi o modificato lo stato del plafond.\n\n"
             "Cosa fare subito:\n"
             "Accedi al portale MASE con SPID/CIE e controlla se puoi generare il voucher.\n\n"
             "Link rapidi:\n"
-            "Login Beneficiario: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
+            "Login: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
             "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond"
         )
 
     if available_before is not True and available_now:
         snippet = make_snippet(text, available_matches)
 
-        alerts.append(
+        add_alert(
+            alerts,
+            state,
+            f"available_phrase::{url}",
+            0.5,
             "🚨🚨 URGENTE - FRASE DI DISPONIBILITÀ TROVATA 🚨🚨\n\n"
             f"Fonte: {name}\n"
             f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n"
             f"Link: {url}\n\n"
             "Frasi trovate:\n"
             + "\n".join([f"- {p}" for p in available_matches[:10]])
@@ -755,19 +1123,21 @@ def classify_mase_page(state, site, text, changed, first_run):
             "La pagina contiene parole compatibili con fondi/voucher/piattaforma disponibili.\n\n"
             "Azione consigliata:\n"
             "Apri subito il portale e prova ad accedere con SPID/CIE.\n\n"
-            "Link rapidi:\n"
-            "Login Beneficiario: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login\n"
-            "Plafond: https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond\n\n"
             f"Anteprima:\n{snippet[:1200]}"
         )
 
     if changed and previous_hash is not None and important_now:
         snippet = make_snippet(text, important_matches)
 
-        alerts.append(
+        add_alert(
+            alerts,
+            state,
+            f"mase_page_changed::{url}",
+            6,
             "⚠️ PAGINA MASE IMPORTANTE CAMBIATA\n\n"
             f"Fonte: {name}\n"
             f"Controllo: {now_string()}\n"
+            f"Metodo lettura: {read_method}\n"
             f"Link: {url}\n\n"
             "La pagina è cambiata e contiene riferimenti a voucher, plafond, risorse, ISEE o beneficiario.\n"
             "Non è una conferma di fondi disponibili, ma va controllata.\n\n"
@@ -796,7 +1166,11 @@ def classify_general_site(state, site, text, changed, first_run):
     if has_auto and has_important:
         snippet = make_snippet(text)
 
-        alerts.append(
+        add_alert(
+            alerts,
+            state,
+            f"general_changed::{site['url']}",
+            6,
             "⚠️ POSSIBILE NOVITÀ BONUS AUTO ELETTRICHE\n\n"
             f"Fonte: {site['name']}\n"
             f"Controllo: {now_string()}\n"
@@ -817,15 +1191,16 @@ def check_sites(state):
         url = site["url"]
 
         try:
-            text = get_page_text(url)
+            text, read_method, api_results = get_page_text(site)
             current_hash = text_hash(text)
 
             old_hash = state.get(url, {}).get("hash")
             first_run = old_hash is None
             changed = old_hash != current_hash
 
-            if site["type"] in ["mase", "mase_news"]:
-                alerts.extend(classify_mase_page(state, site, text, changed, first_run))
+            if is_mase_like(site):
+                alerts.extend(analyze_api_results(state, site, api_results))
+                alerts.extend(classify_mase_page(state, site, text, changed, first_run, read_method))
             else:
                 alerts.extend(classify_general_site(state, site, text, changed, first_run))
 
@@ -834,7 +1209,9 @@ def check_sites(state):
                 "last_checked": now_string(),
                 "name": name,
                 "type": site["type"],
-                "text_length": len(text),
+                "text_length": len(text.strip()),
+                "read_method": read_method,
+                "api_results_found": len(api_results),
             }
 
         except Exception as e:
@@ -886,15 +1263,19 @@ def build_status_text(state):
         sold_out = value.get("sold_out")
         available = value.get("available")
         checked = value.get("last_checked", "N/D")
+        read_method = value.get("read_method", "N/D")
+        text_length = value.get("text_length", "N/D")
 
         if available:
             status = "🚨 possibile disponibilità rilevata"
         elif sold_out:
             status = "❌ risorse/fondi ancora prenotati o esauriti"
         else:
-            status = "⚠️ messaggio fondi prenotati non rilevato"
+            status = "⚠️ stato non chiarissimo"
 
-        mase_statuses.append(f"- {name}: {status} | ultimo controllo: {checked}")
+        mase_statuses.append(
+            f"- {name}: {status} | metodo: {read_method} | testo: {text_length} caratteri | ultimo controllo: {checked}"
+        )
 
     if not mase_statuses:
         return "Nessuno stato MASE salvato ancora."
@@ -902,8 +1283,35 @@ def build_status_text(state):
     return "\n".join(mase_statuses[:10])
 
 
+def build_api_status_text(state):
+    inventory = state.get("_api_inventory", {})
+
+    if not inventory:
+        return "Nessun endpoint API/JSON utile scoperto finora."
+
+    lines = []
+    for _, item in list(inventory.items())[-8:]:
+        url = item.get("url", "N/D")
+        source = item.get("source_page", "N/D")
+        available = item.get("available")
+        sold_out = item.get("sold_out")
+        last_seen = item.get("last_seen", "N/D")
+
+        if available:
+            status = "🚨 possibile disponibilità"
+        elif sold_out:
+            status = "❌ esaurito/prenotato"
+        else:
+            status = "ℹ️ monitorato"
+
+        lines.append(f"- {status} | {source} | ultimo: {last_seen}\n  {url[:140]}")
+
+    return "\n".join(lines)
+
+
 def build_summary(state):
     errors = state.get("_last_site_errors", [])
+    api_count = len(state.get("_api_inventory", {}))
 
     error_text = "0 errori recenti" if not errors else "\n".join([f"- {e}" for e in errors[:5]])
 
@@ -912,6 +1320,9 @@ def build_summary(state):
         f"Ora controllo: {now_string()}\n\n"
         "Stato MASE:\n"
         f"{build_status_text(state)}\n\n"
+        "API Hunter:\n"
+        f"Endpoint utili scoperti: {api_count}\n"
+        f"{build_api_status_text(state)}\n\n"
         "Filtro news:\n"
         f"Il bot considera solo notizie pubblicate oggi: {today_italy()}.\n\n"
         "Errori recenti:\n"
@@ -923,11 +1334,13 @@ def build_summary(state):
 
 def build_alive_message(state):
     errors = state.get("_last_site_errors", [])
+    api_count = len(state.get("_api_inventory", {}))
 
     return (
         "✅ BOT BONUS AUTO ATTIVO\n\n"
         f"Ultimo controllo: {now_string()}\n"
         f"News controllate: solo pubblicate oggi ({today_italy()})\n"
+        f"Endpoint API/JSON utili scoperti: {api_count}\n"
         f"Errori recenti: {len(errors)}\n\n"
         "Stato rapido MASE:\n"
         f"{build_status_text(state)}\n\n"
