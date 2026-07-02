@@ -13,6 +13,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
 
     steps:
       - name: Scarica repository
@@ -31,8 +32,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Installa dipendenze
+      - name: Installa dipendenze Python
         run: pip install -r requirements.txt
+
+      - name: Installa browser Playwright
+        run: python -m playwright install chromium --with-deps
 
       - name: Controlla bonus
         env:
