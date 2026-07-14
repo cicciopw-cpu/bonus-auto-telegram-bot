@@ -1,7 +1,7 @@
 {
   "https://ecobonus.mimit.gov.it/auto": {
     "hash": "757dc7b1e88b4be89503ea5ec54296df11c4205c52fd55b59dbbdb2a6b0fe42f",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Ecobonus MIMIT - Auto",
     "type": "mimit",
     "text_length": 6056,
@@ -10,7 +10,7 @@
   },
   "https://ecobonus.mimit.gov.it/contributi": {
     "hash": "a282d631d744354890b347f7d613c344bb460d379f122e1c413fc418015dce6c",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Ecobonus MIMIT - Contributi",
     "type": "mimit",
     "text_length": 4912,
@@ -19,7 +19,7 @@
   },
   "https://ecobonus.mimit.gov.it/risorse-stanziate": {
     "hash": "3e9872cdbe005f515fe7f5da8a41de2e0857b626a3e586d2827d919c8c5032f1",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Ecobonus MIMIT - Risorse stanziate",
     "type": "mimit",
     "text_length": 3010,
@@ -28,7 +28,7 @@
   },
   "https://ecobonus.mimit.gov.it/avvisi-notizie": {
     "hash": "c16bb71848877690cb49c4bf3631e128a0f2ba9b00ca62d8c361f498957e683b",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Ecobonus MIMIT - Avvisi e notizie",
     "type": "mimit",
     "text_length": 4039,
@@ -37,7 +37,7 @@
   },
   "https://www.mimit.gov.it/it/incentivi/ecobonus-automotive": {
     "hash": "98d6fc054afab61225fad01fdc0cd91b9a832498c45029c4066510003ff833e8",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MIMIT - Ecobonus Automotive",
     "type": "mimit",
     "text_length": 3320,
@@ -46,7 +46,7 @@
   },
   "https://www.mimit.gov.it/it/incentivi-aggiornamenti": {
     "hash": "e2a46bb5c09042628eb02e3ea449acd914cd39cb8d141dda2f79909e992c1fb5",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MIMIT - Incentivi Aggiornamenti",
     "type": "mimit",
     "text_length": 3916,
@@ -55,7 +55,7 @@
   },
   "https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "type": "mase_static",
     "text_length": 1813,
@@ -64,7 +64,7 @@
   },
   "https://sportelloincentivi.regione.campania.it/": {
     "hash": "c305f426436b80288b340def60c15c63e99d4d49a955d8464e31eda459b18d9b",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Regione Campania - Sportello Incentivi",
     "type": "regione",
     "text_length": 49,
@@ -73,7 +73,7 @@
   },
   "https://www.regione.campania.it/regione-informa/notizie": {
     "hash": "18e6dcbab08a1832e355f6bf03908e75bbabfedd0addcba7d3f85cb4c42409ea",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Regione Campania - News",
     "type": "regione",
     "text_length": 7806,
@@ -82,7 +82,7 @@
   },
   "https://ecobonus.mimit.gov.it/cose": {
     "hash": "2ba64e537cb06467a66bcf5ad2d528b8f0b60e3ba64d559c33d747dd7bd47ba9",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "Ecobonus MIMIT - Cos'è",
     "type": "mimit",
     "text_length": 2639,
@@ -91,14 +91,12 @@
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "hash": "9b106dcc94ca8d5f6cf4b1ac6a22a68e6fb3b8a4e4c569afe6d6dd5e0f39021a",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Login Beneficiario",
     "type": "mase_dynamic",
     "text_length": 1766,
     "read_method": "playwright",
-    "api_results_found": 2,
-    "last_skipped_deep_check": "14/07/2026 21:16",
-    "skipped_reason": "deep check non dovuto, API dirette già controllate"
+    "api_results_found": 2
   },
   "_seen_news": {
     "e8c9d189bcc5fadbe16485a51643880515df5cdfeda030e2f5e31083da88d5ef": {
@@ -909,7 +907,7 @@
       "pnrr"
     ],
     "hash": "bb19474c1dcb8fea4c148b7d99871e570c133417022709b429ea19cac416617e",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "read_method": "requests",
     "text_length": 1813
@@ -933,7 +931,7 @@
       "pnrr"
     ],
     "hash": "9b106dcc94ca8d5f6cf4b1ac6a22a68e6fb3b8a4e4c569afe6d6dd5e0f39021a",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Login Beneficiario",
     "read_method": "playwright",
     "text_length": 1766
@@ -951,21 +949,19 @@
       "bonus veicoli elettrici"
     ],
     "hash": "8f74f0bd7772a778afe60718db7e5dae9135529b942cfbc3b39fa5c43abb6f63",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Beneficiario",
     "read_method": "playwright",
     "text_length": 473
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "hash": "8f74f0bd7772a778afe60718db7e5dae9135529b942cfbc3b39fa5c43abb6f63",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Beneficiario",
     "type": "mase_dynamic",
     "text_length": 473,
     "read_method": "playwright",
-    "api_results_found": 3,
-    "last_skipped_deep_check": "14/07/2026 21:16",
-    "skipped_reason": "deep check non dovuto, API dirette già controllate"
+    "api_results_found": 3
   },
   "_mase_status::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "sold_out": false,
@@ -981,27 +977,25 @@
       "bonus veicoli elettrici"
     ],
     "hash": "1b5f5718d804f4b612fd852446e962a811e63bd878c90f525ac5ecab674cba22",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Plafond",
     "read_method": "playwright",
     "text_length": 637
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "hash": "1b5f5718d804f4b612fd852446e962a811e63bd878c90f525ac5ecab674cba22",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Plafond",
     "type": "mase_dynamic",
     "text_length": 637,
     "read_method": "playwright",
-    "api_results_found": 5,
-    "last_skipped_deep_check": "14/07/2026 21:16",
-    "skipped_reason": "deep check non dovuto, API dirette già controllate"
+    "api_results_found": 5
   },
   "_last_summary_sent": "14/07/2026 10:26",
   "_news_start_date": "2026-07-02",
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/index.html": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Bonus Veicoli Elettrici",
     "reasons": [],
     "read_method": "requests",
@@ -1009,7 +1003,7 @@
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/login": {
     "count": 0,
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Login Beneficiario",
     "reasons": [],
     "read_method": "playwright",
@@ -1017,7 +1011,7 @@
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/home": {
     "count": 0,
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Home Beneficiario",
     "reasons": [],
     "read_method": "playwright",
@@ -1025,7 +1019,7 @@
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/#/plafond": {
     "count": 0,
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Plafond",
     "reasons": [],
     "read_method": "playwright",
@@ -1033,7 +1027,7 @@
   },
   "_suspicious::https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/": {
     "count": 0,
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Esercente / Concessionari",
     "reasons": [],
     "read_method": "playwright",
@@ -1053,21 +1047,19 @@
       "bonus veicoli elettrici"
     ],
     "hash": "9963543d8b068ee834fdf3de8c1e144b2c3926ec371fffa85b1513cd62c633a2",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Esercente / Concessionari",
     "read_method": "playwright",
     "text_length": 2082
   },
   "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/": {
     "hash": "9963543d8b068ee834fdf3de8c1e144b2c3926ec371fffa85b1513cd62c633a2",
-    "last_checked": "14/07/2026 20:21",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Esercente / Concessionari",
     "type": "mase_dynamic",
     "text_length": 2082,
     "read_method": "playwright",
-    "api_results_found": 3,
-    "last_skipped_deep_check": "14/07/2026 21:16",
-    "skipped_reason": "deep check non dovuto, API dirette già controllate"
+    "api_results_found": 3
   },
   "_last_site_errors": [],
   "_last_alive_day": "2026-07-14",
@@ -1089,7 +1081,7 @@
         "veicoli elettrici",
         "bonus veicoli elettrici"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "<!DOCTYPE html><html lang=\"it\"><head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"> <title>Bonus Veicoli Elettrici</title> <base href=\"/veicolielettriciBeneficiario/\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"icon\" type=\"image/png\" href=\"favicon.ico\"> <style>@font-face{font-family:Titillium Web;font-style:normal;font-weight:400;src:url(titillium-web-v4-latin-regular.88255d460b693093.eot);src:local(\"Titillium Web\"),local(\"TitilliumWeb-Regular\"),url(titillium-web-v4-latin-regular.88255d460b693093.eot?#iefix) format(\"embedded-opentype\"),url(titillium-web-v4-latin-regular.5d42aa5688baa882.woff2) format(\"woff2\"),url(titillium-web-v4-latin-regular.00ec5d39b38ab89b.woff) format(\"woff\"),url(titillium-web-v4-latin-regula"
     },
     "c2d3953f7e18bf0a931a595b07f8822f378e10c31124701bc4d35445063aacae": {
@@ -1107,7 +1099,7 @@
       "important_matches": [
         "isee"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "\"use strict\";(self.webpackChunkBS=self.webpackChunkBS||[]).push([[429],{8955:(Se,Me,je)=>{const be=\"undefined\"!=typeof globalThis&&globalThis,Ie=\"undefined\"!=typeof window&&window,pe=\"undefined\"!=typeof self&&\"undefined\"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope&&self,fe=be||\"undefined\"!=typeof global&&global||Ie||pe,ye=function(ne,...se){if(ye.translate){const Q=ye.translate(ne,se);ne=Q[0],se=Q[1]}let ie=Oe(ne[0],ne.raw[0]);for(let Q=1;Q<ne.length;Q++)ie+=se[Q-1]+Oe(ne[Q],ne.raw[Q]);return ie};function Oe(ne,se){return\":\"===se.charAt(0)?ne.substring(function he(ne,se){for(let ie=1,Q=1;ie<ne.length;ie++,Q++)if(\"\\\\\"===se[Q])Q++;else if(\":\"===ne[ie])return ie;throw new Error(`Unterminated $localize metadata block in \"${se}\".`)}(ne,se)+1):ne}fe.$localize=ye,je(609)},609:fun"
     },
     "fb044be04251487d54aba2d5e0bb21bbd4deecd5abc36017712d2492a2859efa": {
@@ -1125,7 +1117,7 @@
       "important_matches": [
         "beneficiario"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "{ \"host\": \"https\", \"baseURL\": \"www.bonusveicolielettrici.mase.gov.it\", \"spidButtons\": [ { \"href\": \"https://sp.mase.gov.it/rpmase/infocert/bve\", \"description\": \"Infocert ID\", \"imgScr\": \"assets/img/spid/spid-idp-infocertid.svg\", \"imgError\": \"assets/img/spid/spid-idp-infocertid.png\", \"altInfo\": \"Infocert ID\" }, { \"href\": \"https://sp.mase.gov.it/rpmase/poste/bve\", \"description\": \"Poste ID\", \"imgScr\": \"assets/img/spid/spid-idp-posteid.svg\", \"imgError\": \"assets/img/spid/spid-idp-posteid.png\", \"altInfo\": \"Poste ID\" }, { \"href\": \"https://sp.mase.gov.it/rpmase/sielte/bve\", \"description\": \"Sielte ID\", \"imgScr\": \"assets/img/spid/spid-idp-sielteid.svg\", \"imgError\": \"assets/img/spid/spid-idp-sielteid.png\", \"altInfo\": \"Sielte ID\" }, { \"href\": \"https://sp.mase.gov.it/rpmase/titt/bve\", \"description\": \"Tim"
     },
     "adb65b063275e20d7d7aa9a61e4ec66ea9123e6b1eb2078dfb21e067c1176fcf": {
@@ -1159,7 +1151,7 @@
       "important_matches": [
         "plafond"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "{\"residuoPlafond\":296127,\"totalePlafond\":596616426}"
     },
     "487e19cf700a0460f5e23f9cc2f39983d64d9211b6bcb9bebc2fbbf33e1049ba": {
@@ -1177,7 +1169,7 @@
       "important_matches": [
         "voucher"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "{\"annoRif\":0,\"totaleVoucher\":55735,\"totaleVoucherNonValidati\":20,\"totaleVoucherValidati\":55715}"
     },
     "3534d60f833861e0d704fbe9747b5592fc8144f63a1c8af353c3b5aae03b1c0b": {
@@ -1196,7 +1188,7 @@
         "veicoli elettrici",
         "bonus veicoli elettrici"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "<!DOCTYPE html><html lang=\"it\"><head> <meta charset=\"utf-8\"> <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"> <title>Bonus Veicoli Elettrici</title> <base href=\"/veicolielettriciEsercente/\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"icon\" type=\"image/png\" href=\"favicon.ico\"> <style>@font-face{font-family:Titillium Web;font-style:normal;font-weight:400;src:url(titillium-web-v4-latin-regular.88255d460b693093.eot);src:local(\"Titillium Web\"),local(\"TitilliumWeb-Regular\"),url(titillium-web-v4-latin-regular.88255d460b693093.eot?#iefix) format(\"embedded-opentype\"),url(titillium-web-v4-latin-regular.5d42aa5688baa882.woff2) format(\"woff2\"),url(titillium-web-v4-latin-regular.00ec5d39b38ab89b.woff) format(\"woff\"),url(titillium-web-v4-latin-regular.5"
     },
     "96bb662a76109bef5be689833873eb39a087e7f11e071b428efbce50765bd188": {
@@ -1214,7 +1206,7 @@
       "important_matches": [
         "isee"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "\"use strict\";(self.webpackChunkBS=self.webpackChunkBS||[]).push([[429],{8955:(Se,Me,je)=>{const be=\"undefined\"!=typeof globalThis&&globalThis,Ie=\"undefined\"!=typeof window&&window,pe=\"undefined\"!=typeof self&&\"undefined\"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope&&self,fe=be||\"undefined\"!=typeof global&&global||Ie||pe,ye=function(ne,...se){if(ye.translate){const Q=ye.translate(ne,se);ne=Q[0],se=Q[1]}let ie=Oe(ne[0],ne.raw[0]);for(let Q=1;Q<ne.length;Q++)ie+=se[Q-1]+Oe(ne[Q],ne.raw[Q]);return ie};function Oe(ne,se){return\":\"===se.charAt(0)?ne.substring(function he(ne,se){for(let ie=1,Q=1;ie<ne.length;ie++,Q++)if(\"\\\\\"===se[Q])Q++;else if(\":\"===ne[ie])return ie;throw new Error(`Unterminated $localize metadata block in \"${se}\".`)}(ne,se)+1):ne}fe.$localize=ye,je(609)},609:fun"
     },
     "372adbabc51b83906611a10bedc60700d42a68ee4aebf84db8843173fdcbd648": {
@@ -1267,7 +1259,7 @@
         "rottamazione",
         "pnrr"
       ],
-      "last_seen": "14/07/2026 20:21",
+      "last_seen": "14/07/2026 21:21",
       "body_preview": "[{\"testo\":\"<div align=\\\"center\\\">AVVISO IMPORTANTE</div>\\n<div align=\\\"justify\\\">Con riferimento ai voucher relativi alle microimprese, si comunica che sono in corso ulteriori approfondimenti a cura del MASE, che potrebbero comportare tempistiche ulteriori per la definizione delle relative verifiche. Pertanto, nel caso in cui siano state inviate domande di rimborso che contengono sia voucher relativi alle microimprese sia voucher relativi alle persone fisiche, si suggerisce di separare le richieste, al fine di poter sottoporre al Ministero, per la verifica, le domande di rimborso contenenti esclusivamente voucher relativi alle persone fisiche, così da accelerarne le relative tempistiche di rimborso.\\n<BR>A tal fine, sarà possibile richiedere l’apertura della delle pratiche già concluse scr"
     }
   },
@@ -1286,7 +1278,7 @@
       "name": "MASE API - Plafond Beneficiario",
       "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/api/unsecured/plafond",
       "kind": "plafond",
-      "last_checked": "14/07/2026 21:16",
+      "last_checked": "14/07/2026 21:21",
       "hash": "77c9218e4063134376aa937f2338609e89f17186a43c279161a69baaf6d985d6",
       "raw": {
         "residuoPlafond": 296127,
@@ -1301,7 +1293,7 @@
       "name": "MASE API - Grafico Voucher Beneficiario",
       "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/api/unsecured/grafico",
       "kind": "grafico",
-      "last_checked": "14/07/2026 21:16",
+      "last_checked": "14/07/2026 21:21",
       "hash": "e3a7f6b928404c35156e8cde53d301098cd2fdac2532e65e0eeda2d337282da4",
       "raw": {
         "annoRif": 0,
@@ -1317,7 +1309,7 @@
       "name": "MASE API - Versione Beneficiario",
       "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciBeneficiario/api/unsecured/versione",
       "kind": "versione",
-      "last_checked": "14/07/2026 21:16",
+      "last_checked": "14/07/2026 21:21",
       "hash": "5a75a01231e292126305e37bf02776c7ad78aa8128de42e753cd7a321e10f496",
       "raw": {
         "versione": "03.39.11"
@@ -1328,7 +1320,7 @@
       "name": "MASE API - Avvisi Esercente",
       "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/api/unsecured/avvisi",
       "kind": "avvisi",
-      "last_checked": "14/07/2026 21:16",
+      "last_checked": "14/07/2026 21:21",
       "hash": "c5a70a95108b9655711768dfd3616d1761ef4de14891078a8e275fcb30e759d1",
       "raw": [
         {
@@ -1349,7 +1341,7 @@
       "name": "MASE API - Versione Esercente",
       "url": "https://www.bonusveicolielettrici.mase.gov.it/veicolielettriciEsercente/api/unsecured/versione",
       "kind": "versione",
-      "last_checked": "14/07/2026 21:16",
+      "last_checked": "14/07/2026 21:21",
       "hash": "7d0105ded641411cee568bbfea51691b88af462cece0b72371e2883394de984a",
       "raw": {
         "versione": "10.27.12"
@@ -1365,7 +1357,7 @@
       "hash": "544a2bc269f771bb4d310451d4caa5755e50b35399fb05e0745739732ff1ca24",
       "size_bytes": 1266660,
       "content_type": "application/pdf",
-      "last_checked": "14/07/2026 21:16"
+      "last_checked": "14/07/2026 21:21"
     },
     "manuale_esercenti": {
       "name": "Manuale Esercenti MASE",
@@ -1373,7 +1365,7 @@
       "hash": "f4cd2d3ebac6a76aa08867d250f03eba7af4a642ae31dbe9673e45de2657b224",
       "size_bytes": 2212865,
       "content_type": "application/pdf",
-      "last_checked": "14/07/2026 21:16"
+      "last_checked": "14/07/2026 21:21"
     },
     "faq_veicoli_elettrici": {
       "name": "FAQ Bonus Veicoli Elettrici",
@@ -1381,7 +1373,7 @@
       "hash": "dd72206d84a1f2a6c35368b44aa4a2db6556868e7f50013341b67df8ac5a9d02",
       "size_bytes": 543030,
       "content_type": "application/pdf",
-      "last_checked": "14/07/2026 21:16"
+      "last_checked": "14/07/2026 21:21"
     },
     "condizioni_beneficiari": {
       "name": "Condizioni generali Beneficiari",
@@ -1389,7 +1381,7 @@
       "hash": "1cd56c2be245e2fb4f8df7058d9c1cbb965a1f89152d217b699cedec14c3da3a",
       "size_bytes": 247012,
       "content_type": "application/pdf",
-      "last_checked": "14/07/2026 21:16"
+      "last_checked": "14/07/2026 21:21"
     },
     "condizioni_esercenti": {
       "name": "Condizioni generali Esercenti",
@@ -1397,11 +1389,11 @@
       "hash": "fdf942b994ac3996ebf954afe36630fbaf6584ada12b145e9bb28537cd4889e0",
       "size_bytes": 259950,
       "content_type": "application/pdf",
-      "last_checked": "14/07/2026 21:16"
+      "last_checked": "14/07/2026 21:21"
     }
   },
   "_official_documents_errors": [],
-  "_last_deep_page_check": "14/07/2026 20:21",
+  "_last_deep_page_check": "14/07/2026 21:21",
   "_telegram_update_offset": 508040136,
   "_mase_status::https://www.mase.gov.it/portale/investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici": {
     "sold_out": false,
@@ -1425,14 +1417,14 @@
       "pnrr"
     ],
     "hash": "31c3047e9c589f4cfc56d4be0da71b303dca53c09c613d0f712726437af750bd",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Investimento 4.5 PNRR",
     "read_method": "requests",
     "text_length": 8753
   },
   "_suspicious::https://www.mase.gov.it/portale/investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Investimento 4.5 PNRR",
     "reasons": [],
     "read_method": "requests",
@@ -1440,7 +1432,7 @@
   },
   "https://www.mase.gov.it/portale/investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici": {
     "hash": "31c3047e9c589f4cfc56d4be0da71b303dca53c09c613d0f712726437af750bd",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Investimento 4.5 PNRR",
     "type": "mase_institutional",
     "text_length": 8753,
@@ -1464,14 +1456,14 @@
       "pnrr"
     ],
     "hash": "65e0c7f630041b374cff051a4a16e67ba828a213d60b06f01e323af6844a57c2",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Bando Bonus Veicoli Elettrici",
     "read_method": "requests",
     "text_length": 7697
   },
   "_suspicious::https://www.mase.gov.it/portale/-/bando-per-la-concessione-incentivi-a-fondo-perduto-previsti-nel-piano-nazionale-di-ripresa-e-resilienza-pnrr-missione-2-componente-2-investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici-": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Bando Bonus Veicoli Elettrici",
     "reasons": [],
     "read_method": "requests",
@@ -1479,7 +1471,7 @@
   },
   "https://www.mase.gov.it/portale/-/bando-per-la-concessione-incentivi-a-fondo-perduto-previsti-nel-piano-nazionale-di-ripresa-e-resilienza-pnrr-missione-2-componente-2-investimento-4.5-programma-di-rinnovo-del-parco-veicoli-privati-e-commerciali-leggeri-con-veicoli-elettrici-": {
     "hash": "65e0c7f630041b374cff051a4a16e67ba828a213d60b06f01e323af6844a57c2",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Bando Bonus Veicoli Elettrici",
     "type": "mase_institutional",
     "text_length": 7697,
@@ -1501,14 +1493,14 @@
       "pnrr"
     ],
     "hash": "5887ed58d83d0614df87ea1baebe329e02058ca4ef87077bb261ba9bffdd6b6a",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Sportello Bonus Veicoli Elettrici",
     "read_method": "requests",
     "text_length": 6511
   },
   "_suspicious::https://www.mase.gov.it/portale/-/auto-bonus-veicoli-elettrici-dal-22/10-aperto-lo-sportello-per-cittadini-e-microimprese": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Sportello Bonus Veicoli Elettrici",
     "reasons": [],
     "read_method": "requests",
@@ -1516,7 +1508,7 @@
   },
   "https://www.mase.gov.it/portale/-/auto-bonus-veicoli-elettrici-dal-22/10-aperto-lo-sportello-per-cittadini-e-microimprese": {
     "hash": "5887ed58d83d0614df87ea1baebe329e02058ca4ef87077bb261ba9bffdd6b6a",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Sportello Bonus Veicoli Elettrici",
     "type": "mase_institutional",
     "text_length": 6511,
@@ -1534,14 +1526,14 @@
       "pnrr"
     ],
     "hash": "bf27750261cb7b4c1430b85232ab3b1444014c781562653d6559856a8e3fe5c4",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - PNRR",
     "read_method": "requests",
     "text_length": 5222
   },
   "_suspicious::https://www.mase.gov.it/portale/pnrr": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - PNRR",
     "reasons": [],
     "read_method": "requests",
@@ -1549,7 +1541,7 @@
   },
   "https://www.mase.gov.it/portale/pnrr": {
     "hash": "bf27750261cb7b4c1430b85232ab3b1444014c781562653d6559856a8e3fe5c4",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - PNRR",
     "type": "mase_institutional",
     "text_length": 5222,
@@ -1569,14 +1561,14 @@
       "pnrr"
     ],
     "hash": "17be5c05a05c1fa580b5a863f57c360199bf683fcc32f7760036947bbe8b65f7",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Archivio News PNRR",
     "read_method": "requests",
     "text_length": 8989
   },
   "_suspicious::https://www.mase.gov.it/portale/archivio-news-pnrr": {
     "count": 0,
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Archivio News PNRR",
     "reasons": [],
     "read_method": "requests",
@@ -1584,7 +1576,7 @@
   },
   "https://www.mase.gov.it/portale/archivio-news-pnrr": {
     "hash": "17be5c05a05c1fa580b5a863f57c360199bf683fcc32f7760036947bbe8b65f7",
-    "last_checked": "14/07/2026 21:16",
+    "last_checked": "14/07/2026 21:21",
     "name": "MASE - Archivio News PNRR",
     "type": "mase_institutional",
     "text_length": 8989,
